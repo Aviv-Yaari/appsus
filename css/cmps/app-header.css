@@ -1,0 +1,26 @@
+.app-header {
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid #ECEFF1;
+}
+
+.app-header a {
+    padding: 20px;
+    transition: background-color 0.5s;
+}
+
+.app-header a:hover {
+    background-color: #ECEFF1;
+}
+
+.app-header input[name=search] {
+    flex-grow: 1;
+    max-width: 500px;
+    padding: 5px;
+    outline: none;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: #F1F3F4;
+    font-size: 1rem;
+    height: 40px;
+}
