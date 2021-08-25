@@ -5,7 +5,6 @@ export const emailService = {
   query,
   addEmail,
   updateEmail,
-  removeEmail,
   trashEmail,
   getEmailById,
   getNumUnread,
@@ -87,16 +86,10 @@ function updateEmail(userEmail) {
   return Promise.resolve(gEmails[idx]);
 }
 
-function removeEmail(emailId) {
-  const idx = gEmails.findIndex((email) => email.id === emailId);
-  gEmails.splice(idx, 1);
-  _saveEmailsToStorage(gEmails);
-  return Promise.resolve(gEmails);
-}
-
 function trashEmail(emailId) {
   const idx = gEmails.findIndex((email) => email.id === emailId);
-  gEmails[idx].status = 'trash';
+  if (gEmails[idx].status !== 'trash') gEmails[idx].status = 'trash';
+  else gEmails.splice(idx, 1);
   _saveEmailsToStorage(gEmails);
   return Promise.resolve(gEmails);
 }

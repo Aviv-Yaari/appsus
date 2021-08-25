@@ -57,6 +57,11 @@ export class EmailIndex extends React.Component {
       .then(() => this.loadEmails(this.state.criteria));
   };
 
+  onTrashEmail = (ev, email) => {
+    ev.stopPropagation();
+    emailService.trashEmail(email.id).then(() => this.loadEmails(this.state.criteria));
+  };
+
   render() {
     const { emails, criteria, isComposing } = this.state;
     if (!emails) return <LoadingSpinner />;
@@ -77,6 +82,7 @@ export class EmailIndex extends React.Component {
             emails={emails}
             onPreviewClick={this.onPreviewClick}
             onValueToggle={this.onValueToggle}
+            onTrash={this.onTrashEmail}
           />
         </section>
         {isComposing && (
