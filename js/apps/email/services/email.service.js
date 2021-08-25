@@ -27,7 +27,14 @@ function _initEmails() {
 }
 
 function query(criteria) {
-  const mails = gEmails.filter((mail) => mail.status === criteria.status);
+  const mails = gEmails.filter((mail) => {
+    const statusCond = criteria.status === undefined || mail.status === criteria.status;
+    const starredCond = criteria.isStarred === undefined || mail.isStarred === criteria.isStarred;
+    const txtCond =
+      !criteria.txt || mail.subject.toLowerCase().includes(criteria.txt.toLowerCase());
+    const readCond = criteria.isRead === undefined || mail.isRead === criteria.isRead;
+    return statusCond && starredCond && txtCond && readCond;
+  });
   return new Promise((resolve) => setTimeout(resolve, 200, mails));
 }
 

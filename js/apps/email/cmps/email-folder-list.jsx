@@ -8,12 +8,17 @@ export const EmailFolderList = ({ criteria, onSetCriteria }) => {
   // Todo - move the getNumUnread and get num of drafts to the email-index state. to minimize calls to the server
   return (
     <section className="email-folder-list flex column">
+      <div
+        className={checkIsCriteria(undefined)}
+        onClick={() => onSetCriteria({ status: undefined })}>
+        All
+      </div>
       <div className={checkIsCriteria('inbox')} onClick={() => onSetCriteria({ status: 'inbox' })}>
         Inbox <span>{emailService.getNumUnread('inbox') || ''}</span>
       </div>
       <div
         className={checkIsCriteria('starred')}
-        onClick={() => onSetCriteria({ isStarred: true })}>
+        onClick={() => onSetCriteria({ isStarred: true, status: undefined })}>
         Starred
       </div>
       <div className={checkIsCriteria('sent')} onClick={() => onSetCriteria({ status: 'sent' })}>

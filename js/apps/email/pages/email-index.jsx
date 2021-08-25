@@ -33,7 +33,7 @@ export class EmailIndex extends React.Component {
 
   onSetCriteria = (newCriteria) => {
     this.setState((prevState) => {
-      const criteria = { txt: prevState.criteria.txt, ...newCriteria };
+      const criteria = { ...prevState.criteria, isStarred: undefined, ...newCriteria };
       this.loadEmails(criteria);
       return { criteria };
     });
