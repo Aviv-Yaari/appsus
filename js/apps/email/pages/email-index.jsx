@@ -3,6 +3,7 @@ import { EmailCompose } from '../cmps/email-compose.jsx';
 import { EmailFolderList } from '../cmps/email-folder-list.jsx';
 import { EmailList } from '../cmps/email-list.jsx';
 import { emailService } from '../services/email.service.js';
+import { eventBusService } from '../../../services/event-bus.service.js';
 
 export class EmailIndex extends React.Component {
   state = {
@@ -13,6 +14,11 @@ export class EmailIndex extends React.Component {
 
   componentDidMount() {
     this.loadEmails(this.state.criteria);
+    this.removeEventBus = eventBusService.on('search', (data) => this.onSetCriteria({ txt: data }));
+  }
+
+  componentWillUnmount() {
+    this.removeEventBus();
   }
 
   loadEmails = (criteria) => {
