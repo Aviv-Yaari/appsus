@@ -7,7 +7,7 @@ import { emailService } from '../services/email.service.js';
 export class EmailIndex extends React.Component {
   state = {
     emails: null,
-    criteria: { txt: '', status: 'inbox', isStarred: false },
+    criteria: { txt: '', status: 'inbox' },
     isComposing: false,
   };
 
@@ -21,19 +21,13 @@ export class EmailIndex extends React.Component {
 
   onPreviewClick = (email) => {
     if (!email.isRead) {
-      emailService.updateEmail({ ...email, isRead: true }).then(() => {
-        this.setState((prevState) => {
-          const idx = prevState.emails.findIndex((currEmail) => currEmail.id === email.id);
-          prevState.emails[idx].isRead = true;
-          return { emails: prevState.emails };
-        });
-      });
+      emailService.findByIdAndUpdate(email.id, { isRead: true }).then(this.loadEmails);
     }
   };
 
   onSetCriteria = (newCriteria) => {
     this.setState((prevState) => {
-      const criteria = { txt: prevState.criteria.txt, isStarred: false, ...newCriteria };
+      const criteria = { txt: prevState.criteria.txt, ...newCriteria };
       this.loadEmails(criteria);
       return { criteria };
     });
@@ -46,6 +40,11 @@ export class EmailIndex extends React.Component {
   onSendEmail = (email) => {
     emailService.addEmail({ ...email, status: 'sent' });
     this.setState({ isComposing: false });
+  };
+
+  onStarToggle = (ev, email) => {
+    ev.stopPropagation();
+    emailService.findByIdAndUpdate(email.id, { isStarred: !email.isStarred }).then(this.loadEmails);
   };
 
   render() {
@@ -64,7 +63,11 @@ export class EmailIndex extends React.Component {
           <EmailFolderList criteria={criteria} onSetCriteria={this.onSetCriteria} />
         </aside>
         <section className="email-container flex column">
-          <EmailList emails={emails} onPreviewClick={this.onPreviewClick} />
+          <EmailList
+            emails={emails}
+            onPreviewClick={this.onPreviewClick}
+            onStarToggle={this.onStarToggle}
+          />
         </section>
         {isComposing && (
           <EmailCompose onSend={this.onSendEmail} onClose={() => this.onComposeToggle(false)} />

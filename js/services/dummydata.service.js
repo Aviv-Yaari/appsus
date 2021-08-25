@@ -22,7 +22,7 @@ const DUMMY_EMAILS = [
     subject: 'This is Muki',
     body: 'Would love to catch up sometimes',
     isRead: false,
-    isStarred: false,
+    isStarred: true,
     sentAt: 1551133930594,
     to: 'momo@momo.com',
     from: 'user@appsus.com',

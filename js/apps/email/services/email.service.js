@@ -10,6 +10,7 @@ export const emailService = {
   getEmailById,
   getNumUnread,
   getEmailsByStatus,
+  findByIdAndUpdate,
 };
 
 let gEmails = _initEmails();
@@ -26,9 +27,7 @@ function _initEmails() {
 }
 
 function query(criteria) {
-  const mails = gEmails.filter(
-    (mail) => mail.status === criteria.status && mail.isStarred === criteria.isStarred
-  );
+  const mails = gEmails.filter((mail) => mail.status === criteria.status);
   return new Promise((resolve) => setTimeout(resolve, 200, mails));
 }
 
@@ -59,6 +58,13 @@ function _createEmail(userEmail) {
 
 function getEmailById(id) {
   return Promise.resolve(gEmails.find((email) => email.id === id));
+}
+
+function findByIdAndUpdate(id, change) {
+  const idx = gEmails.findIndex((email) => email.id === id);
+  gEmails[idx] = { ...gEmails[idx], ...change };
+  _saveEmailsToStorage(gEmails);
+  return Promise.resolve(gEmails[idx]);
 }
 
 function addEmail(userEmail) {
