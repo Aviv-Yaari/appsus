@@ -3,9 +3,14 @@
     padding-bottom: 10px;
     background-color: rgba(242, 245, 245, 0.8);
     cursor: pointer;
+    border-bottom: 1px solid #e2e8ea;
 }
 
 .email-preview.unread {
     background-color: #FFF;
     font-weight: 700;
+}
+
+.email-preview-expanded {
+    background-color: #fff;
 }

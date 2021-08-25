@@ -8,10 +8,10 @@ export class AppHeader extends React.Component {
         <Link to="/">Appsus</Link>
         <input type="search" name="search" id="search" placeholder="Search" />
         <nav>
-          <NavLink to="keep">Keep</NavLink>
-          <NavLink to="email">Mail</NavLink>
-          <NavLink to="book">Books</NavLink>
-          <NavLink to="about">About</NavLink>
+          <NavLink to="/keep">Keep</NavLink>
+          <NavLink to="/email">Mail</NavLink>
+          <NavLink to="/book">Books</NavLink>
+          <NavLink to="/about">About</NavLink>
         </nav>
       </section>
     );

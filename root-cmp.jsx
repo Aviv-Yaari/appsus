@@ -5,6 +5,7 @@ import { AppAbout } from './js/pages/app-about.jsx';
 import { EmailIndex } from './js/apps/email/pages/email-index.jsx';
 import { BookIndex } from './js/apps/book/pages/book-index.jsx';
 import { NoteIndex } from './js/apps/keep/pages/note-index.jsx';
+import { EmailDetails } from './js/apps/email/pages/email-details.jsx';
 const Router = ReactRouterDOM.HashRouter;
 const { Route, Switch } = ReactRouterDOM;
 
@@ -17,6 +18,7 @@ export function App() {
         </header>
         <main className="app-main">
           <Switch>
+            <Route path="/email/:emailId" component={EmailDetails} />
             <Route path="/email" component={EmailIndex} />
             <Route path="/keep" component={NoteIndex} />
             <Route path="/book" component={BookIndex} />

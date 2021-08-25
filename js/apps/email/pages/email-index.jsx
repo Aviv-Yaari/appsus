@@ -14,6 +14,18 @@ export class EmailIndex extends React.Component {
     emailService.query().then((emails) => this.setState({ emails }));
   };
 
+  onPreviewClick = (email) => {
+    if (!email.isRead) {
+      emailService.updateEmail({ ...email, isRead: true }).then(() => {
+        this.setState((prevState) => {
+          const idx = prevState.emails.findIndex((currEmail) => currEmail.id === email.id);
+          prevState.emails[idx].isRead = true;
+          return { emails: prevState.emails };
+        });
+      });
+    }
+  };
+
   render() {
     const { emails } = this.state;
     if (!emails) return <LoadingSpinner />;
@@ -24,7 +36,7 @@ export class EmailIndex extends React.Component {
           <EmailFolderList />
         </aside>
         <main className="email-container flex column">
-          <EmailList emails={emails} />
+          <EmailList emails={emails} onPreviewClick={this.onPreviewClick} />
         </main>
       </section>
     );

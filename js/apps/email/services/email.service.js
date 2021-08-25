@@ -6,18 +6,21 @@ export const emailService = {
   updateEmail,
   removeEmail,
   trashEmail,
+  getEmailById,
 };
 
-let gEmails = initEmails();
+let gEmails = _initEmails();
 
 const loggedinUser = {
   email: 'user@appsus.com',
   fullname: 'Mahatma Appsus',
 };
 
-function initEmails() {
-  return (
-    storageService.loadFromStorage('emails-db') || [
+function _initEmails() {
+  let emails = storageService.loadFromStorage('emails-db');
+  if (emails) return emails;
+  else
+    emails = [
       {
         id: utilService.makeId(),
         status: 'inbox',
@@ -26,6 +29,7 @@ function initEmails() {
         isRead: true,
         sentAt: 1551133930594,
         to: 'momo@momo.com',
+        from: 'user@appsus.com',
       },
       {
         id: utilService.makeId(),
@@ -35,6 +39,7 @@ function initEmails() {
         isRead: false,
         sentAt: 1551133930594,
         to: 'momo@momo.com',
+        from: 'user@appsus.com',
       },
       {
         id: utilService.makeId(),
@@ -44,6 +49,7 @@ function initEmails() {
         isRead: false,
         sentAt: 1551133930594,
         to: 'momo@momo.com',
+        from: 'user@appsus.com',
       },
       {
         id: utilService.makeId(),
@@ -53,13 +59,15 @@ function initEmails() {
         isRead: true,
         sentAt: 1551133930594,
         to: 'momo@momo.com',
+        from: 'user@appsus.com',
       },
-    ]
-  );
+    ];
+  _saveEmailsToStorage(emails);
+  return emails;
 }
 
 function query(criteria) {
-  return new Promise((resolve) => setTimeout(resolve, 1000, gEmails));
+  return new Promise((resolve) => setTimeout(resolve, 200, gEmails));
 }
 
 function _createEmail(userEmail) {
@@ -75,29 +83,37 @@ function _createEmail(userEmail) {
   };
 }
 
+function getEmailById(id) {
+  return Promise.resolve(gEmails.find((email) => email.id === id));
+}
+
 function addEmail(userEmail) {
   gEmails.unshift(_createEmail(userEmail));
+  _saveEmailsToStorage(gEmails);
   return Promise.resolve(gEmails);
 }
 
 function updateEmail(userEmail) {
-  const { id, status, subject, body, to } = userEmail;
-  const currEmail = gEmails.find((email) => email.id === id);
-  currEmail.status = status;
-  currEmail.subject = subject;
-  currEmail.body = body;
-  currEmail.to = to;
-  return Promise.resolve(currEmail);
+  let idx = gEmails.findIndex((email) => email.id === userEmail.id);
+  gEmails[idx] = userEmail;
+  _saveEmailsToStorage(gEmails);
+  return Promise.resolve(gEmails[idx]);
 }
 
 function removeEmail(emailId) {
   const idx = gEmails.findIndex((email) => email.id === emailId);
   gEmails.splice(idx, 1);
+  _saveEmailsToStorage(gEmails);
   return Promise.resolve(gEmails);
 }
 
 function trashEmail(emailId) {
-  const currEmail = gEmails.find((email) => email.id === emailId);
-  currEmail.status = 'trash';
+  const idx = gEmails.findIndex((email) => email.id === emailId);
+  gEmails[idx].status = 'trash';
+  _saveEmailsToStorage(gEmails);
   return Promise.resolve(gEmails);
+}
+
+function _saveEmailsToStorage(emails) {
+  storageService.saveToStorage('emails-db', emails);
 }
