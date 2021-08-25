@@ -5,9 +5,11 @@ export const emailService = {
   query,
   addEmail,
   updateEmail,
-  removeEmail,
   trashEmail,
   getEmailById,
+  getNumUnread,
+  getEmailsByStatus,
+  findByIdAndUpdate,
 };
 
 let gEmails = _initEmails();
@@ -24,10 +26,26 @@ function _initEmails() {
 }
 
 function query(criteria) {
-  const mails = gEmails.filter(
-    (mail) => mail.status === criteria.status && mail.isStarred === criteria.isStarred
-  );
+  const mails = gEmails.filter((mail) => {
+    const statusCond = criteria.status === undefined || mail.status === criteria.status;
+    const starredCond = criteria.isStarred === undefined || mail.isStarred === criteria.isStarred;
+    const txtCond =
+      !criteria.txt || mail.subject.toLowerCase().includes(criteria.txt.toLowerCase());
+    const readCond = criteria.isRead === undefined || mail.isRead === criteria.isRead;
+    return statusCond && starredCond && txtCond && readCond;
+  });
   return new Promise((resolve) => setTimeout(resolve, 200, mails));
+}
+
+function getNumUnread(status) {
+  return gEmails.reduce(
+    (count, email) => (!email.isRead && email.status === status ? count + 1 : count),
+    0
+  );
+}
+
+function getEmailsByStatus(status) {
+  return gEmails.filter((email) => email.status === status);
 }
 
 function _createEmail(userEmail) {
@@ -48,6 +66,13 @@ function getEmailById(id) {
   return Promise.resolve(gEmails.find((email) => email.id === id));
 }
 
+function findByIdAndUpdate(id, change) {
+  const idx = gEmails.findIndex((email) => email.id === id);
+  gEmails[idx] = { ...gEmails[idx], ...change };
+  _saveEmailsToStorage(gEmails);
+  return Promise.resolve(gEmails[idx]);
+}
+
 function addEmail(userEmail) {
   gEmails.unshift(_createEmail(userEmail));
   _saveEmailsToStorage(gEmails);
@@ -61,16 +86,10 @@ function updateEmail(userEmail) {
   return Promise.resolve(gEmails[idx]);
 }
 
-function removeEmail(emailId) {
-  const idx = gEmails.findIndex((email) => email.id === emailId);
-  gEmails.splice(idx, 1);
-  _saveEmailsToStorage(gEmails);
-  return Promise.resolve(gEmails);
-}
-
 function trashEmail(emailId) {
   const idx = gEmails.findIndex((email) => email.id === emailId);
-  gEmails[idx].status = 'trash';
+  if (gEmails[idx].status !== 'trash') gEmails[idx].status = 'trash';
+  else gEmails.splice(idx, 1);
   _saveEmailsToStorage(gEmails);
   return Promise.resolve(gEmails);
 }

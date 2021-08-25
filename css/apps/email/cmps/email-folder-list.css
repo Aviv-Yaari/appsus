@@ -3,6 +3,8 @@
     margin-inline-end: 10px;
     cursor: pointer;
     border-radius: 0 16px 16px 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 .email-folder-list>*:hover {

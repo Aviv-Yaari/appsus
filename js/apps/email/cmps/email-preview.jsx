@@ -1,9 +1,11 @@
 import { utilService } from '../../../services/util.service.js';
+
 const { Link } = ReactRouterDOM;
 export class EmailPreview extends React.Component {
   state = {
     isExpanded: false,
   };
+  assetsSrc = '../../../../assets/';
 
   onPreviewClick = () => {
     this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
@@ -12,12 +14,30 @@ export class EmailPreview extends React.Component {
 
   render() {
     const { isExpanded } = this.state;
-    const { email } = this.props;
+    const { email, onValueToggle, onTrash } = this.props;
     return (
       <div
         onClick={this.onPreviewClick}
         className={'email-preview ' + (!email.isRead ? 'unread' : '')}>
-        {email.subject}
+        <section className="email-mini flex align-center">
+          <div className="email-star-subject flex align-center">
+            <img
+              className="email-star"
+              onClick={(ev) => onValueToggle(ev, email, 'isStarred')}
+              src={
+                this.assetsSrc + 'svg/star-' + (email.isStarred ? 'active' : 'disabled') + '.svg'
+              }
+            />
+            <span className="email-subject">{email.subject}</span>
+          </div>
+          <div className="email-actions flex">
+            <img src={this.assetsSrc + 'img/trash.png'} onClick={(ev) => onTrash(ev, email)} />
+            <img
+              src={this.assetsSrc + 'img/' + (email.isRead ? 'unread' : 'read') + '.png'}
+              onClick={(ev) => onValueToggle(ev, email, 'isRead')}
+            />
+          </div>
+        </section>
         {isExpanded && (
           <div className="email-preview-expanded">
             <Link to={`/email/${email.id}`}>Full Page</Link>

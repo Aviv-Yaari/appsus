@@ -1,0 +1,69 @@
+.email-compose {
+    position: absolute;
+    right: 50px;
+    bottom: 0;
+    width: 500px;
+    box-shadow: 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%), 0px 5px 5px -3px rgb(0 0 0 / 20%);
+    background-color: #fff;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-size: 0.9em;
+}
+
+.compose-title {
+    background: #404040;
+    color: #fff;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.compose-to, .compose-subject {
+    border-bottom: 1px solid #D7D9D9;
+    padding: 10px 15px;
+}
+
+.compose-to span, .compose-subject span {
+    color: #7e7e7e;
+    margin-right: 10px;
+    cursor: default;
+}
+
+.email-compose input, .email-compose textarea {
+    outline: none;
+    border: none;
+    font-size: 1em;
+}
+
+.email-compose textarea {
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.compose-btn-close {
+    background-color: transparent;
+    padding: 0;
+}
+
+.compose-btn-close img {
+    width: 18px;
+}
+
+.compose-btn-send {
+    padding: 10px;
+}
+
+.compose-actions {
+    margin: 10px 15px;
+    justify-content: space-between;
+}
+
+.compose-btn-delete {
+    background-color: transparent;
+}
+
+.compose-btn-delete:hover {
+    background-color: #D7D9D9;
+}
