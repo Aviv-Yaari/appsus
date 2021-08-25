@@ -50,7 +50,9 @@ export class EmailIndex extends React.Component {
 
   onStarToggle = (ev, email) => {
     ev.stopPropagation();
-    emailService.findByIdAndUpdate(email.id, { isStarred: !email.isStarred }).then(this.loadEmails);
+    emailService
+      .findByIdAndUpdate(email.id, { isStarred: !email.isStarred })
+      .then(() => this.loadEmails(this.state.criteria));
   };
 
   render() {
