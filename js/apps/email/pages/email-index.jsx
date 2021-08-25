@@ -4,14 +4,15 @@ import { EmailList } from '../cmps/email-list.jsx';
 import { emailService } from '../services/email.service.js';
 
 export class EmailIndex extends React.Component {
-  state = { emails: null };
+  state = { emails: null, criteria: { txt: '', status: 'inbox', isStarred: false } };
 
   componentDidMount() {
-    this.loadEmails();
+    this.loadEmails(this.state.criteria);
   }
 
-  loadEmails = () => {
-    emailService.query().then((emails) => this.setState({ emails }));
+  loadEmails = (criteria) => {
+    console.log(criteria);
+    emailService.query(criteria).then((emails) => this.setState({ emails }));
   };
 
   onPreviewClick = (email) => {
@@ -26,14 +27,26 @@ export class EmailIndex extends React.Component {
     }
   };
 
+  onSetCriteria = (newCriteria) => {
+    this.setState((prevState) => {
+      const criteria = { txt: prevState.criteria.txt, isStarred: false, ...newCriteria };
+      this.loadEmails(criteria);
+      return { criteria };
+    });
+  };
+
   render() {
-    const { emails } = this.state;
+    const { emails, criteria } = this.state;
     if (!emails) return <LoadingSpinner />;
-    if (!emails.length) return <div>No emails</div>;
+    // if (!emails.length) return <div>No emails</div>;
     return (
       <section className="email-app flex">
         <aside className="left-panel">
-          <EmailFolderList />
+          <button className="btn-compose flex justify-center align-center">
+            <img src="../../../../assets/img/plus.png" />
+            Compose
+          </button>
+          <EmailFolderList criteria={criteria} onSetCriteria={this.onSetCriteria} />
         </aside>
         <section className="email-container flex column">
           <EmailList emails={emails} onPreviewClick={this.onPreviewClick} />

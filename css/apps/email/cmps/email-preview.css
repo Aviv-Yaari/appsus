@@ -6,6 +6,10 @@
     border-bottom: 1px solid #e2e8ea;
 }
 
+.email-preview:first-child {
+    border-top: 1px solid #e2e8ea;
+}
+
 .email-preview.unread {
     background-color: #FFF;
     font-weight: 700;

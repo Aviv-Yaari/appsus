@@ -1,5 +1,6 @@
 import { utilService } from '../../../services/util.service.js';
 import { storageService } from '../../../services/storage.service.js';
+import { dummyDataService } from '../../../services/dummydata.service.js';
 export const emailService = {
   query,
   addEmail,
@@ -17,57 +18,16 @@ const loggedinUser = {
 };
 
 function _initEmails() {
-  let emails = storageService.loadFromStorage('emails-db');
-  if (emails) return emails;
-  else
-    emails = [
-      {
-        id: utilService.makeId(),
-        status: 'inbox',
-        subject: 'Miss you (inbox)!',
-        body: 'Would love to catch up sometimes',
-        isRead: true,
-        sentAt: 1551133930594,
-        to: 'momo@momo.com',
-        from: 'user@appsus.com',
-      },
-      {
-        id: utilService.makeId(),
-        status: 'sent',
-        subject: 'Miss you! (sent)',
-        body: 'Would love to catch up sometimes',
-        isRead: false,
-        sentAt: 1551133930594,
-        to: 'momo@momo.com',
-        from: 'user@appsus.com',
-      },
-      {
-        id: utilService.makeId(),
-        status: 'draft',
-        subject: 'Miss you! (draft)',
-        body: 'Would love to catch up sometimes',
-        isRead: false,
-        sentAt: 1551133930594,
-        to: 'momo@momo.com',
-        from: 'user@appsus.com',
-      },
-      {
-        id: utilService.makeId(),
-        status: 'trash',
-        subject: 'Miss you! (trash)',
-        body: 'Would love to catch up sometimes',
-        isRead: true,
-        sentAt: 1551133930594,
-        to: 'momo@momo.com',
-        from: 'user@appsus.com',
-      },
-    ];
+  let emails = storageService.loadFromStorage('emails-db') || dummyDataService.getDummyEmails();
   _saveEmailsToStorage(emails);
   return emails;
 }
 
 function query(criteria) {
-  return new Promise((resolve) => setTimeout(resolve, 200, gEmails));
+  const mails = gEmails.filter(
+    (mail) => mail.status === criteria.status && mail.isStarred === criteria.isStarred
+  );
+  return new Promise((resolve) => setTimeout(resolve, 200, mails));
 }
 
 function _createEmail(userEmail) {
@@ -77,6 +37,7 @@ function _createEmail(userEmail) {
     status,
     subject,
     body,
+    isStarred: false,
     isRead: false,
     sentAt: Date.now(),
     to,

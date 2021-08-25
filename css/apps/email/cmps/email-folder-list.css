@@ -1,0 +1,14 @@
+.email-folder-list>* {
+    padding: 10px;
+    margin-inline-end: 10px;
+    cursor: pointer;
+    border-radius: 0 16px 16px 0;
+}
+
+.email-folder-list>*:hover {
+    background-color: #F1F3F4;
+}
+
+.email-folder-list .marked {
+    background-color: #fce8e6;
+}
