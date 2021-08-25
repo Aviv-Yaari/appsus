@@ -27,13 +27,33 @@
 .note-preview p {
     font-size: 14px;
     color: #202124;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
-.note-preview .note-img {
+.note-preview .note-img, .note-preview .note-video {
     max-width: 210px;
     max-height: 600px;
     display: block;
     margin: 0 auto;
     margin-bottom: 40px;
+    border: none;
+}
+
+.note-preview ul {
+    width: 195px;
+    margin-bottom: 40px;
+    padding: 8px 10px;
+}
+
+.note-preview li {
+    word-wrap: break-word;
+    cursor: default;
+}
+
+.note-preview li input {
+    margin-right: 10px;
+}
+
+.note-preview li span.checked {
+    text-decoration: line-through;
 }

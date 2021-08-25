@@ -1,6 +1,6 @@
 import { utilService } from '../../../services/util.service.js';
 import { storageService } from '../../../services/storage.service.js';
-export const notesService = { query, addNote, updateNote };
+export const notesService = { query, addNote, updateNote, toggleTodo, isContainsPinnedNotes };
 
 let gNotes = _initNotes();
 
@@ -39,9 +39,18 @@ function _initNotes() {
         info: {
           label: 'Get my stuff together',
           todos: [
-            { txt: 'Driving liscence', doneAt: null },
-            { txt: 'Coding power', doneAt: 187111111 },
+            { txt: 'Driving liscence', doneAt: null, id: utilService.makeId() },
+            { txt: 'Coding power', doneAt: 187111111, id: utilService.makeId() },
           ],
+        },
+      },
+      {
+        id: utilService.makeId(),
+        type: 'note-video',
+        isPinned: false,
+        info: {
+          title: 'cool video',
+          url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
         },
       },
     ];
@@ -51,6 +60,20 @@ function _initNotes() {
 
 function query(criteria) {
   return new Promise((resolve) => setTimeout(resolve, 200, gNotes));
+}
+
+function isContainsPinnedNotes() {
+  return gNotes.some(note => note.isPinned);
+}
+
+function toggleTodo(noteId, todoId) {
+  const currNoteIdx = gNotes.findIndex(note => note.id === noteId)
+  const currTodoIdx = gNotes[currNoteIdx].info.todos.findIndex(todo => todo.id === todoId);
+  console.log(gNotes[currNoteIdx]);
+  console.log(gNotes[currNoteIdx].info.todos[currTodoIdx]);
+  gNotes[currNoteIdx].info.todos[currTodoIdx];
+  gNotes[currNoteIdx].info.todos[currTodoIdx].doneAt = gNotes[currNoteIdx].info.todos[currTodoIdx].doneAt ? null : Date.now();
+  return Promise.resolve(gNotes[currNoteIdx]);
 }
 
 function updateNote(userNote) {

@@ -32,7 +32,6 @@ export class NoteAdd extends React.Component {
   onAddClick = () => {
     const { note } = this.state;
     const { onAdd } = this.props;
-    console.log(note);
     onAdd(note);
     this.setState({
       note: {
@@ -44,20 +43,56 @@ export class NoteAdd extends React.Component {
     });
   };
 
+
+  getInputValues = () => {
+    const { note } = this.state;
+    if (note.type === 'note-txt') {
+      return {
+        value: note.info.txt,
+        name: 'txt',
+        placeholder: 'Add a note...'
+      }
+    } else if (note.type === 'note-img') {
+      return {
+        value: note.info.url,
+        name: 'url',
+        placeholder: 'Add image url...'
+      }
+    } else if (note.type === 'note-video') {
+      return {
+        value: note.info.url,
+        name: 'url',
+        placeholder: 'Add video url...'
+      }
+    } else if (note.type === 'note-todo') {
+      return {
+        value: note.info.todos,
+        name: 'todos',
+        placeholder: 'Add todos, sepreate them by comma...'
+      }
+    }
+  }
+
+  onPinNote = () => {
+    this.setState(prevState => ({ note: { ...prevState.note, isPinned: !prevState.note.isPinned } }))
+  }
+
+
   render() {
     const { isExpanded, note } = this.state;
+    const inputValues = this.getInputValues();
     return (
       <div className="note-add flex column">
         {isExpanded && <input type="text" name="title" placeholder="Title" value={note.info.title} onChange={this.handleChange} />}
         <input
           onClick={() => this.onExpand(true)}
-          name={note.type === 'note-txt' ? 'txt' : 'url'}
+          name={inputValues.name || ''}
           type="text"
-          placeholder="Take a note..."
-          value={note.type === 'note-txt' ? note.info.txt : note.info.url}
+          placeholder={inputValues.placeholder}
+          value={inputValues.value || ''}
           onChange={this.handleChange}
         />
-        {isExpanded && <NoteToolbar type="new-note" onUpdateType={this.onUpdateType} />}
+        {isExpanded && <NoteToolbar note={note} type="new-note" onUpdateType={this.onUpdateType} onPinNote={this.onPinNote} />}
         {isExpanded && (
           <button className="note-btn-add" onClick={this.onAddClick}>
             Add

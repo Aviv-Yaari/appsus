@@ -13,6 +13,12 @@ export class NotePreview extends React.Component {
     notesService.updateNote(updatedNote);
     this.setState({ note: updatedNote })
   }
+  onCheckTodo = (todoId) => {
+    notesService.toggleTodo(this.state.note.id, todoId).then(updatedNote =>
+      this.setState({ note: updatedNote })
+    );
+  }
+ 
   render() {
     const { note } = this.state;
     const DynamicCmp = (props) => {
@@ -26,7 +32,7 @@ export class NotePreview extends React.Component {
     };
     return (
       <React.Fragment>
-        <DynamicCmp note={note} onChangeColor={this.onChangeColor} />
+        <DynamicCmp note={note} onChangeColor={this.onChangeColor} onCheckTodo={this.onCheckTodo} onPinNote={this.props.onPinNote} />
       </React.Fragment>
     );
   }
