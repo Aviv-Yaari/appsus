@@ -13,6 +13,10 @@
     background-color: #ECEFF1;
 }
 
+.app-header .logo {
+    width: 235px;
+}
+
 .app-header input[name=search] {
     flex-grow: 1;
     max-width: 500px;

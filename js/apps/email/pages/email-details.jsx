@@ -16,6 +16,6 @@ export class EmailDetails extends React.Component {
   render() {
     const { email } = this.state;
     if (!email) return <LoadingSpinner />;
-    return <main>{email.subject}</main>;
+    return <section className="email-details">{email.subject}</section>;
   }
 }

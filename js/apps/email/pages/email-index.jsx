@@ -35,9 +35,9 @@ export class EmailIndex extends React.Component {
         <aside className="left-panel">
           <EmailFolderList />
         </aside>
-        <main className="email-container flex column">
+        <section className="email-container flex column">
           <EmailList emails={emails} onPreviewClick={this.onPreviewClick} />
-        </main>
+        </section>
       </section>
     );
   }

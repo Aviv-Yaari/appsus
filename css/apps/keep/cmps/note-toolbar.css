@@ -1,0 +1,9 @@
+.note-toolbar {
+    gap: 8px;
+}
+
+.note-pin {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

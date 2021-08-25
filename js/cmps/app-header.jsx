@@ -5,7 +5,9 @@ export class AppHeader extends React.Component {
   render() {
     return (
       <section className="app-header flex align-center">
-        <Link to="/">Appsus</Link>
+        <Link to="/" className="logo">
+          Appsus
+        </Link>
         <input type="search" name="search" id="search" placeholder="Search" />
         <nav>
           <NavLink to="/keep">Keep</NavLink>

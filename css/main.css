@@ -13,6 +13,9 @@
 @import url('apps/email/cmps/email-preview.css');
 /* Keep App: */
 
+@import url('apps/keep/pages/note-index.css');
+@import url('apps/keep/cmps/note-add.css');
+@import url('apps/keep/cmps/note-toolbar.css');
 /* General: */
 
 .app-main {

@@ -1,0 +1,45 @@
+.note-add {
+    margin: 20px auto;
+    box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+    padding: 10px;
+    width: 600px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    gap: 20px;
+    position: relative;
+}
+
+.note-add input {
+    border: none;
+    outline: none;
+    font-size: 1em;
+}
+
+.note-add .note-btn-close, .note-add .note-btn-add {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-color: inherit;
+    padding: 8px 18px;
+    font-size: 0.9em;
+}
+
+.note-add .note-btn-close:hover, .note-add .note-btn-add:hover {
+    background-color: rgba(95, 99, 104, 0.039);
+}
+
+.note-add .note-btn-close {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.note-add .note-btn-add {
+    position: absolute;
+    right: 90px;
+    bottom: 10px;
+}
+
+.note-add .note-btn-close:hover {
+    background-color: rgba(95, 99, 104, 0.039);
+}
