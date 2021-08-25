@@ -1,6 +1,6 @@
 import { utilService } from '../../../services/util.service.js';
 import { storageService } from '../../../services/storage.service.js';
-export const notesService = { query, addNote };
+export const notesService = { query, addNote, updateNote };
 
 let gNotes = _initNotes();
 
@@ -16,13 +16,16 @@ function _initNotes() {
         info: {
           txt: 'Fullstack Me Baby!',
         },
+        style: {
+          backgroundColor: '#00d',
+        },
       },
       {
         id: utilService.makeId(),
         type: 'note-img',
         isPinned: false,
         info: {
-          url: 'http://some-img/me',
+          url: 'https://i.insider.com/5484d9d1eab8ea3017b17e29?width=700&format=jpeg&auto=webp',
           title: 'Bobi and Me',
         },
         style: {
@@ -48,6 +51,13 @@ function _initNotes() {
 
 function query(criteria) {
   return new Promise((resolve) => setTimeout(resolve, 200, gNotes));
+}
+
+function updateNote(userNote) {
+  const idx = gNotes.findIndex(note => note.id === userNote.id);
+  gNotes[idx] = userNote;
+  _saveNotesToStorage(gNotes);
+  return Promise.resolve(gNotes);
 }
 
 function addNote(userNote) {

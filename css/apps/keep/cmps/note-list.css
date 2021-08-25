@@ -1,0 +1,5 @@
+.note-list {
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
