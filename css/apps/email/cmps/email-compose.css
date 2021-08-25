@@ -28,6 +28,7 @@
 .compose-to span, .compose-subject span {
     color: #7e7e7e;
     margin-right: 10px;
+    cursor: default;
 }
 
 .email-compose input, .email-compose textarea {

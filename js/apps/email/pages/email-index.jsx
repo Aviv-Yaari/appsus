@@ -43,7 +43,10 @@ export class EmailIndex extends React.Component {
     this.setState({ isComposing });
   };
 
-  onSendEmail = (email) => {};
+  onSendEmail = (email) => {
+    emailService.addEmail({ ...email, status: 'sent' });
+    this.setState({ isComposing: false });
+  };
 
   render() {
     const { emails, criteria, isComposing } = this.state;
@@ -64,7 +67,7 @@ export class EmailIndex extends React.Component {
           <EmailList emails={emails} onPreviewClick={this.onPreviewClick} />
         </section>
         {isComposing && (
-          <EmailCompose onSendEmail={onSendEmail} onClose={() => this.onComposeToggle(false)} />
+          <EmailCompose onSend={this.onSendEmail} onClose={() => this.onComposeToggle(false)} />
         )}
       </section>
     );
