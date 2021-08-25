@@ -16,6 +16,8 @@
 @import url('apps/keep/pages/note-index.css');
 @import url('apps/keep/cmps/note-add.css');
 @import url('apps/keep/cmps/note-toolbar.css');
+@import url('apps/keep/cmps/note-preview.css');
+@import url('apps/keep/cmps/note-list.css');
 /* General: */
 
 .app-main {

@@ -2,8 +2,81 @@
     gap: 8px;
 }
 
+.note-pin, .note-toolbar img {
+    padding: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 .note-pin {
     position: absolute;
     right: 10px;
     top: 10px;
+}
+
+.note-pin:hover, .note-toolbar img:hover {
+    background-color: rgba(95, 99, 104, 0.157);
+}
+
+.colors {
+    flex-wrap: wrap;
+    width: 130px;
+    padding: 10px;
+    gap: 2px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
+    position: absolute;
+    bottom: 44px;
+    left: 16px;
+    display: none;
+    opacity: 0;
+    transition: opacity .5s;
+}
+
+.colors.shown {
+    display: flex;
+    opacity: 1;
+}
+
+.colors .color {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+}
+
+.color:hover {
+    border: 2px solid #282828;
+}
+
+.white {
+    background-color: #fff;
+    border: 1px solid #e0e0e0
+}
+
+.red {
+    background-color: #f28b82;
+}
+
+.orange {
+    background-color: #fbbc04;
+}
+
+.yellow {
+    background-color: #fff475;
+}
+
+.green {
+    background-color: #ccff90;
+}
+
+.turquoise {
+    background-color: #a7ffeb;
+}
+
+.lightblue {
+    background-color: #cbf0f8;
+}
+
+.blue {
+    background-color: #aecbfa;
 }
