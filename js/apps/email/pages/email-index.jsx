@@ -27,7 +27,9 @@ export class EmailIndex extends React.Component {
 
   onPreviewClick = (email) => {
     if (!email.isRead) {
-      emailService.findByIdAndUpdate(email.id, { isRead: true }).then(this.loadEmails);
+      emailService
+        .findByIdAndUpdate(email.id, { isRead: true })
+        .then(() => this.loadEmails(this.state.criteria));
     }
   };
 
@@ -48,10 +50,10 @@ export class EmailIndex extends React.Component {
     this.setState({ isComposing: false });
   };
 
-  onStarToggle = (ev, email) => {
+  onValueToggle = (ev, email, value) => {
     ev.stopPropagation();
     emailService
-      .findByIdAndUpdate(email.id, { isStarred: !email.isStarred })
+      .findByIdAndUpdate(email.id, { [value]: !email[value] })
       .then(() => this.loadEmails(this.state.criteria));
   };
 
@@ -74,7 +76,7 @@ export class EmailIndex extends React.Component {
           <EmailList
             emails={emails}
             onPreviewClick={this.onPreviewClick}
-            onStarToggle={this.onStarToggle}
+            onValueToggle={this.onValueToggle}
           />
         </section>
         {isComposing && (

@@ -1,6 +1,6 @@
 .email-preview {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
     background-color: rgba(242, 245, 245, 0.8);
     cursor: pointer;
     border-bottom: 1px solid #e2e8ea;
@@ -25,4 +25,26 @@
 
 .email-star {
     margin: 0 20px;
+}
+
+.email-mini {
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+.email-mini .email-actions img {
+    padding: 0.8em;
+    border-radius: 3em;
+}
+
+.email-mini .email-actions img:hover {
+    background-color: #d8d8d8;
+}
+
+.email-preview:hover .email-actions {
+    visibility: visible;
+}
+
+.email-preview .email-actions {
+    visibility: hidden;
 }
