@@ -8,6 +8,8 @@ export const emailService = {
   removeEmail,
   trashEmail,
   getEmailById,
+  getNumUnread,
+  getEmailsByStatus,
 };
 
 let gEmails = _initEmails();
@@ -28,6 +30,17 @@ function query(criteria) {
     (mail) => mail.status === criteria.status && mail.isStarred === criteria.isStarred
   );
   return new Promise((resolve) => setTimeout(resolve, 200, mails));
+}
+
+function getNumUnread(status) {
+  return gEmails.reduce(
+    (count, email) => (!email.isRead && email.status === status ? count + 1 : count),
+    0
+  );
+}
+
+function getEmailsByStatus(status) {
+  return gEmails.filter((email) => email.status === status);
 }
 
 function _createEmail(userEmail) {

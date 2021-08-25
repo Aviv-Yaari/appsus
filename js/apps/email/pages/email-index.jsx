@@ -1,17 +1,21 @@
 import { LoadingSpinner } from '../../../cmps/loading-spinner.jsx';
+import { EmailCompose } from '../cmps/email-compose.jsx';
 import { EmailFolderList } from '../cmps/email-folder-list.jsx';
 import { EmailList } from '../cmps/email-list.jsx';
 import { emailService } from '../services/email.service.js';
 
 export class EmailIndex extends React.Component {
-  state = { emails: null, criteria: { txt: '', status: 'inbox', isStarred: false } };
+  state = {
+    emails: null,
+    criteria: { txt: '', status: 'inbox', isStarred: false },
+    isComposing: false,
+  };
 
   componentDidMount() {
     this.loadEmails(this.state.criteria);
   }
 
   loadEmails = (criteria) => {
-    console.log(criteria);
     emailService.query(criteria).then((emails) => this.setState({ emails }));
   };
 
@@ -35,14 +39,22 @@ export class EmailIndex extends React.Component {
     });
   };
 
+  onComposeToggle = (isComposing) => {
+    this.setState({ isComposing });
+  };
+
+  onSendEmail = (email) => {};
+
   render() {
-    const { emails, criteria } = this.state;
+    const { emails, criteria, isComposing } = this.state;
     if (!emails) return <LoadingSpinner />;
     // if (!emails.length) return <div>No emails</div>;
     return (
       <section className="email-app flex">
         <aside className="left-panel">
-          <button className="btn-compose flex justify-center align-center">
+          <button
+            className="btn-compose flex justify-center align-center"
+            onClick={() => this.onComposeToggle(true)}>
             <img src="../../../../assets/img/plus.png" />
             Compose
           </button>
@@ -51,6 +63,9 @@ export class EmailIndex extends React.Component {
         <section className="email-container flex column">
           <EmailList emails={emails} onPreviewClick={this.onPreviewClick} />
         </section>
+        {isComposing && (
+          <EmailCompose onSendEmail={onSendEmail} onClose={() => this.onComposeToggle(false)} />
+        )}
       </section>
     );
   }

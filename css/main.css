@@ -12,6 +12,7 @@
 @import url('apps/email/pages/email-index.css');
 @import url('apps/email/cmps/email-preview.css');
 @import url('apps/email/cmps/email-folder-list.css');
+@import url('apps/email/cmps/email-compose.css');
 /* Keep App: */
 
 @import url('apps/keep/pages/note-index.css');
