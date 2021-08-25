@@ -7,6 +7,14 @@
 @import url('cmps/app-footer.css');
 @import url('cmps/app-home.css');
 @import url('cmps/user-msg.css');
+/* Email App: */
+
+@import url('apps/email/pages/email-index.css');
+@import url('apps/email/cmps/email-preview.css');
+/* Keep App: */
+
+/* General: */
+
 .app-main {
     flex-grow: 1;
     padding: 20px;

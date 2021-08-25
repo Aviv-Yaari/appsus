@@ -9,7 +9,7 @@ export class AppHeader extends React.Component {
         <input type="search" name="search" id="search" placeholder="Search" />
         <nav>
           <NavLink to="keep">Keep</NavLink>
-          <NavLink to="mail">Mail</NavLink>
+          <NavLink to="email">Mail</NavLink>
           <NavLink to="book">Books</NavLink>
           <NavLink to="about">About</NavLink>
         </nav>
