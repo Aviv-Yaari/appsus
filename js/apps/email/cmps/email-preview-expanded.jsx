@@ -6,7 +6,7 @@ export const EmailPreviewExpanded = (props) => {
   return (
     <section className="email-preview-expanded flex column">
       <div className="email-header">
-        {status === 'inbox' && <div>From: {from}</div>}
+        {(status === 'inbox' || status === 'trash') && <div>From: {from}</div>}
         {(status === 'sent' || status === 'draft') && <div>To: {to}</div>}
         <div>Sent at: {utilService.formatDate(sentAt)}</div>
       </div>

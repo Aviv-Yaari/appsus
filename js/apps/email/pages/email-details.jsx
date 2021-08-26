@@ -59,7 +59,7 @@ class _EmailDetails extends React.Component {
           <LongTxt text={subject} length={100} />
         </h2>
         <section className="email-details-header">
-          {status === 'inbox' && <div>From: {from}</div>}
+          {(status === 'inbox' || status === 'trash') && <div>From: {from}</div>}
           {(status === 'sent' || status === 'draft') && <div>To: {to}</div>}
           <div>Sent at: {utilService.formatDate(sentAt)}</div>
         </section>
