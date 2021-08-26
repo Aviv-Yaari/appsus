@@ -1,6 +1,9 @@
 import { LoadingSpinner } from '../../../cmps/loading-spinner.jsx';
 import { LongTxt } from '../../../cmps/long-txt.jsx';
 import { utilService } from '../../../services/util.service.js';
+import { BtnRead } from '../cmps/btns/btn-read.jsx';
+import { BtnStar } from '../cmps/btns/btn-star.jsx';
+import { BtnTrash } from '../cmps/btns/btn-trash.jsx';
 import { emailService } from '../services/email.service.js';
 const { withRouter } = ReactRouterDOM;
 
@@ -37,7 +40,7 @@ class _EmailDetails extends React.Component {
     const { email } = this.state;
     if (email === undefined) return <div>Email not found.</div>;
     if (!email) return <LoadingSpinner />;
-    const { status, from, to, sentAt, subject, body, isStarred, isRead } = email;
+    const { status, from, to, sentAt, subject, body } = email;
     return (
       <section className="email-details flex column">
         <section className="email-details-toolbar flex">
@@ -45,21 +48,15 @@ class _EmailDetails extends React.Component {
             <img onClick={this.onBack} src="assets/img/back.png" />
           </div>
           <div>
-            <img onClick={(ev) => this.onTrash(ev, email)} src="assets/img/trash.png" />
-            <img
-              src={'assets/img/' + (isRead ? 'unread' : 'read') + '.png'}
-              onClick={() => this.onValueToggle('isRead')}
-            />
-            <img
-              onClick={() => this.onValueToggle('isStarred')}
-              src={'assets/svg/star-' + (isStarred ? 'active' : 'disabled') + '.svg'}
-            />
+            <BtnTrash onTrash={(ev) => this.onTrash(ev, email)} />
+            <BtnRead email={email} onToggle={() => this.onValueToggle('isRead')} />
+            <BtnStar email={email} onToggle={() => this.onValueToggle('isStarred')} />
           </div>
         </section>
         <h2 className="email-details-subject">
           <LongTxt text={subject || 'no subject'} length={100} />
         </h2>
-        <section className="email-details-header">
+        <section className="email-header">
           {(status === 'inbox' || status === 'trash') && <div>From: {from}</div>}
           {(status === 'sent' || status === 'draft') && <div>To: {to}</div>}
           <div>Sent at: {utilService.formatDate(sentAt)}</div>

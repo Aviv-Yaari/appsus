@@ -1,21 +1,25 @@
 export class EmailFilter extends React.Component {
   state = {};
+
   onFilter = (ev) => {
     const { name, value } = ev.target;
     const valueMap = { true: true, false: false, undefined: undefined };
     this.props.onFilter({ [name]: valueMap[value] });
   };
+
   getSortArrow = (field) => {
     const { sortType } = this.props;
     if (sortType.field === field && sortType.type === 1) return '↓';
     if (sortType.field === field && sortType.type === -1) return '↑';
     return '';
   };
+
   getCriteriaValue = (field) => {
     if (field) return 'true';
     else if (field === false) return 'false';
     return 'undefined';
   };
+
   render() {
     const { onSort, sortType, criteria } = this.props;
     return (

@@ -1,5 +1,4 @@
-import { LongTxt } from '../../../cmps/long-txt.jsx';
-import { utilService } from '../../../services/util.service.js';
+import { utilService } from '../../../../services/util.service.js';
 
 export const EmailPreviewExpanded = (props) => {
   const { subject, sentAt, body, from, to, status } = props.email;

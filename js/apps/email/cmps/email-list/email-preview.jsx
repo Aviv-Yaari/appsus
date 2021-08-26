@@ -1,4 +1,9 @@
-import { utilService } from '../../../services/util.service.js';
+import { utilService } from '../../../../services/util.service.js';
+import { BtnExportNote } from '../btns/btn-export-note.jsx';
+import { BtnFullscreen } from '../btns/btn-fullscreen.jsx';
+import { BtnRead } from '../btns/btn-read.jsx';
+import { BtnStar } from '../btns/btn-star.jsx';
+import { BtnTrash } from '../btns/btn-trash.jsx';
 import { EmailPreviewExpanded } from './email-preview-expanded.jsx';
 
 export class EmailPreview extends React.Component {
@@ -20,28 +25,17 @@ export class EmailPreview extends React.Component {
         className={'email-preview ' + (!email.isRead ? 'unread' : '')}>
         <section className="email-mini flex align-center">
           <div className="email-star-subject flex align-center">
-            <img
-              className="email-star"
-              onClick={(ev) => onValueToggle(ev, email, 'isStarred')}
-              src={'assets/svg/star-' + (email.isStarred ? 'active' : 'disabled') + '.svg'}
-            />
+            <BtnStar onToggle={(ev) => onValueToggle(ev, email, 'isStarred')} email={email} />
             <span className="email-subject">
               {utilService.trimText(email.subject, 100) || 'no subject'}
             </span>
           </div>
           <div className="email-date">{utilService.formatDate(email.sentAt)}</div>
           <div className="email-actions flex">
-            <img src={'assets/img/trash.png'} onClick={(ev) => onTrash(ev, email)} />
-            <img
-              src={'assets/img/' + (email.isRead ? 'unread' : 'read') + '.png'}
-              onClick={(ev) => onValueToggle(ev, email, 'isRead')}
-            />
-            <img
-              src="assets/svg/note.svg"
-              title="Export as note"
-              onClick={(ev) => onExportNote(email, ev)}
-            />
-            <img src="assets/svg/fullscreen.svg" onClick={() => onFullScreen(email.id)} />
+            <BtnTrash onTrash={(ev) => onTrash(ev, email)} />
+            <BtnRead email={email} onToggle={(ev) => onValueToggle(ev, email, 'isRead')} />
+            <BtnExportNote onExport={(ev) => onExportNote(email, ev)} />
+            <BtnFullscreen onFullScreen={() => onFullScreen(email.id)} />
           </div>
         </section>
         {isExpanded && <EmailPreviewExpanded email={email} />}
