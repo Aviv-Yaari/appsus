@@ -9,6 +9,7 @@
     border: none;
     outline: none;
     margin-inline-end: 10px;
+    border-radius: 0.25em;
 }
 
 .email-filter select:hover, .email-filter button:hover {

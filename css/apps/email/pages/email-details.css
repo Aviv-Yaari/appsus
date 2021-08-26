@@ -6,7 +6,7 @@
 }
 
 .email-details-toolbar {
-    gap: 20px;
+    gap: 40px;
     border-bottom: 1px solid #ECEFF1;
 }
 
@@ -14,10 +14,12 @@
     padding: 10px;
     border-radius: 50%;
     cursor: pointer;
+    opacity: 50%;
 }
 
 .email-details-toolbar img:hover {
     background-color: rgb(231, 231, 231);
+    opacity: 100%;
 }
 
 .email-details-header {
