@@ -42,9 +42,18 @@
 }
 
 .email-preview:hover .email-actions {
-    visibility: visible;
+    display: flex;
+}
+
+.email-preview:hover .email-date {
+    display: none;
 }
 
 .email-preview .email-actions {
-    visibility: hidden;
+    display: none;
+}
+
+.email-preview .email-date {
+    padding: 0.8em;
+    display: inline-block;
 }

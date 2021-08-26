@@ -27,6 +27,7 @@ export class EmailPreview extends React.Component {
             />
             <span className="email-subject">{email.subject}</span>
           </div>
+          <div className="email-date">{utilService.formatDate(email.sentAt)}</div>
           <div className="email-actions flex">
             <img src={'assets/img/trash.png'} onClick={(ev) => onTrash(ev, email)} />
             <img

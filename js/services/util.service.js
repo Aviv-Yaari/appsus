@@ -23,14 +23,19 @@ function getRandomIntInclusive(min, max) {
 
 function formatDate(timestamp) {
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  // prettier-ignore
+  const months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October','November','December'];
   const date = new Date(timestamp);
   const time = _formatTime(date.getHours()) + ':' + _formatTime(date.getMinutes());
   const currTimestamp = Date.now();
+  const currDate = new Date(currTimestamp);
   const day = 1000 * 60 * 60 * 24;
   if (currTimestamp - timestamp < day) return 'Today ' + time;
   if (currTimestamp - timestamp < day * 2) return 'Yesterday ' + time;
-  if (currTimestamp - timestamp < day * 8) return days[date.getDay()] + ' ' + time;
-  else return date.toLocaleDateString('en-IL') + ' ' + time;
+  if (currTimestamp - timestamp < day * 8) return days[date.getDay()];
+  if (currDate.getFullYear() !== date.getFullYear())
+    return months[date.getMonth()] + ' ' + date.getFullYear();
+  return date.getDate() + ' ' + months[date.getMonth()];
 }
 
 function _formatTime(time) {

@@ -1,0 +1,21 @@
+.email-filter {
+    margin-bottom: 20px;
+}
+
+.email-filter select, .email-filter button {
+    font-size: 1em;
+    padding: 0.5em;
+    background-color: rgba(242, 245, 245, 0.8);
+    border: none;
+    outline: none;
+    margin-inline-end: 10px;
+}
+
+.email-filter select:hover, .email-filter button:hover {
+    cursor: pointer;
+    background-color: rgba(235, 235, 235, 0.8);
+}
+
+.email-filter select>* {
+    color: rgb(77, 77, 77);
+}

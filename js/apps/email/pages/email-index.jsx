@@ -7,6 +7,7 @@ import { EmailFolderList } from '../cmps/email-folder-list.jsx';
 import { EmailList } from '../cmps/email-list.jsx';
 import { emailService } from '../services/email.service.js';
 import { eventBusService } from '../../../services/event-bus.service.js';
+import { EmailFilter } from '../cmps/email-filter.jsx';
 
 export class EmailIndex extends React.Component {
   state = {
@@ -37,7 +38,7 @@ export class EmailIndex extends React.Component {
 
   onSetCriteria = (newCriteria) => {
     this.setState((prevState) => {
-      const criteria = { ...prevState.criteria, isStarred: undefined, ...newCriteria };
+      const criteria = { ...prevState.criteria, ...newCriteria };
       this.loadEmails(criteria);
       return { criteria };
     });
@@ -80,6 +81,7 @@ export class EmailIndex extends React.Component {
           <EmailFolderList criteria={criteria} onSetCriteria={this.onSetCriteria} />
         </aside>
         <section className="email-container flex column">
+          <EmailFilter onSetCriteria={this.onSetCriteria} />
           <EmailList
             emails={emails}
             onPreviewClick={this.onPreviewClick}
