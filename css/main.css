@@ -26,10 +26,23 @@
 @import url('apps/keep/cmps/note-list.css');
 .app-main {
     flex-grow: 1;
-    padding: 20px;
     display: flex;
 }
 
 .app {
     min-height: 100vh;
+}
+
+.left-panel, .logo {
+    min-width: 255px;
+    padding-left: 20px;
+}
+
+.btn-apps, .note-app, .email-app, .app-header .apps-menu {
+    margin-right: 30px;
+}
+
+.note-app, .email-app {
+    width: 100%;
+    margin-top: 20px;
 }

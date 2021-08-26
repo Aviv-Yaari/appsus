@@ -127,6 +127,7 @@ export class EmailIndex extends React.Component {
             id={params.emailId}
             onTrash={this.onTrashEmail}
             loadEmails={this.loadEmails}
+            onExportNote={this.onExportNote}
           />
         )}
         {!params.emailId && (

@@ -1,6 +1,7 @@
 import { LoadingSpinner } from '../../../cmps/loading-spinner.jsx';
 import { LongTxt } from '../../../cmps/long-txt.jsx';
 import { utilService } from '../../../services/util.service.js';
+import { BtnExportNote } from '../cmps/btns/btn-export-note.jsx';
 import { BtnRead } from '../cmps/btns/btn-read.jsx';
 import { BtnStar } from '../cmps/btns/btn-star.jsx';
 import { BtnTrash } from '../cmps/btns/btn-trash.jsx';
@@ -40,6 +41,7 @@ class _EmailDetails extends React.Component {
     const { email } = this.state;
     if (email === undefined) return <div>Email not found.</div>;
     if (!email) return <LoadingSpinner />;
+    const { onExportNote } = this.props;
     const { status, from, to, sentAt, subject, body } = email;
     return (
       <section className="email-details flex column">
@@ -50,6 +52,7 @@ class _EmailDetails extends React.Component {
           <div>
             <BtnTrash onTrash={(ev) => this.onTrash(ev, email)} />
             <BtnRead email={email} onToggle={() => this.onValueToggle('isRead')} />
+            <BtnExportNote onExport={(ev) => onExportNote(email, ev)} />
             <BtnStar email={email} onToggle={() => this.onValueToggle('isStarred')} />
           </div>
         </section>
