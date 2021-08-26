@@ -10,7 +10,7 @@ export class EmailCompose extends React.Component {
   };
 
   componentDidMount() {
-    this.interval = setTimeout(this.saveDraft, 5000);
+    this.interval = setInterval(this.saveDraft, 5000);
   }
 
   componentWillUnmount() {
@@ -23,6 +23,7 @@ export class EmailCompose extends React.Component {
   };
 
   saveDraft = () => {
+    console.log('saved draft');
     const { email } = this.state;
     const { id, subject, body, to } = email;
     if (!id && (subject || body || to)) {
@@ -37,8 +38,7 @@ export class EmailCompose extends React.Component {
   deleteDraft = () => {
     const { email } = this.state;
     const { id } = email;
-    if (!id) return;
-    emailService.trashEmail(id);
+    if (id) emailService.trashEmail(id);
     this.props.onClose();
   };
 
@@ -46,16 +46,16 @@ export class EmailCompose extends React.Component {
     const { onClose, onSend } = this.props;
     const { subject } = this.state.email;
     return (
-      <section className="email-compose">
+      <form onSubmit={(ev) => onSend(this.state.email, ev)} className="email-compose">
         <div className="compose-title flex align-center">
           {subject || 'New Message'}
-          <button className="compose-btn-close" onClick={onClose}>
+          <button type="button" className="compose-btn-close" onClick={onClose}>
             <img src="assets/svg/close.svg" />
           </button>
         </div>
         <div className="compose-to flex align-center">
           <span>To</span>
-          <input type="text" name="to" onChange={this.handleChange} />
+          <input type="email" name="to" onChange={this.handleChange} required />
         </div>
         <div className="compose-subject flex align-center">
           <span>Subject</span>
@@ -63,14 +63,14 @@ export class EmailCompose extends React.Component {
         </div>
         <textarea name="body" rows="20" onChange={this.handleChange} />
         <div className="compose-actions flex">
-          <button className="compose-btn-send" onClick={() => onSend(this.state.email)}>
+          <button className="compose-btn-send" type="submit">
             Send
           </button>
-          <button onClick={this.deleteDraft} className="compose-btn-delete">
+          <button type="button" onClick={this.deleteDraft} className="compose-btn-delete">
             <img src="assets/img/trash.png" />
           </button>
         </div>
-      </section>
+      </form>
     );
   }
 }

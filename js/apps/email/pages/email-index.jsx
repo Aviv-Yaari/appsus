@@ -68,7 +68,8 @@ export class EmailIndex extends React.Component {
     this.setState({ isComposing });
   };
 
-  onSendEmail = (email) => {
+  onSendEmail = (email, ev) => {
+    ev.preventDefault();
     if (email.id) {
       emailService.findByIdAndUpdate(email.id, { ...email, status: 'sent' });
     } else {
