@@ -4,20 +4,23 @@
 import { LoadingSpinner } from '../../../cmps/loading-spinner.jsx';
 import { EmailCompose } from '../cmps/email-compose.jsx';
 import { EmailFolderList } from '../cmps/email-folder-list.jsx';
-import { EmailList } from '../cmps/email-list.jsx';
+import { EmailList } from '../cmps/email-list/email-list.jsx';
 import { emailService } from '../services/email.service.js';
 import { eventBusService } from '../../../services/event-bus.service.js';
 import { EmailFilter } from '../cmps/email-filter.jsx';
 import { EmailDetails } from './email-details.jsx';
+import { BtnCompose } from '../cmps/btns/btn-compose.jsx';
 const { Route } = ReactRouterDOM;
 
 export class EmailIndex extends React.Component {
   state = {
     emails: null,
     criteria: { txt: '', status: this.props.match.params.status },
-    sortType: { field: 'sentAt', type: 1 }, // type 1 - descending , type -1 - ascending
+    sortType: { field: 'sentAt', type: 1 }, // type = 1: descending , type = -1: ascending
     isComposing: false,
   };
+
+  // Lifecycle and general:
 
   componentDidMount() {
     this.loadEmails();
@@ -43,11 +46,7 @@ export class EmailIndex extends React.Component {
     emailService.query(criteria, sortType).then((emails) => this.setState({ emails }));
   };
 
-  onPreviewClick = (email) => {
-    if (!email.isRead) {
-      emailService.findByIdAndUpdate(email.id, { isRead: true }).then(this.loadEmails);
-    }
-  };
+  // Criteria and sort:
 
   onSetCriteria = (newCriteria) => {
     this.setState(
@@ -59,13 +58,14 @@ export class EmailIndex extends React.Component {
   onSetSort = (ev) => {
     const { name: field } = ev.target;
     const newSort = { field, type: 1 };
-
     this.setState((prevState) => {
       const { sortType } = prevState;
       if (sortType.field === field) newSort.type = sortType.type * -1;
       return { sortType: newSort };
     }, this.loadEmails);
   };
+
+  // Compose Actions:
 
   onComposeToggle = (isComposing) => {
     if (!isComposing) this.loadEmails();
@@ -81,6 +81,14 @@ export class EmailIndex extends React.Component {
     }
     this.setState({ isComposing: false });
     this.loadEmails();
+  };
+
+  // Email Actions:
+
+  onPreviewClick = (email) => {
+    if (!email.isRead) {
+      emailService.findByIdAndUpdate(email.id, { isRead: true }).then(this.loadEmails);
+    }
   };
 
   onValueToggle = (ev, email, value) => {
@@ -102,20 +110,16 @@ export class EmailIndex extends React.Component {
     this.props.history.push(`/keep?title=${email.subject}&txt=${email.body}`);
   };
 
+  // Render:
+
   render() {
     const { emails, criteria, isComposing, sortType } = this.state;
     const { params } = this.props.match;
     if (!emails) return <LoadingSpinner />;
-    // if (!emails.length) return <div>No emails</div>;
     return (
       <section className="email-app flex">
         <aside className="left-panel">
-          <button
-            className="btn-compose flex justify-center align-center"
-            onClick={() => this.onComposeToggle(true)}>
-            <img src="assets/img/plus.png" />
-            Compose
-          </button>
+          <BtnCompose onToggle={this.onComposeToggle} />
           <EmailFolderList />
         </aside>
         {params.emailId && (
@@ -125,7 +129,6 @@ export class EmailIndex extends React.Component {
             loadEmails={this.loadEmails}
           />
         )}
-
         {!params.emailId && (
           <section className="email-container flex column">
             <EmailFilter
