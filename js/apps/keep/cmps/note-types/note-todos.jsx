@@ -19,7 +19,8 @@ export class NoteTodos extends React.Component {
         onChangeColor={this.props.onChangeColor} 
         onPinNote={this.props.onPinNote} 
         onDuplicateNote={this.props.onDuplicateNote}
-        onRemoveNote={this.props.onRemoveNote} />
+        onRemoveNote={this.props.onRemoveNote}
+        onExportEmail={this.props.onExportEmail}/>
     </div>;
   }
 }

@@ -13,7 +13,7 @@ export class EmailPreview extends React.Component {
 
   render() {
     const { isExpanded } = this.state;
-    const { email, onValueToggle, onTrash, onFullScreen } = this.props;
+    const { email, onValueToggle, onTrash, onFullScreen, onExportNote } = this.props;
     return (
       <div
         onClick={this.onPreviewClick}
@@ -35,6 +35,11 @@ export class EmailPreview extends React.Component {
             <img
               src={'assets/img/' + (email.isRead ? 'unread' : 'read') + '.png'}
               onClick={(ev) => onValueToggle(ev, email, 'isRead')}
+            />
+            <img
+              src="assets/svg/note.svg"
+              title="Export as note"
+              onClick={(ev) => onExportNote(email, ev)}
             />
             <img src="assets/svg/fullscreen.svg" onClick={() => onFullScreen(email.id)} />
           </div>

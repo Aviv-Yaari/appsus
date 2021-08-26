@@ -1,6 +1,13 @@
 import { EmailPreview } from './email-preview.jsx';
 
-export const EmailList = ({ emails, onPreviewClick, onTrash, onValueToggle, onFullScreen }) => {
+export const EmailList = ({
+  emails,
+  onPreviewClick,
+  onTrash,
+  onValueToggle,
+  onFullScreen,
+  onExportNote,
+}) => {
   return (
     <section className="email-list">
       {emails.map((email) => (
@@ -11,6 +18,7 @@ export const EmailList = ({ emails, onPreviewClick, onTrash, onValueToggle, onFu
           onValueToggle={onValueToggle}
           onTrash={onTrash}
           onFullScreen={onFullScreen}
+          onExportNote={onExportNote}
         />
       ))}
     </section>

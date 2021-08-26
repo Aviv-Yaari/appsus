@@ -1,7 +1,6 @@
 import { NoteToolbar } from '../note-toolbar.jsx';
 
 export class NoteText extends React.Component {
-
   render() {
     const { txt, title } = this.props.note.info;
     return (
@@ -14,8 +13,10 @@ export class NoteText extends React.Component {
           onChangeColor={this.props.onChangeColor}
           onPinNote={this.props.onPinNote}
           onDuplicateNote={this.props.onDuplicateNote}
-          onRemoveNote={this.props.onRemoveNote} />
-      </div >
-    )
+          onRemoveNote={this.props.onRemoveNote}
+          onExportEmail={this.props.onExportEmail}
+        />
+      </div>
+    );
   }
 }

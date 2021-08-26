@@ -22,6 +22,10 @@ export class EmailIndex extends React.Component {
   componentDidMount() {
     this.loadEmails();
     this.removeEventBus = eventBusService.on('search', (data) => this.onSetCriteria({ txt: data }));
+    const query = new URLSearchParams(this.props.location.search);
+    this.subject = query.get('subject');
+    this.body = query.get('body');
+    if (this.subject && this.body) this.setState({ isComposing: true });
   }
 
   componentDidUpdate(prevProps) {
@@ -93,6 +97,11 @@ export class EmailIndex extends React.Component {
     this.props.history.push(this.props.location.pathname + '/' + id);
   };
 
+  onExportNote = (email, ev) => {
+    ev.stopPropagation();
+    this.props.history.push(`/keep?title=${email.subject}&txt=${email.body}`);
+  };
+
   render() {
     const { emails, criteria, isComposing, sortType } = this.state;
     const { params } = this.props.match;
@@ -131,11 +140,17 @@ export class EmailIndex extends React.Component {
               onValueToggle={this.onValueToggle}
               onTrash={this.onTrashEmail}
               onFullScreen={this.onFullScreen}
+              onExportNote={this.onExportNote}
             />
           </section>
         )}
         {isComposing && (
-          <EmailCompose onSend={this.onSendEmail} onClose={() => this.onComposeToggle(false)} />
+          <EmailCompose
+            onSend={this.onSendEmail}
+            onClose={() => this.onComposeToggle(false)}
+            subject={this.subject}
+            body={this.body}
+          />
         )}
       </section>
     );

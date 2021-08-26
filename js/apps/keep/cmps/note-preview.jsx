@@ -4,33 +4,57 @@ import { NoteTodos } from './note-types/note-todos.jsx';
 import { NoteVideo } from './note-types/note-video.jsx';
 import { NoteEdit } from './note-edit.jsx';
 import { notesService } from '../services/note.service.js';
-const { Route } = ReactRouterDOM
+const { Route, withRouter } = ReactRouterDOM;
 
-
-export class NotePreview extends React.Component {
+class _NotePreview extends React.Component {
   state = {
-    note: this.props.note
+    note: this.props.note,
   };
 
   componentDidUpdate(prevProps) {
     if (prevProps.note !== this.props.note) {
-      this.setState({ note: this.props.note })
+      this.setState({ note: this.props.note });
     }
   }
 
   onChangeColor = (color) => {
-    const updatedNote = { ...this.state.note, style: { backgroundColor: color } }
+    const updatedNote = { ...this.state.note, style: { backgroundColor: color } };
     notesService.updateNote(updatedNote);
-    this.setState({ note: updatedNote })
-  }
+    this.setState({ note: updatedNote });
+  };
   onCheckTodo = (todoId) => {
-    notesService.toggleTodo(this.state.note.id, todoId).then(updatedNote =>
-      this.setState({ note: updatedNote })
+    notesService
+      .toggleTodo(this.state.note.id, todoId)
+      .then((updatedNote) => this.setState({ note: updatedNote }));
+  };
+
+  onExportEmail = () => {
+    const { note } = this.state;
+    let body;
+    switch (note.type) {
+      case 'note-txt':
+        body = note.info.txt;
+        break;
+      case 'note-video':
+        body = 'Check out this video: ' + note.info.url;
+        break;
+      case 'note-img':
+        body = 'Check out this image: ' + note.info.url;
+        break;
+      case 'note-todos':
+        const todosTxts = note.info.todos.map((todo) => todo.txt);
+        body = 'Todos: ' + todosTxts.join(', ') + '.';
+        break;
+      default:
+        body = 'no body';
+        break;
+    }
+    this.props.history.push(
+      `/emails/inbox?subject=${note.title || 'no subject'}&body=${body || 'no body'}`
     );
-  }
+  };
 
   render() {
-
     const { note } = this.state;
     const DynamicCmp = (props) => {
       const cmpMap = {
@@ -49,9 +73,12 @@ export class NotePreview extends React.Component {
           onCheckTodo={this.onCheckTodo}
           onPinNote={this.props.onPinNote}
           onDuplicateNote={this.props.onDuplicateNote}
-          onRemoveNote={this.props.onRemoveNote} />
+          onRemoveNote={this.props.onRemoveNote}
+          onExportEmail={this.onExportEmail}
+        />
         <Route path="/keep/:noteId" component={NoteEdit} />
       </React.Fragment>
     );
   }
 }
+export const NotePreview = withRouter(_NotePreview);
