@@ -1,0 +1,30 @@
+.email-details {
+    padding: 20px 0;
+    gap: 20px;
+    line-height: 1.75em;
+    flex-grow: 1;
+}
+
+.email-details-toolbar {
+    gap: 20px;
+    border-bottom: 1px solid #ECEFF1;
+}
+
+.email-details-toolbar img {
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.email-details-toolbar img:hover {
+    background-color: rgb(231, 231, 231);
+}
+
+.email-details-header {
+    color: rgb(100, 100, 100);
+}
+
+.email-details-subject {
+    max-width: 750px;
+    overflow-wrap: break-word;
+}

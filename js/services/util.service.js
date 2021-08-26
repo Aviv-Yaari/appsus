@@ -2,6 +2,7 @@ export const utilService = {
   makeId,
   getRandomIntInclusive,
   formatDate,
+  trimText,
 };
 
 function makeId(length = 6) {
@@ -36,6 +37,10 @@ function formatDate(timestamp) {
   if (currDate.getFullYear() !== date.getFullYear())
     return months[date.getMonth()] + ' ' + date.getFullYear();
   return date.getDate() + ' ' + months[date.getMonth()];
+}
+
+function trimText(text, length) {
+  return text.length < length ? text : text.substring(0, length - 4) + '...';
 }
 
 function _formatTime(time) {

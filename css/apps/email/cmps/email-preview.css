@@ -31,15 +31,17 @@
     color: rgb(100, 100, 100);
 }
 
+/*  */
+
 .email-star {
     margin: 0 20px;
 }
 
 .email-subject {
-    overflow: hidden;
-    max-width: 55vw;
-    text-overflow: ellipsis;
+    word-break: break-all;
 }
+
+/*  */
 
 .email-mini {
     justify-content: space-between;

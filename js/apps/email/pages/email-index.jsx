@@ -25,7 +25,7 @@ export class EmailIndex extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.status !== this.props.match.params.status) {
+    if (prevProps.match.params !== this.props.match.params) {
       this.onSetCriteria({ status: this.props.match.params.status });
     }
   }
@@ -102,7 +102,13 @@ export class EmailIndex extends React.Component {
           </button>
           <EmailFolderList />
         </aside>
-        {params.emailId && <EmailDetails id={params.emailId} />}
+        {params.emailId && (
+          <EmailDetails
+            id={params.emailId}
+            onTrash={this.onTrashEmail}
+            loadEmails={this.loadEmails}
+          />
+        )}
 
         {!params.emailId && (
           <section className="email-container flex column">
@@ -110,6 +116,7 @@ export class EmailIndex extends React.Component {
               onFilter={this.onSetCriteria}
               onSort={this.onSetSort}
               sortType={sortType}
+              criteria={criteria}
             />
             <EmailList
               emails={emails}

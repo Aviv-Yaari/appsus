@@ -1,7 +1,8 @@
+import { LongTxt } from '../../../cmps/long-txt.jsx';
 import { utilService } from '../../../services/util.service.js';
 
 export const EmailPreviewExpanded = (props) => {
-  const { sentAt, body, from, to, status } = props.email;
+  const { subject, sentAt, body, from, to, status } = props.email;
   return (
     <section className="email-preview-expanded flex column">
       <div className="email-header">
