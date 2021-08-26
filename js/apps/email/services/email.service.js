@@ -49,6 +49,17 @@ function getEmailsByStatus(status) {
   return gEmails.filter((email) => email.status === status);
 }
 
+function getEmailById(id) {
+  return Promise.resolve(gEmails.find((email) => email.id === id));
+}
+
+function findByIdAndUpdate(id, change) {
+  const idx = gEmails.findIndex((email) => email.id === id);
+  gEmails[idx] = { ...gEmails[idx], ...change };
+  _saveEmailsToStorage(gEmails);
+  return Promise.resolve(gEmails[idx]);
+}
+
 function _createEmail(userEmail) {
   const { status, subject, body, to } = userEmail;
   return {
@@ -63,21 +74,11 @@ function _createEmail(userEmail) {
   };
 }
 
-function getEmailById(id) {
-  return Promise.resolve(gEmails.find((email) => email.id === id));
-}
-
-function findByIdAndUpdate(id, change) {
-  const idx = gEmails.findIndex((email) => email.id === id);
-  gEmails[idx] = { ...gEmails[idx], ...change };
-  _saveEmailsToStorage(gEmails);
-  return Promise.resolve(gEmails[idx]);
-}
-
 function addEmail(userEmail) {
-  gEmails.unshift(_createEmail(userEmail));
+  const email = _createEmail(userEmail);
+  gEmails.unshift(email);
   _saveEmailsToStorage(gEmails);
-  return Promise.resolve(gEmails);
+  return Promise.resolve(email);
 }
 
 function updateEmail(userEmail) {
@@ -89,6 +90,7 @@ function updateEmail(userEmail) {
 
 function trashEmail(emailId) {
   const idx = gEmails.findIndex((email) => email.id === emailId);
+  if (idx === -1) return Promise.reject('Not found');
   if (gEmails[idx].status !== 'trash') gEmails[idx].status = 'trash';
   else gEmails.splice(idx, 1);
   _saveEmailsToStorage(gEmails);

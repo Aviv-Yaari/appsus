@@ -1,3 +1,5 @@
+import { emailService } from '../services/email.service.js';
+
 export class EmailCompose extends React.Component {
   state = {
     email: {
@@ -7,9 +9,37 @@ export class EmailCompose extends React.Component {
     },
   };
 
+  componentDidMount() {
+    this.interval = setTimeout(this.saveDraft, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   handleChange = (ev) => {
     const { name, value } = ev.target;
     this.setState((prevState) => ({ email: { ...prevState.email, [name]: value } }));
+  };
+
+  saveDraft = () => {
+    const { email } = this.state;
+    const { id, subject, body, to } = email;
+    if (!id && (subject || body || to)) {
+      emailService
+        .addEmail({ ...email, status: 'draft' })
+        .then((email) =>
+          this.setState((prevState) => ({ email: { ...prevState.email, id: email.id } }))
+        );
+    } else emailService.findByIdAndUpdate(id, { ...email });
+  };
+
+  deleteDraft = () => {
+    const { email } = this.state;
+    const { id } = email;
+    if (!id) return;
+    emailService.trashEmail(id);
+    this.props.onClose();
   };
 
   render() {
@@ -36,8 +66,8 @@ export class EmailCompose extends React.Component {
           <button className="compose-btn-send" onClick={() => onSend(this.state.email)}>
             Send
           </button>
-          <button className="compose-btn-delete">
-            <img src="../../../../assets/img/trash.png" />
+          <button onClick={this.deleteDraft} className="compose-btn-delete">
+            <img src="assets/img/trash.png" />
           </button>
         </div>
       </section>

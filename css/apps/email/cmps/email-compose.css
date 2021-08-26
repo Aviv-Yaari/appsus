@@ -35,11 +35,11 @@
     outline: none;
     border: none;
     font-size: 1em;
+    width: 100%;
 }
 
 .email-compose textarea {
     padding: 10px 15px;
-    width: 100%;
 }
 
 .compose-btn-close {
@@ -53,6 +53,14 @@
 
 .compose-btn-send {
     padding: 10px;
+    background-color: #297BE6;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.compose-btn-send:hover {
+    box-shadow: 0 1px 2px 0 rgb(26 115 232 / 45%), 0 1px 3px 1px rgb(26 115 232 / 30%);
 }
 
 .compose-actions {
@@ -62,6 +70,7 @@
 
 .compose-btn-delete {
     background-color: transparent;
+    border-radius: 25%;
 }
 
 .compose-btn-delete:hover {

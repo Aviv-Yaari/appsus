@@ -64,12 +64,18 @@ export class EmailIndex extends React.Component {
   };
 
   onComposeToggle = (isComposing) => {
+    if (!isComposing) this.loadEmails();
     this.setState({ isComposing });
   };
 
   onSendEmail = (email) => {
-    emailService.addEmail({ ...email, status: 'sent' });
+    if (email.id) {
+      emailService.findByIdAndUpdate(email.id, { ...email, status: 'sent' });
+    } else {
+      emailService.addEmail({ ...email, status: 'sent' });
+    }
     this.setState({ isComposing: false });
+    this.loadEmails();
   };
 
   onValueToggle = (ev, email, value) => {

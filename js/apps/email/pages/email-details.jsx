@@ -35,6 +35,7 @@ class _EmailDetails extends React.Component {
 
   render() {
     const { email } = this.state;
+    if (email === undefined) return <div>Email not found.</div>;
     if (!email) return <LoadingSpinner />;
     const { status, from, to, sentAt, subject, body, isStarred, isRead } = email;
     return (
