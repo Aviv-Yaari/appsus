@@ -14,6 +14,10 @@
     top: 10px;
 }
 
+.note-toolbar, .note-pin {
+    transition: opacity .5s
+}
+
 .note-pin:hover, .note-toolbar img:hover {
     background-color: rgba(95, 99, 104, 0.157);
 }

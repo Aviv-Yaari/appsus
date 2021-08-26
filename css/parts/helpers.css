@@ -13,3 +13,9 @@
 .column {
     flex-direction: column;
 }
+
+.clean-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

@@ -7,7 +7,7 @@ export class NoteImg extends React.Component {
       <div className="note-preview img" style={this.props.note.style}>
         {title && <h1>{title}</h1>}
         <img className="note-img" src={url} />
-        <NoteToolbar type="existed-note" onChangeColor={this.props.onChangeColor} />
+        <NoteToolbar note={this.props.note} type="existed-note" onChangeColor={this.props.onChangeColor} onPinNote={this.props.onPinNote} />
       </div>
     );
   }

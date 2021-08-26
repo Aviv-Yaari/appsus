@@ -8,7 +8,7 @@ export class NoteText extends React.Component {
       <div className="note-preview txt" style={this.props.note.style}>
         {title && <h1>{title}</h1>}
         <p>{txt}</p>
-        <NoteToolbar type="existed-note" onChangeColor={this.props.onChangeColor} />
+        <NoteToolbar note={this.props.note} type="existed-note" onChangeColor={this.props.onChangeColor} onPinNote={this.props.onPinNote} />
       </div >
     )
   }

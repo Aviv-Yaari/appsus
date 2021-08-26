@@ -4,7 +4,7 @@ export class NoteToolbar extends React.Component {
   };
 
   style = {
-    opacity: this.props.type === 'existed-note' ? 0 : 1
+    opacity: this.props.type === 'existed-note' ? 0 : 1,
   }
 
   onOpenColors = () => {
@@ -16,9 +16,9 @@ export class NoteToolbar extends React.Component {
     this.onOpenColors();
   }
 
-  onImageClicked = () => {
+  onToolClicked = (type) => {
     if (this.props.type === 'new-note') {
-      this.props.onUpdateType('note-img');
+      this.props.onUpdateType(type);
     }
   }
 
@@ -28,9 +28,9 @@ export class NoteToolbar extends React.Component {
       <React.Fragment>
         <div className="note-toolbar flex" style={this.style}>
           <img onClick={this.onOpenColors} src="../../../../assets/svg/pallete.svg" />
-          <img onClick={this.onImageClicked} src="../../../../assets/svg/image.svg" />
-          <img src="../../../../assets/svg/video.svg" />
-          <img src="../../../../assets/svg/todos.svg" />
+          <img onClick={() => this.onToolClicked('note-img')} src="../../../../assets/svg/image.svg" />
+          <img onClick={() => this.onToolClicked('note-video')} src="../../../../assets/svg/video.svg" />
+          <img onClick={() => this.onToolClicked('note-todos')} src="../../../../assets/svg/todos.svg" />
         </div>
         <div className={'colors' + (isColorShown ? ' shown' : '')}>
           <div className="color white" onClick={() => this.onColorClicked('#fff')}></div>
@@ -42,7 +42,9 @@ export class NoteToolbar extends React.Component {
           <div className="color lightblue" onClick={() => this.onColorClicked('#cbf0f8')}></div>
           <div className="color blue" onClick={() => this.onColorClicked('#aecbfa')}></div>
         </div>
-        <img className="note-pin" style={this.style} src="../../../../assets/svg/pin.svg" />
+        <img className="note-pin" style={this.style} src={this.props.note.isPinned ? "../../../../assets/svg/pinned.svg" : "../../../../assets/svg/pin.svg"} onClick={() => this.props.onPinNote(this.props.note)} />
+
+
       </React.Fragment>
     );
   }
