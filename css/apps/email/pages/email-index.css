@@ -2,6 +2,10 @@
     min-width: 255px;
 }
 
+.email-app {
+    width: 100%;
+}
+
 .email-container {
     flex-grow: 1;
 }

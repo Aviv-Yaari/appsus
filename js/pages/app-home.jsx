@@ -1,3 +1,3 @@
 export const AppHome = () => {
-  return <h2>Home</h2>;
+  return <section className="app-home"></section>;
 };

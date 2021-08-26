@@ -1,0 +1,20 @@
+.app-home {
+    width: 100%;
+    background-image: url('../../assets/img/hero.jpg');
+    background-size: cover;
+    animation-name: change-bg;
+    animation-iteration-count: infinite;
+    animation-duration: 15s;
+}
+
+@keyframes change-bg {
+    0% {
+        background-image: url('../../assets/img/hero.jpg');
+    }
+    33% {
+        background-image: url('../../assets/img/hero2.jpg');
+    }
+    66% {
+        background-image: url('../../assets/img/hero3.jpg');
+    }
+}

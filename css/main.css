@@ -1,3 +1,5 @@
+/* General: */
+
 @import url('parts/fonts.css');
 @import url('parts/base.css');
 @import url('parts/helpers.css');
@@ -22,11 +24,10 @@
 @import url('apps/keep/cmps/note-toolbar.css');
 @import url('apps/keep/cmps/note-preview.css');
 @import url('apps/keep/cmps/note-list.css');
-/* General: */
-
 .app-main {
     flex-grow: 1;
     padding: 20px;
+    display: flex;
 }
 
 .app {
