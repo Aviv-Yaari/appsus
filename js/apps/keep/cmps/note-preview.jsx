@@ -50,7 +50,7 @@ class _NotePreview extends React.Component {
         break;
     }
     this.props.history.push(
-      `/emails/inbox?subject=${note.title || 'no subject'}&body=${body || 'no body'}`
+      `/emails/inbox?subject=${note.info.title || 'no subject'}&body=${body || 'no body'}`
     );
   };
 
