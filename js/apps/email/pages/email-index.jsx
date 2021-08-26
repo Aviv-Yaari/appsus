@@ -13,10 +13,11 @@ export class EmailIndex extends React.Component {
   state = {
     emails: null,
     criteria: { txt: '', status: 'inbox' },
+    sortType: { field: 'sentAt', type: 1 }, // type 1 - descending , type -1 - ascending
     isComposing: false,
   };
   componentDidMount() {
-    this.loadEmails(this.state.criteria);
+    this.loadEmails();
     this.removeEventBus = eventBusService.on('search', (data) => this.onSetCriteria({ txt: data }));
   }
 
@@ -24,24 +25,33 @@ export class EmailIndex extends React.Component {
     this.removeEventBus();
   }
 
-  loadEmails = (criteria) => {
-    emailService.query(criteria).then((emails) => this.setState({ emails }));
+  loadEmails = () => {
+    const { criteria, sortType } = this.state;
+    emailService.query(criteria, sortType).then((emails) => this.setState({ emails }));
   };
 
   onPreviewClick = (email) => {
     if (!email.isRead) {
-      emailService
-        .findByIdAndUpdate(email.id, { isRead: true })
-        .then(() => this.loadEmails(this.state.criteria));
+      emailService.findByIdAndUpdate(email.id, { isRead: true }).then(this.loadEmails);
     }
   };
 
   onSetCriteria = (newCriteria) => {
+    this.setState(
+      (prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria } }),
+      this.loadEmails
+    );
+  };
+
+  onSetSort = (ev) => {
+    const { name: field } = ev.target;
+    const newSort = { field, type: 1 };
+
     this.setState((prevState) => {
-      const criteria = { ...prevState.criteria, ...newCriteria };
-      this.loadEmails(criteria);
-      return { criteria };
-    });
+      const { sortType } = prevState;
+      if (sortType.field === field) newSort.type = sortType.type * -1;
+      return { sortType: newSort };
+    }, this.loadEmails);
   };
 
   onComposeToggle = (isComposing) => {
@@ -55,18 +65,16 @@ export class EmailIndex extends React.Component {
 
   onValueToggle = (ev, email, value) => {
     ev.stopPropagation();
-    emailService
-      .findByIdAndUpdate(email.id, { [value]: !email[value] })
-      .then(() => this.loadEmails(this.state.criteria));
+    emailService.findByIdAndUpdate(email.id, { [value]: !email[value] }).then(this.loadEmails);
   };
 
   onTrashEmail = (ev, email) => {
     ev.stopPropagation();
-    emailService.trashEmail(email.id).then(() => this.loadEmails(this.state.criteria));
+    emailService.trashEmail(email.id).then(this.loadEmails);
   };
 
   render() {
-    const { emails, criteria, isComposing } = this.state;
+    const { emails, criteria, isComposing, sortType } = this.state;
     if (!emails) return <LoadingSpinner />;
     // if (!emails.length) return <div>No emails</div>;
     return (
@@ -81,7 +89,7 @@ export class EmailIndex extends React.Component {
           <EmailFolderList criteria={criteria} onSetCriteria={this.onSetCriteria} />
         </aside>
         <section className="email-container flex column">
-          <EmailFilter onSetCriteria={this.onSetCriteria} />
+          <EmailFilter onFilter={this.onSetCriteria} onSort={this.onSetSort} sortType={sortType} />
           <EmailList
             emails={emails}
             onPreviewClick={this.onPreviewClick}

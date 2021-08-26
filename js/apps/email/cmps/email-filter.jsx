@@ -3,10 +3,16 @@ export class EmailFilter extends React.Component {
   onFilter = (ev) => {
     const { name, value } = ev.target;
     const valueMap = { true: true, false: false, undefined: undefined };
-    this.props.onSetCriteria({ [name]: valueMap[value] });
+    this.props.onFilter({ [name]: valueMap[value] });
+  };
+  getSortArrow = (field) => {
+    const { sortType } = this.props;
+    if (sortType.field === field && sortType.type === 1) return '↓';
+    if (sortType.field === field && sortType.type === -1) return '↑';
+    return '';
   };
   render() {
-    const { onSort } = this.props;
+    const { onSort, sortType } = this.props;
     return (
       <section className="email-filter">
         <select onChange={this.onFilter} name="isRead">
@@ -19,8 +25,12 @@ export class EmailFilter extends React.Component {
           <option value="true">Starred</option>
           <option value="false">Unstarred</option>
         </select>
-        <button onChange={onSort}>Date</button>
-        <button onChange={onSort}>Subject</button>
+        <button name="sentAt" onClick={onSort}>
+          Date {this.getSortArrow('sentAt')}
+        </button>
+        <button name="subject" onClick={onSort}>
+          Subject {this.getSortArrow('subject')}
+        </button>
       </section>
     );
   }

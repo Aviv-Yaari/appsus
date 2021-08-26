@@ -25,7 +25,7 @@ function _initEmails() {
   return emails;
 }
 
-function query(criteria) {
+function query(criteria, sort) {
   const mails = gEmails.filter((mail) => {
     const statusCond = criteria.status === undefined || mail.status === criteria.status;
     const starredCond = criteria.isStarred === undefined || mail.isStarred === criteria.isStarred;
@@ -34,6 +34,7 @@ function query(criteria) {
     const readCond = criteria.isRead === undefined || mail.isRead === criteria.isRead;
     return statusCond && starredCond && txtCond && readCond;
   });
+  if (sort) mails.sort((a, b) => (a[sort.field] < b[sort.field] ? sort.type : sort.type * -1));
   return new Promise((resolve) => setTimeout(resolve, 200, mails));
 }
 
