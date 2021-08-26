@@ -6,6 +6,7 @@
     padding: 10px;
     max-height: fit-content;
     position: relative;
+    background-color: #fff;
 }
 
 .note-preview:hover .note-toolbar, .note-preview:hover .note-pin {

@@ -15,6 +15,11 @@ export class NoteList extends React.Component {
   onRemoveNote = (noteId) => {
     notesService.removeNote(noteId).then(notes => this.setState({ notes }));
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.notes !== this.props.notes) {
+      this.setState({ notes: this.props.notes })
+    }
+  }
 
   render() {
     const isPinnedShown = notesService.isContainsPinnedNotes();

@@ -1,6 +1,6 @@
 import { utilService } from '../../../services/util.service.js';
 import { storageService } from '../../../services/storage.service.js';
-export const notesService = { query, addNote, updateNote, toggleTodo, isContainsPinnedNotes, duplicateNote, removeNote, createTodo };
+export const notesService = { query, getNoteById, addNote, updateNote, toggleTodo, isContainsPinnedNotes, duplicateNote, removeNote, createTodo };
 
 let gNotes = _initNotes();
 
@@ -17,7 +17,7 @@ function _initNotes() {
           txt: 'Fullstack Me Baby!',
         },
         style: {
-          backgroundColor: '#00d',
+          backgroundColor: '#fff',
         },
       },
       {
@@ -27,9 +27,10 @@ function _initNotes() {
         info: {
           url: 'https://i.insider.com/5484d9d1eab8ea3017b17e29?width=700&format=jpeg&auto=webp',
           title: 'Bobi and Me',
+          txt: '',
         },
         style: {
-          backgroundColor: '#00d',
+          backgroundColor: '#fff',
         },
       },
       {
@@ -37,6 +38,7 @@ function _initNotes() {
         type: 'note-todos',
         isPinned: false,
         info: {
+          txt: '',
           label: 'Get my stuff together',
           todos: [
             { txt: 'Driving liscence', doneAt: null, id: utilService.makeId() },
@@ -50,6 +52,7 @@ function _initNotes() {
         isPinned: false,
         info: {
           title: 'cool video',
+          txt: '',
           url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
         },
       },
@@ -59,7 +62,24 @@ function _initNotes() {
 }
 
 function query(criteria) {
+  if (criteria && criteria.txt) {
+    let { txt } = criteria;
+    txt = txt.toLowerCase();
+    const notesToShow = _getNotesToShow(txt);
+    return new Promise((resolve) => setTimeout(resolve, 200, notesToShow));
+  }
   return new Promise((resolve) => setTimeout(resolve, 200, gNotes));
+}
+
+function _getNotesToShow(txt) {
+  return gNotes.filter(note =>
+  ((note.info.txt && note.info.txt.toLowerCase().includes(txt)) ||
+    (note.info.title && note.info.title.toLowerCase().includes(txt)) ||
+    (note.info.todos && note.info.todos.length) && isTodoContains(txt, note)))
+}
+
+function isTodoContains(txt, note) {
+  return note.info.todos.some(todo => todo.txt.toLowerCase().includes(txt));
 }
 
 function isContainsPinnedNotes() {
@@ -77,8 +97,6 @@ function createTodo(todoTxt) {
 function toggleTodo(noteId, todoId) {
   const currNoteIdx = gNotes.findIndex(note => note.id === noteId)
   const currTodoIdx = gNotes[currNoteIdx].info.todos.findIndex(todo => todo.id === todoId);
-  console.log(gNotes[currNoteIdx]);
-  console.log(gNotes[currNoteIdx].info.todos[currTodoIdx]);
   gNotes[currNoteIdx].info.todos[currTodoIdx];
   gNotes[currNoteIdx].info.todos[currTodoIdx].doneAt = gNotes[currNoteIdx].info.todos[currTodoIdx].doneAt ? null : Date.now();
   return Promise.resolve(gNotes[currNoteIdx]);
@@ -111,6 +129,11 @@ function addNote(userNote) {
   gNotes.unshift(userNote);
   _saveNotesToStorage(gNotes);
   return Promise.resolve(gNotes);
+}
+
+
+function getNoteById(id) {
+  return Promise.resolve(gNotes.find(note => note.id === id));
 }
 
 function _saveNotesToStorage(notes) {

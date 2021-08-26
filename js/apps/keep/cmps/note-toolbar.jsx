@@ -1,4 +1,5 @@
-export class NoteToolbar extends React.Component {
+const { withRouter } = ReactRouterDOM
+class _NoteToolbar extends React.Component {
   state = {
     isColorShown: false,
   };
@@ -22,18 +23,24 @@ export class NoteToolbar extends React.Component {
     }
   }
 
+  onEditNote = () => {
+    this.props.history.push(`/keep/${this.props.note.id}`)
+  }
+
   render() {
     const { isColorShown } = this.state;
     const { type } = this.props;
     return (
       <React.Fragment>
         <div className="note-toolbar flex" style={this.style}>
-          <img onClick={this.onOpenColors} src="../../../../assets/svg/pallete.svg" />
-          <img onClick={() => this.onToolClicked('note-img')} src="../../../../assets/svg/image.svg" />
-          <img onClick={() => this.onToolClicked('note-video')} src="../../../../assets/svg/video.svg" />
-          <img onClick={() => this.onToolClicked('note-todos')} src="../../../../assets/svg/todos.svg" />
-          {type === 'existed-note' && <img onClick={() => this.props.onDuplicateNote(this.props.note)} src="../../../../assets/svg/duplicate.svg" />}
-          {type === 'existed-note' && <img onClick={() => this.props.onRemoveNote(this.props.note.id)} src="../../../../assets/svg/delete.svg" />}
+          <img title="Change color" onClick={this.onOpenColors} src="../../../../assets/svg/pallete.svg" />
+          {type === 'new-note' && <img title="Add text" onClick={() => this.onToolClicked('note-txt')} src="../../../../assets/svg/text.svg" />}
+          {type === 'new-note' && <img title="Add image" onClick={() => this.onToolClicked('note-img')} src="../../../../assets/svg/image.svg" />}
+          {type === 'new-note' && <img title="Add video" onClick={() => this.onToolClicked('note-video')} src="../../../../assets/svg/video.svg" />}
+          {type === 'new-note' && <img title="Add todos" onClick={() => this.onToolClicked('note-todos')} src="../../../../assets/svg/todos.svg" />}
+          {type === 'existed-note' && <img title="Edit note" onClick={this.onEditNote} src="../../../../assets/svg/edit.svg" />}
+          {type === 'existed-note' && <img title="Duplicate note" onClick={() => this.props.onDuplicateNote(this.props.note)} src="../../../../assets/svg/duplicate.svg" />}
+          {type === 'existed-note' && <img title="Delete note" onClick={() => this.props.onRemoveNote(this.props.note.id)} src="../../../../assets/svg/delete.svg" />}
         </div>
         <div className={'colors' + (isColorShown ? ' shown' : '')}>
           <div className="color white" onClick={() => this.onColorClicked('#fff')}></div>
@@ -45,7 +52,7 @@ export class NoteToolbar extends React.Component {
           <div className="color lightblue" onClick={() => this.onColorClicked('#cbf0f8')}></div>
           <div className="color blue" onClick={() => this.onColorClicked('#aecbfa')}></div>
         </div>
-        <img className="note-pin" style={this.style} src={this.props.note.isPinned ? "../../../../assets/svg/pinned.svg" : "../../../../assets/svg/pin.svg"} onClick={() => this.props.onPinNote(this.props.note)} />
+        <img className="note-pin" title="Pin note" style={this.style} src={this.props.note.isPinned ? "../../../../assets/svg/pinned.svg" : "../../../../assets/svg/pin.svg"} onClick={() => this.props.onPinNote(this.props.note)} />
 
 
       </React.Fragment>
@@ -53,3 +60,4 @@ export class NoteToolbar extends React.Component {
   }
 }
 
+export const NoteToolbar = withRouter(_NoteToolbar);

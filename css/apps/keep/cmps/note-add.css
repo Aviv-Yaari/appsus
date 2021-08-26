@@ -8,24 +8,44 @@
     gap: 20px;
     position: relative;
     margin-bottom: 50px;
+    background-color: #fff;
+}
+
+.note-edit.note-edit {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    z-index: 2;
+}
+
+.screen {
+    position: fixed;
+    inset: 0;
+    background-color: #202124;
+    opacity: 0.2;
+    z-index: 1;
+}
+
+.note-add [name="title"] {
+    font-size: 1.15em;
 }
 
 .note-add input {
     border: none;
     outline: none;
     font-size: 1em;
+    background-color: inherit;
 }
 
-.note-add .note-btn-close, .note-add .note-btn-add {
+.note-add .note-btn-close, .note-add .note-btn-add, .note-btn-save {
     position: absolute;
-    right: 10px;
-    bottom: 10px;
     background-color: inherit;
     padding: 8px 18px;
     font-size: 0.9em;
 }
 
-.note-add .note-btn-close:hover, .note-add .note-btn-add:hover {
+.note-add .note-btn-close:hover, .note-add .note-btn-add:hover, .note-btn-save:hover {
     background-color: rgba(95, 99, 104, 0.039);
 }
 
@@ -35,7 +55,7 @@
     bottom: 10px;
 }
 
-.note-add .note-btn-add {
+.note-add .note-btn-add, .note-btn-save {
     position: absolute;
     right: 90px;
     bottom: 10px;
@@ -43,4 +63,18 @@
 
 .note-add .note-btn-close:hover {
     background-color: rgba(95, 99, 104, 0.039);
+}
+
+.note-add .todo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo img, .add-todo-img {
+    cursor: pointer;
+}
+
+.add-todo-img {
+    width: 24px;
 }

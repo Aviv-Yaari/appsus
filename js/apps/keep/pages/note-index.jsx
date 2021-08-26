@@ -3,19 +3,39 @@ import { LoadingSpinner } from '../../../cmps/loading-spinner.jsx';
 import { NotePanel } from '../cmps/note-panel.jsx';
 import { NoteList } from '../cmps/note-list.jsx';
 import { NoteAdd } from '../cmps/note-add.jsx';
+import { eventBusService } from '../../../services/event-bus.service.js';
 
 export class NoteIndex extends React.Component {
-  state = { notes: null };
+  state = {
+    notes: null,
+    criteria: { txt: '' }
+  };
 
   componentDidMount() {
     this.loadNotes();
+    this.removeEventBus = eventBusService.on('search', (data) => this.onSetCriteria({ txt: data }));
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.criteria.txt !== this.state.criteria.txt) {
+      this.onSetCriteria({ txt: this.state.criteria.txt });
+    }
+  }
+
+  componentWillUnmount() {
+    this.removeEventBus();
   }
 
   loadNotes = () => {
-    notesService.query().then((notes) => this.setState({ notes }));
+    notesService.query(this.state.criteria).then((notes) => this.setState({ notes }));
   };
 
-  onPreviewClick = () => {};
+  onSetCriteria = (newCriteria) => {
+    this.setState(
+      (prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria } }),
+      this.loadNotes
+    );
+  };
 
   onAdd = (note) => {
     notesService.addNote(note).then(() => {
@@ -33,7 +53,7 @@ export class NoteIndex extends React.Component {
         </aside>
         <section className="note-container flex column">
           <NoteAdd onAdd={this.onAdd} />
-          <NoteList notes={notes} onPreviewClick={this.onPreviewClick} />
+          <NoteList notes={notes}/>
         </section>
       </section>
     );
