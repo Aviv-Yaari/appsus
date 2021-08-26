@@ -73,6 +73,10 @@ export class EmailIndex extends React.Component {
     emailService.trashEmail(email.id).then(this.loadEmails);
   };
 
+  onFullScreen = (id) => {
+    this.props.history.push(`email/${id}`);
+  };
+
   render() {
     const { emails, criteria, isComposing, sortType } = this.state;
     if (!emails) return <LoadingSpinner />;
@@ -95,6 +99,7 @@ export class EmailIndex extends React.Component {
             onPreviewClick={this.onPreviewClick}
             onValueToggle={this.onValueToggle}
             onTrash={this.onTrashEmail}
+            onFullScreen={this.onFullScreen}
           />
         </section>
         {isComposing && (

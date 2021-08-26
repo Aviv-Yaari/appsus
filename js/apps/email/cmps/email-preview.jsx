@@ -1,6 +1,6 @@
 import { utilService } from '../../../services/util.service.js';
+import { EmailPreviewExpanded } from './email-preview-expanded.jsx';
 
-const { Link } = ReactRouterDOM;
 export class EmailPreview extends React.Component {
   state = {
     isExpanded: false,
@@ -13,7 +13,7 @@ export class EmailPreview extends React.Component {
 
   render() {
     const { isExpanded } = this.state;
-    const { email, onValueToggle, onTrash } = this.props;
+    const { email, onValueToggle, onTrash, onFullScreen } = this.props;
     return (
       <div
         onClick={this.onPreviewClick}
@@ -34,15 +34,10 @@ export class EmailPreview extends React.Component {
               src={'assets/img/' + (email.isRead ? 'unread' : 'read') + '.png'}
               onClick={(ev) => onValueToggle(ev, email, 'isRead')}
             />
+            <img src="assets/svg/fullscreen.svg" onClick={() => onFullScreen(email.id)} />
           </div>
         </section>
-        {isExpanded && (
-          <div className="email-preview-expanded">
-            <Link to={`/email/${email.id}`}>Full Page</Link>
-            <h2>{email.subject}</h2>
-            {utilService.formatDate(email.sentAt)}
-          </div>
-        )}
+        {isExpanded && <EmailPreviewExpanded email={email} />}
       </div>
     );
   }
