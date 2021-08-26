@@ -1,6 +1,6 @@
 import { utilService } from '../../../services/util.service.js';
 import { storageService } from '../../../services/storage.service.js';
-export const notesService = { query, addNote, updateNote, toggleTodo, isContainsPinnedNotes };
+export const notesService = { query, addNote, updateNote, toggleTodo, isContainsPinnedNotes, duplicateNote, removeNote, createTodo };
 
 let gNotes = _initNotes();
 
@@ -66,6 +66,14 @@ function isContainsPinnedNotes() {
   return gNotes.some(note => note.isPinned);
 }
 
+function createTodo(todoTxt) {
+  return {
+    txt: todoTxt,
+    doneAt: null,
+    id: utilService.makeId()
+  }
+}
+
 function toggleTodo(noteId, todoId) {
   const currNoteIdx = gNotes.findIndex(note => note.id === noteId)
   const currTodoIdx = gNotes[currNoteIdx].info.todos.findIndex(todo => todo.id === todoId);
@@ -74,6 +82,21 @@ function toggleTodo(noteId, todoId) {
   gNotes[currNoteIdx].info.todos[currTodoIdx];
   gNotes[currNoteIdx].info.todos[currTodoIdx].doneAt = gNotes[currNoteIdx].info.todos[currTodoIdx].doneAt ? null : Date.now();
   return Promise.resolve(gNotes[currNoteIdx]);
+}
+
+function removeNote(id) {
+  const noteIdx = gNotes.findIndex(note => note.id === id);
+  gNotes.splice(noteIdx, 1);
+  _saveNotesToStorage(gNotes);
+  return Promise.resolve(gNotes);
+}
+
+function duplicateNote(note) {
+  const clone = JSON.parse(JSON.stringify(note));
+  clone.id = utilService.makeId();
+  gNotes.unshift(clone);
+  _saveNotesToStorage(gNotes);
+  return Promise.resolve(gNotes);
 }
 
 function updateNote(userNote) {

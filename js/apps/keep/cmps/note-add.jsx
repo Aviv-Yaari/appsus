@@ -1,3 +1,4 @@
+import { notesService } from '../services/note.service.js';
 import { NoteToolbar } from './note-toolbar.jsx';
 
 export class NoteAdd extends React.Component {
@@ -9,6 +10,8 @@ export class NoteAdd extends React.Component {
       info: { txt: '', title: '' },
       style: { backgroundColor: '#fff' },
     },
+    extraInputsCount: 0,
+    todosValues: ['']
   };
 
   onExpand = (isExpanded) => {
@@ -18,20 +21,30 @@ export class NoteAdd extends React.Component {
   handleChange = ({ target }) => {
     const field = target.name;
     const value = target.value;
-    // const { type: noteType } = this.state.note.type;
-    // const newInfo = {};
-    // if (noteType === 'note-txt') newInfo.txt = value;
-    // else if (noteType === 'note-img')
+    if (this.state.note.type === 'note-todos') {
+      const todoIdx = field.substring(field.indexOf('s') + 1);
+      const newTodosValues = [...this.state.todosValues];
+      newTodosValues[todoIdx] = value;
+      this.setState({ todosValues: newTodosValues });
+      if (field === 'title') {
+        this.setState((prevState) => ({ note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } } }));
+      }
+      return;
+    }
     this.setState((prevState) => ({ note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } } }));
   };
 
   onUpdateType = (type) => {
     this.setState(prevState => ({ note: { ...prevState.note, type } }))
+    this.setState({ extraInputsCount: 0 })
   }
 
   onAddClick = () => {
     const { note } = this.state;
     const { onAdd } = this.props;
+    if (note.type === 'note-todos') {
+      note.info.todos = this.state.todosValues.map(todoValue => notesService.createTodo(todoValue));
+    }
     onAdd(note);
     this.setState({
       note: {
@@ -64,13 +77,18 @@ export class NoteAdd extends React.Component {
         name: 'url',
         placeholder: 'Add video url...'
       }
-    } else if (note.type === 'note-todo') {
+    } else if (note.type === 'note-todos') {
       return {
-        value: note.info.todos,
-        name: 'todos',
-        placeholder: 'Add todos, sepreate them by comma...'
+        value: this.state.todosValues[0],
+        name: 'todos0',
+        placeholder: 'Add todo...'
       }
     }
+  }
+
+  onAddTodo = () => {
+    this.setState(prevState => ({ extraInputsCount: prevState.extraInputsCount + 1 }))
+    this.setState(prevState => ({ todosValues: [...prevState.todosValues, ''] }))
   }
 
   onPinNote = () => {
@@ -79,7 +97,8 @@ export class NoteAdd extends React.Component {
 
 
   render() {
-    const { isExpanded, note } = this.state;
+    const { isExpanded, note, extraInputsCount, todosValues } = this.state;
+    console.log(todosValues);
     const inputValues = this.getInputValues();
     return (
       <div className="note-add flex column">
@@ -92,6 +111,17 @@ export class NoteAdd extends React.Component {
           value={inputValues.value || ''}
           onChange={this.handleChange}
         />
+        {isExpanded && new Array(extraInputsCount).fill(0).map((val, idx) => (
+          <input
+            key={idx}
+            name={'todos' + (idx + 1)}
+            type="text"
+            placeholder="Add todo..."
+            value={todosValues[idx + 1]}
+            onChange={this.handleChange}
+          />
+        ))}
+        {note.type === 'note-todos' && <button onClick={this.onAddTodo}>add-todo</button>}
         {isExpanded && <NoteToolbar note={note} type="new-note" onUpdateType={this.onUpdateType} onPinNote={this.onPinNote} />}
         {isExpanded && (
           <button className="note-btn-add" onClick={this.onAddClick}>

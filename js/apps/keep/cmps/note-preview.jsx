@@ -18,8 +18,9 @@ export class NotePreview extends React.Component {
       this.setState({ note: updatedNote })
     );
   }
- 
+
   render() {
+
     const { note } = this.state;
     const DynamicCmp = (props) => {
       const cmpMap = {
@@ -32,7 +33,13 @@ export class NotePreview extends React.Component {
     };
     return (
       <React.Fragment>
-        <DynamicCmp note={note} onChangeColor={this.onChangeColor} onCheckTodo={this.onCheckTodo} onPinNote={this.props.onPinNote} />
+        <DynamicCmp
+          note={note}
+          onChangeColor={this.onChangeColor}
+          onCheckTodo={this.onCheckTodo}
+          onPinNote={this.props.onPinNote}
+          onDuplicateNote={this.props.onDuplicateNote}
+          onRemoveNote={this.props.onRemoveNote} />
       </React.Fragment>
     );
   }

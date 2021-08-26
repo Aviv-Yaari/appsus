@@ -24,6 +24,7 @@ export class NoteToolbar extends React.Component {
 
   render() {
     const { isColorShown } = this.state;
+    const { type } = this.props;
     return (
       <React.Fragment>
         <div className="note-toolbar flex" style={this.style}>
@@ -31,6 +32,8 @@ export class NoteToolbar extends React.Component {
           <img onClick={() => this.onToolClicked('note-img')} src="../../../../assets/svg/image.svg" />
           <img onClick={() => this.onToolClicked('note-video')} src="../../../../assets/svg/video.svg" />
           <img onClick={() => this.onToolClicked('note-todos')} src="../../../../assets/svg/todos.svg" />
+          {type === 'existed-note' && <img onClick={() => this.props.onDuplicateNote(this.props.note)} src="../../../../assets/svg/duplicate.svg" />}
+          {type === 'existed-note' && <img onClick={() => this.props.onRemoveNote(this.props.note.id)} src="../../../../assets/svg/delete.svg" />}
         </div>
         <div className={'colors' + (isColorShown ? ' shown' : '')}>
           <div className="color white" onClick={() => this.onColorClicked('#fff')}></div>
