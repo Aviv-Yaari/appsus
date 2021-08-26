@@ -5,7 +5,6 @@ export class EmailPreview extends React.Component {
   state = {
     isExpanded: false,
   };
-  assetsSrc = '../../../../assets/';
 
   onPreviewClick = () => {
     this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
@@ -24,16 +23,14 @@ export class EmailPreview extends React.Component {
             <img
               className="email-star"
               onClick={(ev) => onValueToggle(ev, email, 'isStarred')}
-              src={
-                this.assetsSrc + 'svg/star-' + (email.isStarred ? 'active' : 'disabled') + '.svg'
-              }
+              src={'assets/svg/star-' + (email.isStarred ? 'active' : 'disabled') + '.svg'}
             />
             <span className="email-subject">{email.subject}</span>
           </div>
           <div className="email-actions flex">
-            <img src={this.assetsSrc + 'img/trash.png'} onClick={(ev) => onTrash(ev, email)} />
+            <img src={'assets/img/trash.png'} onClick={(ev) => onTrash(ev, email)} />
             <img
-              src={this.assetsSrc + 'img/' + (email.isRead ? 'unread' : 'read') + '.png'}
+              src={'assets/img/' + (email.isRead ? 'unread' : 'read') + '.png'}
               onClick={(ev) => onValueToggle(ev, email, 'isRead')}
             />
           </div>

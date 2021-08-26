@@ -1,4 +1,3 @@
-// import ff from ''
 export class EmailCompose extends React.Component {
   state = {
     email: {
@@ -21,7 +20,7 @@ export class EmailCompose extends React.Component {
         <div className="compose-title flex align-center">
           {subject || 'New Message'}
           <button className="compose-btn-close" onClick={onClose}>
-            <img src="../../../../assets/svg/close.svg" />
+            <img src="assets/svg/close.svg" />
           </button>
         </div>
         <div className="compose-to flex align-center">

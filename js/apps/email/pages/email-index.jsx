@@ -1,3 +1,6 @@
+// TODO -- ADD FILTER COMPONENT ON TOP OF EMAILS LIST AND PUT THE STARRED, READ, UNREAD FILTERS THERE. WILL SOLVE ISSUES
+// TODO BONUS -- AFTER UPDATES - INSTEAD OF CALLING THIS.LOADEMAILS EVERY TIME, CALL FINDINSTATEANDUPDATE (TO MINIMIZE SERVER CALLS)
+
 import { LoadingSpinner } from '../../../cmps/loading-spinner.jsx';
 import { EmailCompose } from '../cmps/email-compose.jsx';
 import { EmailFolderList } from '../cmps/email-folder-list.jsx';
@@ -11,7 +14,6 @@ export class EmailIndex extends React.Component {
     criteria: { txt: '', status: 'inbox' },
     isComposing: false,
   };
-
   componentDidMount() {
     this.loadEmails(this.state.criteria);
     this.removeEventBus = eventBusService.on('search', (data) => this.onSetCriteria({ txt: data }));
