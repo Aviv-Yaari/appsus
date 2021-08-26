@@ -43,7 +43,7 @@ class _NotePreview extends React.Component {
         break;
       case 'note-todos':
         const todosTxts = note.info.todos.map((todo) => todo.txt);
-        body = 'Todos: ' + todosTxts.join(', ') + '.';
+        body = 'Todos: \n• ' + todosTxts.join('\n• ');
         break;
       default:
         body = 'no body';
