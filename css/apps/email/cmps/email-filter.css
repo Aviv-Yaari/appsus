@@ -1,5 +1,5 @@
 .email-filter {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .email-filter select, .email-filter button {
@@ -10,6 +10,7 @@
     outline: none;
     margin-inline-end: 10px;
     border-radius: 0.25em;
+    margin-bottom: 10px;
 }
 
 .email-filter select:hover, .email-filter button:hover {

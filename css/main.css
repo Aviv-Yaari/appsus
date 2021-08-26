@@ -34,15 +34,46 @@
 }
 
 .left-panel, .logo {
-    min-width: 255px;
-    padding-left: 20px;
+    min-width: 80px;
+    padding-left: 10px;
 }
 
 .btn-apps, .note-app, .email-app, .app-header .apps-menu {
-    margin-right: 30px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .note-app, .email-app {
     width: 100%;
     margin-top: 20px;
+}
+
+/* General email-app settings */
+
+.email-app, .note-app {
+    flex-direction: column;
+}
+
+.email-app {
+    font-size: 0.9em;
+}
+
+@media (min-width: 740px) {
+    .email-app {
+        font-size: 1em;
+    }
+    .btn-apps, .note-app, .email-app, .app-header .apps-menu {
+        margin-right: 30px;
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 1000px) {
+    .left-panel, .logo {
+        min-width: 255px;
+        padding-left: 20px;
+    }
+    .email-app, .note-app {
+        flex-direction: row;
+    }
 }

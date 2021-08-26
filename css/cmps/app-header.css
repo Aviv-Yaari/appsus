@@ -50,6 +50,7 @@
     border: 1px solid rgb(224, 224, 224);
     border-radius: 10px;
     gap: 30px;
+    flex-direction: column;
 }
 
 .app-header .apps-menu>* {
@@ -62,4 +63,10 @@
 
 .app-header .apps-menu>*:hover, .app-header .apps-menu>*.active {
     background-color: #f8f8f8;
+}
+
+@media (min-width: 740px) {
+    .app-header .apps-menu {
+        flex-direction: row;
+    }
 }

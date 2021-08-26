@@ -72,6 +72,7 @@
 }
 
 .email-preview .email-date {
+    text-align: right;
     padding: 0.8em;
     display: inline-block;
 }
