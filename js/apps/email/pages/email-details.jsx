@@ -57,7 +57,7 @@ class _EmailDetails extends React.Component {
           </div>
         </section>
         <h2 className="email-details-subject">
-          <LongTxt text={subject} length={100} />
+          <LongTxt text={subject || 'no subject'} length={100} />
         </h2>
         <section className="email-details-header">
           {(status === 'inbox' || status === 'trash') && <div>From: {from}</div>}

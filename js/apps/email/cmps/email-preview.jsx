@@ -25,7 +25,9 @@ export class EmailPreview extends React.Component {
               onClick={(ev) => onValueToggle(ev, email, 'isStarred')}
               src={'assets/svg/star-' + (email.isStarred ? 'active' : 'disabled') + '.svg'}
             />
-            <span className="email-subject">{utilService.trimText(email.subject, 100)}</span>
+            <span className="email-subject">
+              {utilService.trimText(email.subject, 100) || 'no subject'}
+            </span>
           </div>
           <div className="email-date">{utilService.formatDate(email.sentAt)}</div>
           <div className="email-actions flex">
