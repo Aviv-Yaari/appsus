@@ -8,17 +8,26 @@ import { EmailList } from '../cmps/email-list.jsx';
 import { emailService } from '../services/email.service.js';
 import { eventBusService } from '../../../services/event-bus.service.js';
 import { EmailFilter } from '../cmps/email-filter.jsx';
+import { EmailDetails } from './email-details.jsx';
+const { Route } = ReactRouterDOM;
 
 export class EmailIndex extends React.Component {
   state = {
     emails: null,
-    criteria: { txt: '', status: 'inbox' },
+    criteria: { txt: '', status: this.props.match.params.status },
     sortType: { field: 'sentAt', type: 1 }, // type 1 - descending , type -1 - ascending
     isComposing: false,
   };
+
   componentDidMount() {
     this.loadEmails();
     this.removeEventBus = eventBusService.on('search', (data) => this.onSetCriteria({ txt: data }));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.status !== this.props.match.params.status) {
+      this.onSetCriteria({ status: this.props.match.params.status });
+    }
   }
 
   componentWillUnmount() {
@@ -74,11 +83,12 @@ export class EmailIndex extends React.Component {
   };
 
   onFullScreen = (id) => {
-    this.props.history.push(`email/${id}`);
+    this.props.history.push(this.props.location.pathname + '/' + id);
   };
 
   render() {
     const { emails, criteria, isComposing, sortType } = this.state;
+    const { params } = this.props.match;
     if (!emails) return <LoadingSpinner />;
     // if (!emails.length) return <div>No emails</div>;
     return (
@@ -87,21 +97,29 @@ export class EmailIndex extends React.Component {
           <button
             className="btn-compose flex justify-center align-center"
             onClick={() => this.onComposeToggle(true)}>
-            <img src="../../../../assets/img/plus.png" />
+            <img src="assets/img/plus.png" />
             Compose
           </button>
-          <EmailFolderList criteria={criteria} onSetCriteria={this.onSetCriteria} />
+          <EmailFolderList />
         </aside>
-        <section className="email-container flex column">
-          <EmailFilter onFilter={this.onSetCriteria} onSort={this.onSetSort} sortType={sortType} />
-          <EmailList
-            emails={emails}
-            onPreviewClick={this.onPreviewClick}
-            onValueToggle={this.onValueToggle}
-            onTrash={this.onTrashEmail}
-            onFullScreen={this.onFullScreen}
-          />
-        </section>
+        {params.emailId && <EmailDetails id={params.emailId} />}
+
+        {!params.emailId && (
+          <section className="email-container flex column">
+            <EmailFilter
+              onFilter={this.onSetCriteria}
+              onSort={this.onSetSort}
+              sortType={sortType}
+            />
+            <EmailList
+              emails={emails}
+              onPreviewClick={this.onPreviewClick}
+              onValueToggle={this.onValueToggle}
+              onTrash={this.onTrashEmail}
+              onFullScreen={this.onFullScreen}
+            />
+          </section>
+        )}
         {isComposing && (
           <EmailCompose onSend={this.onSendEmail} onClose={() => this.onComposeToggle(false)} />
         )}

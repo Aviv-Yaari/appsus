@@ -1,29 +1,19 @@
 import { emailService } from '../services/email.service.js';
 
-export const EmailFolderList = ({ criteria, onSetCriteria }) => {
-  const checkIsCriteria = (folderName) => {
-    return folderName === criteria.status ? 'marked' : '';
-  };
-  // Todo - move the getNumUnread and get num of drafts to the email-index state. to minimize calls to the server
+const { NavLink } = ReactRouterDOM;
+
+export const EmailFolderList = () => {
   return (
     <section className="email-folder-list flex column">
-      <div
-        className={checkIsCriteria(undefined)}
-        onClick={() => onSetCriteria({ status: undefined })}>
-        All
-      </div>
-      <div className={checkIsCriteria('inbox')} onClick={() => onSetCriteria({ status: 'inbox' })}>
+      <NavLink to={'/emails/all'}>All</NavLink>
+      <NavLink to={'/emails/inbox'}>
         Inbox <span>{emailService.getNumUnread('inbox') || ''}</span>
-      </div>
-      <div className={checkIsCriteria('sent')} onClick={() => onSetCriteria({ status: 'sent' })}>
-        Sent
-      </div>
-      <div className={checkIsCriteria('trash')} onClick={() => onSetCriteria({ status: 'trash' })}>
-        Trash
-      </div>
-      <div className={checkIsCriteria('draft')} onClick={() => onSetCriteria({ status: 'draft' })}>
+      </NavLink>
+      <NavLink to={'/emails/sent'}>Sent</NavLink>
+      <NavLink to={'/emails/draft'}>
         Drafts <span>{emailService.getEmailsByStatus('draft').length || ''}</span>
-      </div>
+      </NavLink>
+      <NavLink to={'/emails/trash'}>Trash</NavLink>
     </section>
   );
 };

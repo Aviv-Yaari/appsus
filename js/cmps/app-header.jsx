@@ -32,7 +32,7 @@ class _AppHeader extends React.Component {
         />
         <nav>
           <NavLink to="/keep">Keep</NavLink>
-          <NavLink to="/email">Mail</NavLink>
+          <NavLink to="/emails/inbox">Mail</NavLink>
           <NavLink to="/book">Books</NavLink>
           <NavLink to="/about">About</NavLink>
         </nav>

@@ -18,8 +18,9 @@ export function App() {
         </header>
         <main className="app-main">
           <Switch>
-            <Route path="/email/:emailId" component={EmailDetails} />
-            <Route path="/email" component={EmailIndex} />
+            <Route path="/emails/:status/:emailId" component={EmailIndex} />
+            <Route path="/emails/:status" component={EmailIndex} />
+            <Route path="/emails" component={EmailIndex} />
             <Route path="/keep" component={NoteIndex} />
             <Route path="/book" component={BookIndex} />
             <Route path="/about" component={AppAbout} />

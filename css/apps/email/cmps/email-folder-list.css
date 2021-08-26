@@ -5,12 +5,14 @@
     border-radius: 0 16px 16px 0;
     display: flex;
     justify-content: space-between;
+    text-decoration: none;
+    color: #202124;
 }
 
 .email-folder-list>*:hover {
     background-color: #F1F3F4;
 }
 
-.email-folder-list .marked {
+.email-folder-list .active {
     background-color: #fce8e6;
 }

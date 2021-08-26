@@ -27,7 +27,7 @@ function _initEmails() {
 
 function query(criteria, sort) {
   const mails = gEmails.filter((mail) => {
-    const statusCond = criteria.status === undefined || mail.status === criteria.status;
+    const statusCond = criteria.status === 'all' || mail.status === criteria.status;
     const starredCond = criteria.isStarred === undefined || mail.isStarred === criteria.isStarred;
     const txtCond =
       !criteria.txt || mail.subject.toLowerCase().includes(criteria.txt.toLowerCase());
