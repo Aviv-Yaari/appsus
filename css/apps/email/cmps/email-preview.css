@@ -77,23 +77,8 @@
     display: inline-block;
 }
 
-.email-preview-expanded {
-    animation: scale-up-ver-top 0.2s cubic-bezier(0.1, 0.575, 0.565, 1.000) both;
-}
-
 @media (min-width: 740px) {
     .email-preview-expanded {
         padding: 20px 100px;
-    }
-}
-
-@keyframes scale-up-ver-top {
-    0% {
-        transform: scaleY(0.4);
-        transform-origin: 100% 0%;
-    }
-    100% {
-        transform: scaleY(1);
-        transform-origin: 100% 0%;
     }
 }
