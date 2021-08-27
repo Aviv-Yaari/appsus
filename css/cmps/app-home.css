@@ -16,11 +16,47 @@ html {
     height: 100vh;
 }
 
-.hero a {
+.hero-txt {
     position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
+    top: 30%;
+    transform: translate(0, -30%);
+    padding: 20px;
+    color: #282828;
+    border-radius: 10px;
+    font-size: 2rem;
+    text-align: left;
+    width: 415px;
+}
+
+.hero h1 {
+    margin-bottom: 15px;
+    margin-left: 15px;
+    animation: fadein 3s;
+}
+
+.hero a {
+    text-decoration: none;
+    font-size: 1.5rem;
+    padding: 5px 30px;
+    border-radius: 20px;
+    transition: background-color .5s, padding .4s;
+    font-weight: bold;
+    background-color: #E81A30;
+    color: #fff;
+    margin-left: 15px;
+    position: relative;
+}
+
+.hero a:hover {
+    background-color: #BB001B;
+    padding-right: 50px;
+}
+
+.hero a:hover::after {
+    content: '\2192';
+    position: absolute;
+    right: 10px;
+    top: 2px;
 }
 
 .app-home .container {
@@ -45,15 +81,24 @@ html {
 
 @keyframes change-bg {
     0% {
-        background-image: url('../../assets/img/hero4.jpg');
+        background-image: url('../../assets/img/hero5.jpg');
     }
     33% {
-        background-image: url('../../assets/img/hero2.jpg');
+        background-image: url('../../assets/img/hero7.jpg');
     }
     66% {
         background-image: url('../../assets/img/hero3.jpg');
     }
     100% {
-        background-image: url('../../assets/img/hero4.jpg');
+        background-image: url('../../assets/img/hero5.jpg');
+    }
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

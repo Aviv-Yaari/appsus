@@ -18,3 +18,8 @@
     font-style: normal;
     font-weight: bold;
 }
+
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('../../assets/fonts/Comfortaa-Light.ttf');
+}

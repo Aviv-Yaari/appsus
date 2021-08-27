@@ -46,13 +46,13 @@ class _AppHeader extends React.Component {
 
   setTransparentHeader = () => {
     this.setState(
-      { style: { backgroundColor: 'rgba(255, 255, 255, 0.582)', borderBottom: 'none', position: 'fixed' } }
+      { style: { backgroundColor: 'transparent', borderBottom: '1px solid transparent', position: 'fixed' } }
     )
   }
 
   setColoredHeader = () => {
     this.setState(
-      { style: { backgroundColor: '#fff', borderBottom: '1px solid #ECEFF1', position: 'fixed' } }
+      { style: { backgroundColor: '#fff', borderBottom: '2px solid #ECEFF1', position: 'fixed' } }
     )
   }
 
@@ -69,7 +69,7 @@ class _AppHeader extends React.Component {
     return (
       <section className="app-header flex align-center" style={style}>
         <Link to="/" className="logo">
-          Appsus
+          <img src="assets/img/logo.png"/>
         </Link>
         <div className="search flex" style={{ visibility: (!currPage || currPage === 'cards') ? 'hidden' : 'visible' }}>
           <img src="assets/svg/search.svg" />
