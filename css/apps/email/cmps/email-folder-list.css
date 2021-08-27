@@ -21,4 +21,6 @@
 
 .email-folder-list .active {
     background-color: #fce8e6;
+    font-weight: bold;
+    color: #d61200;
 }

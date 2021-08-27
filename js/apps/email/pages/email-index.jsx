@@ -1,4 +1,4 @@
-// TODO -- ADD FILTER COMPONENT ON TOP OF EMAILS LIST AND PUT THE STARRED, READ, UNREAD FILTERS THERE. WILL SOLVE ISSUES
+// TODO ADD REPLY BTN
 // TODO BONUS -- AFTER UPDATES - INSTEAD OF CALLING THIS.LOADEMAILS EVERY TIME, CALL FINDINSTATEANDUPDATE (TO MINIMIZE SERVER CALLS)
 
 import { LoadingSpinner } from '../../../cmps/loading-spinner.jsx';
@@ -25,21 +25,29 @@ export class EmailIndex extends React.Component {
   componentDidMount() {
     this.loadEmails();
     this.removeEventBus = eventBusService.on('search', (data) => this.onSetCriteria({ txt: data }));
-    const query = new URLSearchParams(this.props.location.search);
-    this.subject = query.get('subject');
-    this.body = query.get('body');
-    if (this.subject && this.body) this.setState({ isComposing: true });
+    this.loadSearchParams();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.params !== this.props.match.params) {
       this.onSetCriteria({ status: this.props.match.params.status });
     }
+    if (prevProps.location.search && prevProps.location.search !== this.props.location.search) {
+      this.loadSearchParams();
+    }
   }
 
   componentWillUnmount() {
     this.removeEventBus();
   }
+
+  loadSearchParams = () => {
+    const query = new URLSearchParams(this.props.location.search);
+    this.subject = query.get('subject');
+    this.body = query.get('body');
+    this.to = query.get('to');
+    if (this.subject && this.body && this.to) this.setState({ isComposing: true });
+  };
 
   loadEmails = () => {
     const { criteria, sortType } = this.state;
@@ -68,7 +76,10 @@ export class EmailIndex extends React.Component {
   // Compose Actions:
 
   onComposeToggle = (isComposing) => {
-    if (!isComposing) this.loadEmails();
+    if (!isComposing) {
+      this.props.history.push(this.props.match.url);
+      this.loadEmails();
+    }
     this.setState({ isComposing });
   };
 
@@ -110,6 +121,13 @@ export class EmailIndex extends React.Component {
     this.props.history.push(`/keep?title=${email.subject}&txt=${email.body}`);
   };
 
+  onReply = (email, ev) => {
+    ev.stopPropagation();
+    this.props.history.push(
+      `?subject=RE: ${email.subject}&to=${email.from}&body=In reply to your message:\n"${email.body}"\n\n`
+    );
+  };
+
   // Render:
 
   render() {
@@ -128,6 +146,7 @@ export class EmailIndex extends React.Component {
             onTrash={this.onTrashEmail}
             loadEmails={this.loadEmails}
             onExportNote={this.onExportNote}
+            onReply={this.onReply}
           />
         )}
         {!params.emailId && (
@@ -145,6 +164,7 @@ export class EmailIndex extends React.Component {
               onTrash={this.onTrashEmail}
               onFullScreen={this.onFullScreen}
               onExportNote={this.onExportNote}
+              onReply={this.onReply}
             />
           </section>
         )}
@@ -153,6 +173,7 @@ export class EmailIndex extends React.Component {
             onSend={this.onSendEmail}
             onClose={() => this.onComposeToggle(false)}
             subject={this.subject}
+            to={this.to}
             body={this.body}
           />
         )}

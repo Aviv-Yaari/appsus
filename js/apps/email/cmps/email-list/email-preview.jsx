@@ -2,6 +2,7 @@ import { utilService } from '../../../../services/util.service.js';
 import { BtnExportNote } from '../btns/btn-export-note.jsx';
 import { BtnFullscreen } from '../btns/btn-fullscreen.jsx';
 import { BtnRead } from '../btns/btn-read.jsx';
+import { BtnReply } from '../btns/btn-reply.jsx';
 import { BtnStar } from '../btns/btn-star.jsx';
 import { BtnTrash } from '../btns/btn-trash.jsx';
 import { EmailPreviewExpanded } from './email-preview-expanded.jsx';
@@ -18,7 +19,7 @@ export class EmailPreview extends React.Component {
 
   render() {
     const { isExpanded } = this.state;
-    const { email, onValueToggle, onTrash, onFullScreen, onExportNote } = this.props;
+    const { email, onValueToggle, onTrash, onFullScreen, onExportNote, onReply } = this.props;
     return (
       <div
         onClick={this.onPreviewClick}
@@ -32,6 +33,7 @@ export class EmailPreview extends React.Component {
           </div>
           <div className="email-date">{utilService.formatDate(email.sentAt)}</div>
           <div className="email-actions flex">
+            <BtnReply onClick={(ev) => onReply(email, ev)} />
             <BtnTrash onTrash={(ev) => onTrash(ev, email)} />
             <BtnRead email={email} onToggle={(ev) => onValueToggle(ev, email, 'isRead')} />
             <BtnExportNote onExport={(ev) => onExportNote(email, ev)} />
