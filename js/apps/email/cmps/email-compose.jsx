@@ -11,9 +11,9 @@ export class EmailCompose extends React.Component {
 
   componentDidMount() {
     this.interval = setInterval(this.saveDraft, 5000);
-    let { subject, body } = this.props;
-    if (body && subject) {
-      this.setState({ email: { subject, body, to: '' } });
+    let { subject, body, to } = this.props;
+    if (body && subject && to) {
+      this.setState({ email: { subject, body, to } });
     }
   }
 

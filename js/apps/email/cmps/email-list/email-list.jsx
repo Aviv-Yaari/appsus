@@ -7,6 +7,7 @@ export const EmailList = ({
   onValueToggle,
   onFullScreen,
   onExportNote,
+  onReply,
 }) => {
   return (
     <section className="email-list">
@@ -19,6 +20,7 @@ export const EmailList = ({
           onTrash={onTrash}
           onFullScreen={onFullScreen}
           onExportNote={onExportNote}
+          onReply={onReply}
         />
       ))}
     </section>
