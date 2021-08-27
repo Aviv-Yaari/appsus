@@ -54,6 +54,12 @@ class _NotePreview extends React.Component {
     );
   };
 
+  onRemoveLabel = (label) => {
+    notesService.removeLabel(label, this.state.note.id).then(note => {
+      this.setState({ note });
+    })
+  }
+
   render() {
     const { note } = this.state;
     const DynamicCmp = (props) => {
@@ -75,6 +81,7 @@ class _NotePreview extends React.Component {
           onDuplicateNote={this.props.onDuplicateNote}
           onRemoveNote={this.props.onRemoveNote}
           onExportEmail={this.onExportEmail}
+          onRemoveLabel={this.onRemoveLabel}
         />
         <Route path="/keep/:noteId" component={NoteEdit} />
       </React.Fragment>

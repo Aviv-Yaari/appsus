@@ -1,20 +1,59 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .app-home {
     width: 100%;
-    background-image: url('../../assets/img/hero.jpg');
+}
+
+.hero {
+    background-image: url('../../assets/img/hero4.jpg');
     background-size: cover;
+    background-position: center;
     animation-name: change-bg;
     animation-iteration-count: infinite;
-    animation-duration: 15s;
+    animation-duration: 21s;
+    height: 100vh;
+}
+
+.hero a {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+}
+
+.app-home .container {
+    height: 100vh;
+}
+
+.cards-container {
+    width: 100%;
+    height: 800px;
+    background-color: pink;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.card {
+    width: 300px;
+    height: 300px;
+    background-color: #fff;
+    margin-top: 100px;
 }
 
 @keyframes change-bg {
     0% {
-        background-image: url('../../assets/img/hero.jpg');
+        background-image: url('../../assets/img/hero4.jpg');
     }
     33% {
         background-image: url('../../assets/img/hero2.jpg');
     }
     66% {
         background-image: url('../../assets/img/hero3.jpg');
+    }
+    100% {
+        background-image: url('../../assets/img/hero4.jpg');
     }
 }

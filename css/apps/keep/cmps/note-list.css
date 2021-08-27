@@ -1,6 +1,7 @@
 .note-list {
     gap: 20px;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .pin-title, .others-title {
@@ -11,4 +12,10 @@
 
 .others-title {
     margin-top: 80px;
+}
+
+@media (max-width:576px) {
+    .note-list > * {
+        margin: 0 auto;
+    }
 }

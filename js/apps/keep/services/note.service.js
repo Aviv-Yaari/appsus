@@ -1,6 +1,17 @@
 import { utilService } from '../../../services/util.service.js';
 import { storageService } from '../../../services/storage.service.js';
-export const notesService = { query, getNoteById, addNote, updateNote, toggleTodo, isContainsPinnedNotes, duplicateNote, removeNote, createTodo };
+export const notesService = {
+  query,
+  getNoteById,
+  addNote,
+  updateNote,
+  toggleTodo,
+  isContainsPinnedNotes,
+  duplicateNote,
+  removeNote,
+  createTodo,
+  removeLabel
+};
 
 let gNotes = _initNotes();
 
@@ -39,7 +50,7 @@ function _initNotes() {
         isPinned: false,
         info: {
           txt: '',
-          label: 'Get my stuff together',
+          labels: ['Important', 'My stuff'],
           todos: [
             { txt: 'Driving liscence', doneAt: null, id: utilService.makeId() },
             { txt: 'Coding power', doneAt: 187111111, id: utilService.makeId() },
@@ -76,6 +87,14 @@ function _getNotesToShow(txt) {
   ((note.info.txt && note.info.txt.toLowerCase().includes(txt)) ||
     (note.info.title && note.info.title.toLowerCase().includes(txt)) ||
     (note.info.todos && note.info.todos.length) && isTodoContains(txt, note)))
+}
+
+function removeLabel(currLabel, noteId) {
+  const noteIdx = gNotes.findIndex(note => note.id === noteId);
+  const labelIdx = gNotes[noteIdx].info.labels.findIndex(label => label === currLabel)
+  gNotes[noteIdx].info.labels.splice(labelIdx, 1);
+  _saveNotesToStorage(gNotes);
+  return Promise.resolve(gNotes[noteIdx]);
 }
 
 function isTodoContains(txt, note) {

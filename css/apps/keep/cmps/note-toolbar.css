@@ -30,11 +30,27 @@
     background-color: #fff;
     box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
     position: absolute;
-    bottom: 44px;
-    left: 16px;
-    display: none;
+    bottom: 30px;
+    left: 10px;
+    display: flex;
+    visibility: hidden;
     opacity: 0;
-    transition: opacity .5s;
+    transition: opacity .4s;
+}
+
+.note-add .colors {
+    bottom: 40px;
+    left: 16px;
+}
+
+.note-toolbar img:first-child:hover+.colors {
+    visibility: visible;
+    opacity: 1;
+}
+
+.colors:hover {
+    visibility: visible;
+    opacity: 1;
 }
 
 .colors.shown {
@@ -83,4 +99,20 @@
 
 .blue {
     background-color: #aecbfa;
+}
+
+.purple {
+    background-color: #d7aefb;
+}
+
+.pink {
+    background-color: #fdcfe8;
+}
+
+.brown {
+    background-color: #e6c9a8;
+}
+
+.gray {
+    background-color: #e8eaed;
 }

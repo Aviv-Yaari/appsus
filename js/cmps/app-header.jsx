@@ -5,12 +5,55 @@ class _AppHeader extends React.Component {
   state = {
     currPage: this.props.location.pathname.split('/')[1],
     isAppsMenu: false,
+    style: {
+      backgroundColor: '#fff',
+      borderBottom: '1px solid #ECEFF1',
+    }
   };
+
+  handleScroll = (ev) => {
+    const scrollTop = ev.target.documentElement.scrollTop;
+    if (scrollTop > 10) this.setColoredHeader()
+    else this.setTransparentHeader()
+  }
+
+  componentDidMount() {
+    if (this.state.currPage === '' || this.state.currPage === 'cards') {
+      window.addEventListener('scroll', this.handleScroll);
+      this.setTransparentHeader()
+    }
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.setState({ currPage: this.props.location.pathname.split('/')[1], isAppsMenu: false });
     }
+    if (prevState.currPage !== this.state.currPage) {
+      if (this.state.currPage === '' || this.state.currPage === 'cards') {
+        window.addEventListener('scroll', this.handleScroll);
+        this.setTransparentHeader()
+      } else {
+        window.removeEventListener('scroll', this.handleScroll);
+        this.setState({
+          style: {
+            backgroundColor: '#fff',
+            borderBottom: '1px solid #ECEFF1',
+          }
+        })
+      }
+    }
+  }
+
+  setTransparentHeader = () => {
+    this.setState(
+      { style: { backgroundColor: 'rgba(255, 255, 255, 0.582)', borderBottom: 'none', position: 'fixed' } }
+    )
+  }
+
+  setColoredHeader = () => {
+    this.setState(
+      { style: { backgroundColor: '#fff', borderBottom: '1px solid #ECEFF1', position: 'fixed' } }
+    )
   }
 
   handleChange = (ev) => {
@@ -22,13 +65,13 @@ class _AppHeader extends React.Component {
   };
 
   render() {
-    const { currPage, isAppsMenu } = this.state;
+    const { currPage, isAppsMenu, style } = this.state;
     return (
-      <section className="app-header flex align-center">
+      <section className="app-header flex align-center" style={style}>
         <Link to="/" className="logo">
           Appsus
         </Link>
-        <div className="search flex" style={{ visibility: !currPage ? 'hidden' : 'visible' }}>
+        <div className="search flex" style={{ visibility: (!currPage || currPage === 'cards') ? 'hidden' : 'visible' }}>
           <img src="assets/svg/search.svg" />
           <input
             onChange={this.handleChange}

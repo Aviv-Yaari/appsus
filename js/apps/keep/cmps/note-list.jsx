@@ -27,7 +27,7 @@ export class NoteList extends React.Component {
     return (
       <React.Fragment>
         {isPinnedShown && <span className="pin-title">Pinned</span>}
-        {isPinnedShown && <div className="note-list flex align-center">
+        {isPinnedShown && <div className="note-list flex">
           {notes.filter(note => note.isPinned).map((note) => (
             <NotePreview key={note.id} note={note} onPinNote={this.onPinNote} onDuplicateNote={this.onDuplicateNote} onRemoveNote={this.onRemoveNote} />
           ))}

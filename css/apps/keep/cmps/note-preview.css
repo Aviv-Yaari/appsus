@@ -28,7 +28,6 @@
 .note-preview p {
     font-size: 14px;
     color: #202124;
-    margin-bottom: 40px;
 }
 
 .note-preview .note-img, .note-preview .note-video {
@@ -36,13 +35,11 @@
     max-height: 600px;
     display: block;
     margin: 0 auto;
-    margin-bottom: 40px;
     border: none;
 }
 
 .note-preview ul {
     width: 195px;
-    margin-bottom: 40px;
     padding: 8px 10px;
 }
 
@@ -57,4 +54,55 @@
 
 .note-preview li span.checked {
     text-decoration: line-through;
+}
+
+.labels-container {
+    margin-bottom: 40px;
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.labels-container .label {
+    font-size: 11px;
+    background-color: #ebebeb;
+    padding: 6px 10px;
+    min-width: 35px;
+    border-radius: 12px;
+    color: #3c4043;
+    position: relative;
+    cursor: default;
+}
+
+.label div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: nowrap;
+}
+
+.label img {
+    width: 20px;
+    padding: 2px;
+    top: 50%;
+    right: 0px;
+    transform: translate(0, -50%);
+    position: absolute;
+    background-color: inherit;
+    border-radius: 50%;
+    display: none;
+    cursor: pointer;
+}
+
+.label img:hover {
+    background-color: rgba(95,99,104,0.157);
+}
+
+.label:hover img {
+    display: unset;
+}
+
+.label:hover div {
+    width: calc(100% - 8px);
 }
