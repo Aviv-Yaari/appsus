@@ -33,7 +33,7 @@ export class EmailPreview extends React.Component {
           </div>
           <div className="email-date">{utilService.formatDate(email.sentAt)}</div>
           <div className="email-actions flex">
-            <BtnReply onClick={(ev) => onReply(email, ev)} />
+            {email.status === 'inbox' && <BtnReply onClick={(ev) => onReply(email, ev)} />}
             <BtnTrash onTrash={(ev) => onTrash(ev, email)} />
             <BtnRead email={email} onToggle={(ev) => onValueToggle(ev, email, 'isRead')} />
             <BtnExportNote onExport={(ev) => onExportNote(email, ev)} />
