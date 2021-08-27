@@ -1,5 +1,6 @@
 .email-filter {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .email-filter select, .email-filter button {
@@ -10,8 +11,33 @@
     outline: none;
     margin-inline-end: 10px;
     border-radius: 0.25em;
-    margin-bottom: 10px;
 }
+
+.email-filter .filter-pages {
+    margin-left: auto;
+    gap: 20px;
+}
+
+.email-filter .btn {
+    opacity: 70%;
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 1em;
+}
+
+.email-filter .btn.disabled {
+    opacity: 25%;
+    cursor: default;
+}
+
+.email-filter .btn:not(.disabled):hover {
+    background-color: rgba(242, 245, 245, 0.8);
+    opacity: 100%;
+}
+
+/* .email-filter>* {
+    margin-bottom: 10px;
+} */
 
 .email-filter select:hover, .email-filter button:hover {
     cursor: pointer;

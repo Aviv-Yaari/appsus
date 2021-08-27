@@ -1,6 +1,7 @@
 import { utilService } from '../../../services/util.service.js';
 import { storageService } from '../../../services/storage.service.js';
 import { dummyDataService } from '../../../services/dummydata.service.js';
+import { constsService } from '../../../services/consts.service.js';
 export const emailService = {
   query,
   addEmail,
@@ -26,6 +27,8 @@ function _initEmails() {
 }
 
 function query(criteria, sort) {
+  const { EMAILS_PER_PAGE } = constsService;
+  const { page = 0 } = criteria;
   const mails = gEmails.filter((mail) => {
     const statusCond = criteria.status === 'all' || mail.status === criteria.status;
     const starredCond = criteria.isStarred === undefined || mail.isStarred === criteria.isStarred;
@@ -35,7 +38,13 @@ function query(criteria, sort) {
     return statusCond && starredCond && txtCond && readCond;
   });
   if (sort) mails.sort((a, b) => (a[sort.field] < b[sort.field] ? sort.type : sort.type * -1));
-  return new Promise((resolve) => setTimeout(resolve, 200, mails));
+  return new Promise((resolve) =>
+    setTimeout(
+      resolve,
+      200,
+      mails.slice(page * EMAILS_PER_PAGE, page * EMAILS_PER_PAGE + EMAILS_PER_PAGE)
+    )
+  );
 }
 
 function getNumUnread(status) {

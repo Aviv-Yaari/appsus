@@ -9,7 +9,7 @@ export const EmailPreviewExpanded = (props) => {
         {(status === 'sent' || status === 'draft') && <div>To: {to}</div>}
         <div>Sent at: {utilService.formatDate(sentAt)}</div>
       </div>
-      <div>{body}</div>
+      <article style={{ whiteSpace: 'pre-line' }}>{body}</article>
     </section>
   );
 };

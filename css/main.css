@@ -8,7 +8,6 @@
 @import url('cmps/app-header.css');
 @import url('cmps/app-footer.css');
 @import url('cmps/app-home.css');
-@import url('cmps/user-msg.css');
 /* Email App: */
 
 @import url('apps/email/pages/email-index.css');
@@ -57,6 +56,8 @@
 .email-app {
     font-size: 0.9em;
 }
+
+/* Mobile */
 
 @media (min-width: 740px) {
     .email-app {

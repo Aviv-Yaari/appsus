@@ -5,7 +5,7 @@ import { AppAbout } from './js/pages/app-about.jsx';
 import { EmailIndex } from './js/apps/email/pages/email-index.jsx';
 import { BookIndex } from './js/apps/book/pages/book-index.jsx';
 import { NoteIndex } from './js/apps/keep/pages/note-index.jsx';
-import { EmailDetails } from './js/apps/email/pages/email-details.jsx';
+
 const Router = ReactRouterDOM.HashRouter;
 const { Route, Switch } = ReactRouterDOM;
 

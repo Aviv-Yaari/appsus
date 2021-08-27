@@ -15,7 +15,7 @@ const { Route } = ReactRouterDOM;
 export class EmailIndex extends React.Component {
   state = {
     emails: null,
-    criteria: { txt: '', status: this.props.match.params.status },
+    criteria: { txt: '', status: this.props.match.params.status, page: 0 },
     sortType: { field: 'sentAt', type: 1 }, // type = 1: descending , type = -1: ascending
     isComposing: false,
   };
@@ -32,7 +32,7 @@ export class EmailIndex extends React.Component {
     if (prevProps.match.params !== this.props.match.params) {
       this.onSetCriteria({ status: this.props.match.params.status });
     }
-    if (prevProps.location.search && prevProps.location.search !== this.props.location.search) {
+    if (prevProps.location.search !== this.props.location.search) {
       this.loadSearchParams();
     }
   }
@@ -46,7 +46,10 @@ export class EmailIndex extends React.Component {
     this.subject = query.get('subject');
     this.body = query.get('body');
     this.to = query.get('to');
+    let page = +query.get('page') || 0;
+    if (page < 0) page = 0;
     if (this.subject && this.body && this.to) this.setState({ isComposing: true });
+    this.setState((prevState) => ({ criteria: { ...prevState.criteria, page } }));
   };
 
   loadEmails = () => {
@@ -73,11 +76,15 @@ export class EmailIndex extends React.Component {
     }, this.loadEmails);
   };
 
+  onChangePage = (page) => {
+    this.props.history.push(this.props.match.url + '?page=' + page);
+  };
+
   // Compose Actions:
 
   onComposeToggle = (isComposing) => {
     if (!isComposing) {
-      this.props.history.push(this.props.match.url);
+      this.props.history.push(this.props.match.url + '?');
       this.loadEmails();
     }
     this.setState({ isComposing });
@@ -90,6 +97,7 @@ export class EmailIndex extends React.Component {
     } else {
       emailService.addEmail({ ...email, status: 'sent' });
     }
+    eventBusService.emit('user-msg', 'Email sent');
     this.setState({ isComposing: false });
     this.loadEmails();
   };
@@ -131,7 +139,7 @@ export class EmailIndex extends React.Component {
   // Render:
 
   render() {
-    const { emails, criteria, isComposing, sortType } = this.state;
+    const { emails, criteria, isComposing, sortType, currPage } = this.state;
     const { params } = this.props.match;
     if (!emails) return <LoadingSpinner />;
     return (
@@ -154,8 +162,10 @@ export class EmailIndex extends React.Component {
             <EmailFilter
               onFilter={this.onSetCriteria}
               onSort={this.onSetSort}
+              onChangePage={this.onChangePage}
               sortType={sortType}
               criteria={criteria}
+              emailsCount={emails.length}
             />
             <EmailList
               emails={emails}

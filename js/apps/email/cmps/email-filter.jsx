@@ -1,3 +1,7 @@
+import { constsService } from '../../../services/consts.service.js';
+import { BtnNext } from './btns/btn-next.jsx';
+import { BtnPrev } from './btns/btn-prev.jsx';
+
 export class EmailFilter extends React.Component {
   state = {};
 
@@ -21,9 +25,10 @@ export class EmailFilter extends React.Component {
   };
 
   render() {
-    const { onSort, sortType, criteria } = this.props;
+    const { onSort, sortType, criteria, onChangePage, emailsCount } = this.props;
+    const { page } = criteria;
     return (
-      <section className="email-filter">
+      <section className="email-filter flex align-center">
         <select
           onChange={this.onFilter}
           name="isRead"
@@ -46,6 +51,11 @@ export class EmailFilter extends React.Component {
         <button name="subject" onClick={onSort}>
           Subject {this.getSortArrow('subject')}
         </button>
+        <div className="filter-pages flex align-center">
+          <span>Page {page}</span>
+          <BtnPrev onClick={() => onChangePage(page - 1)} page={page} />
+          <BtnNext onClick={() => onChangePage(page + 1)} emailsCount={emailsCount} />
+        </div>
       </section>
     );
   }
