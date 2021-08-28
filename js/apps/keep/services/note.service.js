@@ -30,7 +30,7 @@ function _initNotes() {
           txt: 'What do you call a fish wearing a bowtie? - Sofishticated',
         },
         style: {
-          backgroundColor: '#fff',
+          backgroundColor: '#e8eaed',
         },
       },
       {
@@ -42,7 +42,7 @@ function _initNotes() {
           txt: 'Take out the trash before I leave!',
         },
         style: {
-          backgroundColor: '#fff',
+          backgroundColor: '#e6c9a8',
         },
       },
       {
@@ -67,7 +67,7 @@ function _initNotes() {
           txt: '',
         },
         style: {
-          backgroundColor: '#fff',
+          backgroundColor: '#f28b82',
         },
       },
       {
@@ -91,7 +91,7 @@ function _initNotes() {
         info: {
           title: 'Cool video',
           txt: '',
-          url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
         },
       },
       {
@@ -103,7 +103,7 @@ function _initNotes() {
           txt: 'What did the chinese janitor say when he jumped out of the closet? - Supplies!',
         },
         style: {
-          backgroundColor: '#fff',
+          backgroundColor: '#ccff90',
         },
       },
       {
@@ -131,7 +131,7 @@ function _initNotes() {
           txt: 'Tomorrow - Maccabi Haifa vs Tottenham!',
         },
         style: {
-          backgroundColor: '#fff',
+          backgroundColor: '#aecbfa',
         },
       },
       {
@@ -144,7 +144,7 @@ function _initNotes() {
           txt: '',
         },
         style: {
-          backgroundColor: '#fff',
+          backgroundColor: '#d7aefb',
         },
       },
       {
@@ -172,16 +172,6 @@ function _initNotes() {
             { txt: 'Find a drummer', doneAt: 187111111, id: utilService.makeId() },
             { txt: 'Buy a piano', doneAt: 187101111, id: utilService.makeId() },
           ],
-        },
-      },
-      {
-        id: utilService.makeId(),
-        type: 'note-video',
-        isPinned: false,
-        info: {
-          title: 'Inspiration!',
-          txt: '',
-          url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
         },
       },
     ];
