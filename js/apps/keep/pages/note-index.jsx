@@ -4,11 +4,12 @@ import { NotePanel } from '../cmps/note-panel.jsx';
 import { NoteList } from '../cmps/note-list.jsx';
 import { NoteAdd } from '../cmps/note-add.jsx';
 import { eventBusService } from '../../../services/event-bus.service.js';
+import { NoteEdit } from '../cmps/note-edit.jsx';
 
 export class NoteIndex extends React.Component {
   state = {
     notes: null,
-    criteria: { txt: '' }
+    criteria: { txt: '' },
   };
 
   componentDidMount() {
@@ -53,7 +54,8 @@ export class NoteIndex extends React.Component {
         </aside>
         <section className="note-container flex column">
           <NoteAdd onAdd={this.onAdd} />
-          <NoteList notes={notes}/>
+          <NoteList notes={notes} />
+          {this.props.match.params.noteId && <NoteEdit />}
         </section>
       </section>
     );

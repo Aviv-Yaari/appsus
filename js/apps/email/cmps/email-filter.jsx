@@ -29,28 +29,32 @@ export class EmailFilter extends React.Component {
     const { page } = criteria;
     return (
       <section className="email-filter flex align-center">
-        <select
-          onChange={this.onFilter}
-          name="isRead"
-          value={this.getCriteriaValue(criteria.isRead)}>
-          <option value="undefined">Read/Unread</option>
-          <option value="true">Read</option>
-          <option value="false">Unread</option>
-        </select>
-        <select
-          onChange={this.onFilter}
-          name="isStarred"
-          value={this.getCriteriaValue(criteria.isStarred)}>
-          <option value="undefined">Starred/Unstarred</option>
-          <option value="true">Starred</option>
-          <option value="false">Unstarred</option>
-        </select>
-        <button name="sentAt" onClick={onSort}>
-          Date {this.getSortArrow('sentAt')}
-        </button>
-        <button name="subject" onClick={onSort}>
-          Subject {this.getSortArrow('subject')}
-        </button>
+        <div className="email-filter-btns">
+          <select
+            onChange={this.onFilter}
+            name="isRead"
+            value={this.getCriteriaValue(criteria.isRead)}>
+            <option value="undefined">Read/Unread</option>
+            <option value="true">Read</option>
+            <option value="false">Unread</option>
+          </select>
+          <select
+            onChange={this.onFilter}
+            name="isStarred"
+            value={this.getCriteriaValue(criteria.isStarred)}>
+            <option value="undefined">Starred/Unstarred</option>
+            <option value="true">Starred</option>
+            <option value="false">Unstarred</option>
+          </select>
+        </div>
+        <div className="email-sort-btns">
+          <button name="sentAt" onClick={onSort}>
+            Date {this.getSortArrow('sentAt')}
+          </button>
+          <button name="subject" onClick={onSort}>
+            Subject {this.getSortArrow('subject')}
+          </button>
+        </div>
         <div className="filter-pages flex align-center">
           <span>Page {page}</span>
           <BtnPrev onClick={() => onFilter({ page: page - 1 })} page={page} />

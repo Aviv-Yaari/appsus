@@ -79,7 +79,7 @@ export class EmailCompose extends React.Component {
           <span>Subject</span>
           <input type="text" name="subject" onChange={this.handleChange} value={subject} />
         </div>
-        <textarea name="body" rows="20" onChange={this.handleChange} value={body} />
+        <textarea name="body" rows="18" onChange={this.handleChange} value={body} />
         <div className="compose-actions flex">
           <button className="compose-btn-send" type="submit">
             Send

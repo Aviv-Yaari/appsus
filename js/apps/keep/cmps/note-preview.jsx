@@ -56,27 +56,10 @@ class _NotePreview extends React.Component {
   };
 
   onRemoveLabel = (label) => {
-    notesService.removeLabel(label, this.state.note.id).then(note => {
+    notesService.removeLabel(label, this.state.note.id).then((note) => {
       this.setState({ note });
-    })
-  }
-  onBlur = (newTxt, prevTxt, type, todoId) => {
-    let updatedNote;
-    if (newTxt === prevTxt) return;
-    const { note } = this.state;
-    if (type === 'title') {
-      updatedNote = { ...note, info: { ...note.info, title: newTxt } }
-    } else if (type === 'txt') {
-      updatedNote = { ...note, info: { ...note.info, txt: newTxt } }
-    } else if (type === 'todo') {
-      const todoIdx = note.info.todos.findIndex(todo => todo.id === todoId);
-      const newTodos = [...note.info.todos];
-      newTodos[todoIdx].txt = newTxt;
-      updatedNote = { ...note, info: { ...note.info, todos: newTodos } };
-    }
-    notesService.updateNote(updatedNote);
-    this.setState({ note: updatedNote });
-  }
+    });
+  };
 
   render() {
     const { note } = this.state;
@@ -102,7 +85,6 @@ class _NotePreview extends React.Component {
           onRemoveLabel={this.onRemoveLabel}
           onBlur={this.onBlur}
         />
-        <Route path="/keep/:noteId" component={NoteEdit} />
       </React.Fragment>
     );
   }

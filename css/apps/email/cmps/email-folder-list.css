@@ -1,12 +1,17 @@
+.email-folder-list {
+    flex-direction: row;
+    margin-bottom: 13px;
+}
+
 .email-folder-list>* {
     padding: 10px;
     margin-inline-end: 10px;
     cursor: pointer;
-    border-radius: 0 16px 16px 0;
     display: flex;
     justify-content: space-between;
     text-decoration: none;
     color: #202124;
+    gap: 5px;
 }
 
 .email-folder-list a span {
@@ -23,4 +28,13 @@
     background-color: #fce8e6;
     font-weight: bold;
     color: #d61200;
+}
+
+@media (min-width: 1000px) {
+    .email-folder-list {
+        flex-direction: column;
+    }
+    .email-folder-list>* {
+        border-radius: 0 16px 16px 0;
+    }
 }

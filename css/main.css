@@ -35,8 +35,15 @@
 
 .left-panel, .logo {
     min-width: 80px;
+}
+
+.logo {
     padding-left: 10px;
     margin-top: 10px;
+}
+
+.left-panel {
+    padding-left: 0;
 }
 
 .btn-apps, .note-app, .email-app, .app-header .apps-menu {
@@ -65,10 +72,6 @@
     .email-app {
         font-size: 1em;
     }
-    .btn-apps, .note-app, .email-app, .app-header .apps-menu {
-        margin-right: 30px;
-        margin-left: 0;
-    }
 }
 
 @media (min-width: 1000px) {
@@ -78,5 +81,9 @@
     }
     .email-app, .note-app {
         flex-direction: row;
+    }
+    .btn-apps, .note-app, .email-app, .app-header .apps-menu {
+        margin-right: 30px;
+        margin-left: 0;
     }
 }

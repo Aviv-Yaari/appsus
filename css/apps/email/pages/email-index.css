@@ -5,13 +5,34 @@
 .btn-compose {
     background-color: #fff;
     gap: 10px;
-    box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
     color: #3c4043;
-    padding: 10px 24px 10px 15px;
-    border-radius: 2em;
+    border-radius: 50%;
     margin-bottom: 30px;
+    position: fixed;
+    padding: 20px;
+    bottom: 10px;
+    right: 40px;
+    z-index: 10;
+    box-shadow: -1px 1px 8px rgb(81 86 90 / 30%), 0 1px 11px 6px rgb(60 64 67 / 15%);
+}
+
+.btn-compose span {
+    display: none;
 }
 
 .btn-compose:hover {
     box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 8px 1px rgb(60 64 67 / 15%);
+}
+
+@media (min-width: 1000px) {
+    .btn-compose {
+        position: initial;
+        padding: 10px 24px 10px 15px;
+        box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+        border-radius: 2em;
+        z-index: initial;
+    }
+    .btn-compose span {
+        display: initial;
+    }
 }
