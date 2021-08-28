@@ -42,13 +42,11 @@
     padding: 10px 15px;
 }
 
-.compose-btn-close {
+.email-compose .btn-close {
     background-color: transparent;
-    padding: 0;
-}
-
-.compose-btn-close img {
-    width: 18px;
+    width: 1.2em;
+    cursor: pointer;
+    border-radius: 2em;
 }
 
 .compose-btn-send {

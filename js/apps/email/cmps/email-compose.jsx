@@ -62,9 +62,7 @@ export class EmailCompose extends React.Component {
       <form onSubmit={(ev) => onSend(this.state.email, ev)} className="email-compose">
         <div className="compose-title flex align-center">
           {subject || 'New Message'}
-          <button type="button" className="compose-btn-close" onClick={onClose}>
-            <img src="assets/svg/close.svg" />
-          </button>
+          <img className="btn-close" src="assets/svg/close.svg" onClick={onClose} />
         </div>
         <div className="compose-to flex align-center">
           <span>To</span>
