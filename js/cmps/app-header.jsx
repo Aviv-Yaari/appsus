@@ -24,7 +24,7 @@ class _AppHeader extends React.Component {
     }
     window.addEventListener('click', () => {
       if (this.state.isAppsMenu) {
-        this.setState({isAppsMenu: false})
+        this.setState({ isAppsMenu: false })
       }
     })
   }
@@ -83,7 +83,7 @@ class _AppHeader extends React.Component {
         </Link>
         <div
           className="search flex"
-          style={{ display: !currPage || currPage === 'cards' ? 'none' : 'flex' }}>
+          style={{ display: !currPage || currPage === 'cards' || currPage.includes('book') ? 'none' : 'flex' }}>
           <img src="assets/svg/search.svg" />
           <input
             onChange={this.handleChange}

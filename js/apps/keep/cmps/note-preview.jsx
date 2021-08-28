@@ -2,9 +2,8 @@ import { NoteImg } from './note-types/note-img.jsx';
 import { NoteText } from './note-types/note-text.jsx';
 import { NoteTodos } from './note-types/note-todos.jsx';
 import { NoteVideo } from './note-types/note-video.jsx';
-import { NoteEdit } from './note-edit.jsx';
 import { notesService } from '../services/note.service.js';
-const { Route, withRouter } = ReactRouterDOM;
+const { withRouter } = ReactRouterDOM;
 
 class _NotePreview extends React.Component {
   state = {

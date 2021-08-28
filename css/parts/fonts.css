@@ -20,6 +20,20 @@
 }
 
 /* FONT AWSOME */
+
+@font-face {
+    font-family: Solid;
+    src: url('../../assets/fonts/fa-solid-900.ttf');
+}
+
+.fas::before {
+    font-family: Solid;
+}
+
+.fas.fa-star::before {
+    content: "\f005";
+}
+
 @font-face {
     font-family: Brands;
     src: url('../../assets/fonts/fa-brands-400.ttf');

@@ -1,0 +1,135 @@
+.expensive-price {
+    color: red;
+}
+
+.cheap-price {
+    color: green;
+}
+
+.book-details {
+    padding-top: 30px;
+    text-transform: capitalize;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.book-details h1 {
+    font-size: 2rem;
+    font-weight: normal;
+    margin-top: 70px;
+}
+
+.review-add h1 {
+    margin-top: 10px;
+}
+
+.book-details h2 {
+    font-size: 1rem;
+    font-weight: normal;
+    margin-bottom: 20px;
+    color: #5c5c5c;
+}
+
+.author {
+    margin-bottom: 10px;
+}
+
+.book-details h3 {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.author :first-child, .price>*:first-child, .book-details .desc {
+    font-weight: bold;
+}
+
+.book-details .author h3 {
+    display: inline;
+}
+
+.long-text {
+    width: 50%;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.long-text p {
+    display: inline;
+    margin-right: 5px;
+}
+
+.long-text button {
+    border: none;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.book-details img {
+    margin-bottom: 10px;
+}
+
+.sale {
+    width: 100px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.go-back, .prev-book, .next-book {
+    border: none;
+    background: transparent;
+    font-size: 2.5rem;
+    color: rgb(97, 97, 97);
+    position: fixed;
+    text-decoration: none;
+}
+
+.go-back {
+    top: 0;
+    left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+.prev-book {
+    bottom: 6vh;
+    left: 3%;
+}
+
+.next-book {
+    bottom: 6vh;
+    right: 3%;
+}
+
+.go-back:hover, .prev-book:hover, .next-book:hover {
+    color: rgb(37, 37, 37);
+}
+
+.go-back span:first-child {
+    margin-bottom: 3px;
+}
+
+.go-back span:last-child {
+    font-size: 1.25rem;
+    margin-left: 5px;
+}
+
+.review .star-container {
+    background-color: transparent;
+    box-shadow: unset;
+    padding: 0px 10px;
+}
+
+.review .star {
+    color: rgb(255, 238, 0);
+    cursor: default;
+    font-size: 1.5rem;
+}

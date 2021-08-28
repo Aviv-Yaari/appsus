@@ -1,0 +1,46 @@
+.book-add {
+    padding-top: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.book-add h1 {
+    font-size: 2rem;
+    color: #24B3A8;
+    margin-bottom: 20px;
+    padding-top: 50px;
+}
+
+.book-add input {
+    padding: 5px;
+    border: 1px solid lightgray;
+    font-size: 1.15rem;
+    width: 100%;
+    max-width: 800px;
+    height: 50px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.book-add input:focus-visible {
+    border: 2px solid lightgray;
+    outline: none;
+}
+
+.result {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.result:hover {
+    background-color: #24b3a762;
+}
+
+.result h2:last-child {
+    font-size: 2rem;
+}

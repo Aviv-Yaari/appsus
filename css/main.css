@@ -24,6 +24,15 @@
 @import url('apps/keep/cmps/note-toolbar.css');
 @import url('apps/keep/cmps/note-preview.css');
 @import url('apps/keep/cmps/note-list.css');
+/* Book App */
+
+@import url('apps/book/pages/book-add.css');
+@import url('apps/book/pages/book-app.css');
+@import url('apps/book/pages/book-details.css');
+@import url('apps/book/cmps/book-filter.css');
+@import url('apps/book/cmps/book-preview.css');
+@import url('apps/book/cmps/review-add.css');
+
 .app-main {
     flex-grow: 1;
     display: flex;

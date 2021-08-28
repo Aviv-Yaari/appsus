@@ -3,6 +3,9 @@ export const utilService = {
   getRandomIntInclusive,
   formatDate,
   trimText,
+  getSign,
+  debounce,
+  getRandCurrencyCode
 };
 
 function makeId(length = 6) {
@@ -46,3 +49,38 @@ function trimText(text, length) {
 function _formatTime(time) {
   return time < 10 ? '0' + time : time;
 }
+
+function getSign(currencyCode) {
+  let sign = ''
+  switch (currencyCode) {
+      case 'EUR':
+          sign = '€'
+          break;
+      case 'USD':
+          sign = '$'
+          break;
+      case 'ILS':
+          sign = '₪';
+          break;
+  }
+  return sign
+}
+
+function getRandCurrencyCode() {
+  const randNum = Math.random();
+  if(randNum <= 0.33) return 'EUR'
+  else if(randNum <=0.66) return 'USD'
+  else return 'ILS';
+}
+
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+      const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+  };
+};

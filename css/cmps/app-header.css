@@ -3,6 +3,7 @@
     width: 100%;
     z-index: 1;
     gap: 30px;
+    min-height: 70px;
 }
 
 .app-header .search {

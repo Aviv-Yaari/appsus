@@ -1,0 +1,26 @@
+.book-app, .book-details, .book-add {
+    background-color: #fafafa;
+    width: 100%;
+    padding: 0 50px;
+    margin-bottom: -50px;
+    padding-bottom: 50px;
+}
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.to-add-book {
+    text-align: center;
+    display: block;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #24B3A8;
+}
+
+.to-add-book:hover {
+    text-decoration: underline;
+}

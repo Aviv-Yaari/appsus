@@ -1,0 +1,143 @@
+.review-add {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-add form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 300px;
+    margin-top: 15px;
+}
+
+.review-add input, [name="reviewTxt"] {
+    padding: 5px;
+    border: 1px solid lightgray;
+    font-size: 1.05rem;
+    width: 100%;
+}
+
+[name="reviewTxt"] {
+    resize: none;
+    font-family: Roboto;
+}
+
+.review-add input {
+    height: 40px;
+}
+
+.review-add input:focus-visible, [name="reviewTxt"]:focus-visible {
+    border: 2px solid gray;
+    outline: none;
+}
+
+.star-container {
+    direction: rtl;
+    width: fit-content;
+    padding: 10px;
+    background-color: #161120d5;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.star-container button {
+    color: #fff;
+    font-size: 2rem;
+    margin: 4px;
+    background-color: transparent;
+    border: none;
+    transition: .2s;
+}
+
+.star-container button:hover {
+    color: rgb(255, 238, 0)
+}
+
+.star1:hover~.star {
+    color: rgb(255, 238, 0)
+}
+
+.star2:hover~.star {
+    color: rgb(255, 238, 0)
+}
+
+.star3:hover~.star {
+    color: rgb(255, 238, 0)
+}
+
+.star4:hover~.star {
+    color: rgb(255, 238, 0)
+}
+
+.star5:hover~.star {
+    color: rgb(255, 238, 0)
+}
+
+.star-container .clicked {
+    color: rgb(255, 238, 0)
+}
+
+.star-container .clicked~.star {
+    color: rgb(255, 238, 0)
+}
+
+.add-review-btn {
+    font-size: 1rem;
+    padding: 5px 20px;
+    background-color: #2e2e2e;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    transition: background-color .5s;
+}
+
+.add-review-btn:hover {
+    background-color: #5c5c5c;
+}
+
+.reviews {
+    width: 100%;
+    border-top: 1px solid #24B3A8;
+    border-bottom: 1px solid #24B3A8;
+    margin-top: 15px;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.reviews h2 {
+    margin: 0;
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 300px));
+    gap: 20px;
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid lightgray;
+    padding: 5px;
+}
+
+.remove-btn {
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0;
+}
+
+.remove-btn:hover {
+    background-color: rgba(95, 99, 104, 0.157);
+}
