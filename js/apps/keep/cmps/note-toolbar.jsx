@@ -47,6 +47,7 @@ class _NoteToolbar extends React.Component {
           {type === 'new-note' && <img title="Add video" onClick={() => this.onToolClicked('note-video')} src="assets/svg/video.svg" />}
           {type === 'new-note' && <img title="Add todos" onClick={() => this.onToolClicked('note-todos')} src="assets/svg/todos.svg" />}
           {type === 'existed-note' && <img title="Edit note" onClick={this.onEditNote} src="assets/svg/edit.svg" />}
+          {type === 'existed-note' && <img title="Add label" src="assets/svg/label.svg" />}
           {type === 'existed-note' && <img title="Duplicate note" onClick={() => this.props.onDuplicateNote(this.props.note)} src="assets/svg/duplicate.svg" />}
           {type === 'existed-note' && <img title="Delete note" onClick={() => this.props.onRemoveNote(this.props.note.id)} src="assets/svg/delete.svg" />}
           {type === 'existed-note' && <img title="Export as email" onClick={this.props.onExportEmail} src="assets/svg/forward-email.svg" />}

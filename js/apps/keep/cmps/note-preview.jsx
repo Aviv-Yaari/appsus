@@ -60,6 +60,24 @@ class _NotePreview extends React.Component {
     });
   };
 
+  onBlur = (newTxt, prevTxt, type, todoId) => {
+    let updatedNote;
+    if (newTxt === prevTxt) return;
+    const { note } = this.state;
+    if (type === 'title') {
+      updatedNote = { ...note, info: { ...note.info, title: newTxt } }
+    } else if (type === 'txt') {
+      updatedNote = { ...note, info: { ...note.info, txt: newTxt } }
+    } else if (type === 'todo') {
+      const todoIdx = note.info.todos.findIndex(todo => todo.id === todoId);
+      const newTodos = [...note.info.todos];
+      newTodos[todoIdx].txt = newTxt;
+      updatedNote = { ...note, info: { ...note.info, todos: newTodos } };
+    }
+    notesService.updateNote(updatedNote);
+    this.setState({ note: updatedNote });
+  }
+
   render() {
     const { note } = this.state;
     const DynamicCmp = (props) => {

@@ -35,14 +35,13 @@ export class BookAdd extends React.Component {
     onAddBook = (resultId) => {
         const currBook = this.state.results.find(result => result.id === resultId);
         bookService.addGoogleBook(currBook
-        ).then((bookId) => {
-            this.removeEventBus = eventBusService.emit('user-msg', { txt: 'Your book has been successfuly added', type: 'success', bookId });
+        ).then(() => {
+            this.removeEventBus = eventBusService.emit('user-msg', 'Your book has been added.');
             this.props.history.push('/book');
         }).catch(() => {
-            this.removeEventBus = eventBusService.emit('user-msg', { txt: 'An error occured, please try again', type: 'danger' });
+            this.removeEventBus = eventBusService.emit('user-msg', 'Failed to add your book, Please try again.');
         })
     }
-
 
     onBack = () => {
         this.props.history.push('/book');

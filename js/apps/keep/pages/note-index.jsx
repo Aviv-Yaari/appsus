@@ -49,9 +49,6 @@ export class NoteIndex extends React.Component {
     if (!notes) return <LoadingSpinner />;
     return (
       <section className="note-app flex">
-        <aside className="left-panel">
-          <NotePanel />
-        </aside>
         <section className="note-container flex column">
           <NoteAdd onAdd={this.onAdd} />
           <NoteList notes={notes} />
