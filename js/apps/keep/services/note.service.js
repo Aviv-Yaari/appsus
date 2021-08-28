@@ -91,7 +91,7 @@ function _initNotes() {
         info: {
           title: 'Cool video',
           txt: '',
-          url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+          url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
         },
       },
       {
