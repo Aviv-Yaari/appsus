@@ -9,7 +9,7 @@
     background-color: #fff;
 }
 
-.note-preview:hover .note-toolbar, .note-preview:hover .note-pin {
+.note-preview .note-toolbar, .note-preview .note-pin {
     opacity: 1 !important;
 }
 
@@ -117,4 +117,13 @@
 .note-preview span:focus {
     outline: none;
     background-color: rgba(255, 255, 255, 0.342);
+}
+
+@media (min-width: 740px) {
+    .note-preview .note-toolbar, .note-preview .note-pin {
+        opacity: 0 !important;
+    }
+    .note-preview:hover .note-toolbar, .note-preview:hover .note-pin {
+        opacity: 1 !important;
+    }
 }
