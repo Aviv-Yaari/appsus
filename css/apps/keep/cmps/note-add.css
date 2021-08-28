@@ -12,8 +12,8 @@
     background-color: #fff;
 }
 
-.note-edit.note-edit {
-    position: absolute;
+.note-edit {
+    position: fixed;
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);

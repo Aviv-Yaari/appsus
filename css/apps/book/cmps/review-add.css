@@ -141,3 +141,17 @@
 .remove-btn:hover {
     background-color: rgba(95, 99, 104, 0.157);
 }
+
+@media (max-width:500px) {
+    .star-container button {
+        color: #fff;
+        font-size: 1.5rem;
+        margin: 2px;
+        background-color: transparent;
+        border: none;
+        transition: .2s;
+    }
+    .review-add {
+        width: unset;
+    }
+}
