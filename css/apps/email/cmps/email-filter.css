@@ -28,6 +28,7 @@
 .email-filter .btn.disabled {
     opacity: 25%;
     cursor: default;
+    pointer-events: none;
 }
 
 .email-filter .btn:not(.disabled):hover {
