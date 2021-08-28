@@ -3,6 +3,7 @@ export const BtnPrev = (props) => {
   return (
     <img
       src="assets/svg/prev.svg"
+      title="Previous"
       className={page !== 0 ? 'btn' : 'btn disabled'}
       onClick={onClick}
     />

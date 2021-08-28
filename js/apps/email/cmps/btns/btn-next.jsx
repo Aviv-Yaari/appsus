@@ -6,6 +6,7 @@ export const BtnNext = (props) => {
   return (
     <img
       src="assets/svg/next.svg"
+      title="Next"
       className={emailsCount === EMAILS_PER_PAGE ? 'btn' : 'btn disabled'}
       onClick={onClick}
     />
