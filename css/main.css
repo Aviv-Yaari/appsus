@@ -8,6 +8,7 @@
 @import url('cmps/app-header.css');
 @import url('cmps/app-footer.css');
 @import url('cmps/app-home.css');
+@import url('cmps/user-msg.css');
 /* Email App: */
 
 @import url('apps/email/pages/email-index.css');

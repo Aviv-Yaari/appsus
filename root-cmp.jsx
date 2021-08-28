@@ -5,6 +5,7 @@ import { AppAbout } from './js/pages/app-about.jsx';
 import { EmailIndex } from './js/apps/email/pages/email-index.jsx';
 import { BookIndex } from './js/apps/book/pages/book-index.jsx';
 import { NoteIndex } from './js/apps/keep/pages/note-index.jsx';
+import { UserMsg } from './js/cmps/user-msg.jsx';
 
 const Router = ReactRouterDOM.HashRouter;
 const { Route, Switch } = ReactRouterDOM;
@@ -13,6 +14,7 @@ export function App() {
   return (
     <Router>
       <div className="app flex column">
+        <UserMsg />
         <header>
           <AppHeader />
         </header>

@@ -25,7 +25,7 @@ export class EmailFilter extends React.Component {
   };
 
   render() {
-    const { onSort, sortType, criteria, onChangePage, emailsCount } = this.props;
+    const { onSort, onFilter, criteria, onChangePage, emailsCount } = this.props;
     const { page } = criteria;
     return (
       <section className="email-filter flex align-center">
@@ -53,8 +53,8 @@ export class EmailFilter extends React.Component {
         </button>
         <div className="filter-pages flex align-center">
           <span>Page {page}</span>
-          <BtnPrev onClick={() => onChangePage(page - 1)} page={page} />
-          <BtnNext onClick={() => onChangePage(page + 1)} emailsCount={emailsCount} />
+          <BtnPrev onClick={() => onFilter({ page: page - 1 })} page={page} />
+          <BtnNext onClick={() => onFilter({ page: page + 1 })} emailsCount={emailsCount} />
         </div>
       </section>
     );

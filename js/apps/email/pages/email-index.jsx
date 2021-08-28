@@ -28,12 +28,14 @@ export class EmailIndex extends React.Component {
     this.loadSearchParams();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params !== this.props.match.params) {
-      this.onSetCriteria({ status: this.props.match.params.status });
-    }
-    if (prevProps.location.search !== this.props.location.search) {
-      this.loadSearchParams();
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.match.params.status !== this.props.match.params.status) {
+      // when switching folders (inbox, sent, draft...)
+      this.onSetCriteria({
+        status: this.props.match.params.status,
+        isRead: undefined,
+        isStarred: undefined,
+      });
     }
   }
 
@@ -46,10 +48,7 @@ export class EmailIndex extends React.Component {
     this.subject = query.get('subject');
     this.body = query.get('body');
     this.to = query.get('to');
-    let page = +query.get('page') || 0;
-    if (page < 0) page = 0;
     if (this.subject && this.body && this.to) this.setState({ isComposing: true });
-    this.setState((prevState) => ({ criteria: { ...prevState.criteria, page } }));
   };
 
   loadEmails = () => {
@@ -60,8 +59,9 @@ export class EmailIndex extends React.Component {
   // Criteria and sort:
 
   onSetCriteria = (newCriteria) => {
+    let { page = 0 } = newCriteria; // if any criteria was set except for page - reset the page to 0
     this.setState(
-      (prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria } }),
+      (prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria, page } }),
       this.loadEmails
     );
   };
@@ -76,10 +76,6 @@ export class EmailIndex extends React.Component {
     }, this.loadEmails);
   };
 
-  onChangePage = (page) => {
-    this.props.history.push(this.props.match.url + '?page=' + page);
-  };
-
   // Compose Actions:
 
   onComposeToggle = (isComposing) => {
@@ -92,12 +88,14 @@ export class EmailIndex extends React.Component {
 
   onSendEmail = (email, ev) => {
     ev.preventDefault();
-    if (email.id) {
-      emailService.findByIdAndUpdate(email.id, { ...email, status: 'sent' });
-    } else {
-      emailService.addEmail({ ...email, status: 'sent' });
-    }
-    eventBusService.emit('user-msg', 'Email sent');
+    eventBusService.emit('user-msg', 'Sending...');
+    if (email.id) emailService.findByIdAndUpdate(email.id, { ...email, status: 'sent' });
+    else emailService.addEmail({ ...email, status: 'sent' });
+
+    new Promise((resolve) => setTimeout(resolve, 1000)).then(() =>
+      eventBusService.emit('user-msg', 'Message sent.')
+    );
+
     this.setState({ isComposing: false });
     this.loadEmails();
   };
@@ -111,13 +109,22 @@ export class EmailIndex extends React.Component {
   };
 
   onValueToggle = (ev, email, value) => {
-    ev.stopPropagation();
+    if (ev) ev.stopPropagation();
+    const valueMap = { isRead: 'read', isStarred: 'starred' };
     emailService.findByIdAndUpdate(email.id, { [value]: !email[value] }).then(this.loadEmails);
+    eventBusService.emit(
+      'user-msg',
+      `Conversation marked as ${email[value] === false ? '' : 'un'}${valueMap[value]}.`
+    );
+    return Promise.resolve();
   };
 
   onTrashEmail = (ev, email) => {
     ev.stopPropagation();
+    const message =
+      email.status === 'trash' ? 'Conversation removed from bin.' : 'Conversation moved to bin.';
     emailService.trashEmail(email.id).then(this.loadEmails);
+    eventBusService.emit('user-msg', message);
   };
 
   onFullScreen = (id) => {
@@ -131,15 +138,16 @@ export class EmailIndex extends React.Component {
 
   onReply = (email, ev) => {
     ev.stopPropagation();
-    this.props.history.push(
-      `?subject=RE: ${email.subject}&to=${email.from}&body=In reply to your message:\n"${email.body}"\n\n`
-    );
+    this.setState({ isComposing: true });
+    this.subject = 'RE: ' + email.subject;
+    this.to = email.from;
+    this.body = 'Replying to message:\n\n' + '"' + email.body + '"\n\n';
   };
 
   // Render:
 
   render() {
-    const { emails, criteria, isComposing, sortType, currPage } = this.state;
+    const { emails, criteria, isComposing, sortType } = this.state;
     const { params } = this.props.match;
     if (!emails) return <LoadingSpinner />;
     return (
@@ -155,6 +163,7 @@ export class EmailIndex extends React.Component {
             loadEmails={this.loadEmails}
             onExportNote={this.onExportNote}
             onReply={this.onReply}
+            onValueToggle={this.onValueToggle}
           />
         )}
         {!params.emailId && (
@@ -162,7 +171,6 @@ export class EmailIndex extends React.Component {
             <EmailFilter
               onFilter={this.onSetCriteria}
               onSort={this.onSetSort}
-              onChangePage={this.onChangePage}
               sortType={sortType}
               criteria={criteria}
               emailsCount={emails.length}

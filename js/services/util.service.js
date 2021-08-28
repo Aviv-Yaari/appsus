@@ -33,7 +33,7 @@ function formatDate(timestamp) {
   const day = 1000 * 60 * 60 * 24;
   if (currTimestamp - timestamp < day) return 'Today ' + time;
   if (currTimestamp - timestamp < day * 2) return 'Yesterday ' + time;
-  if (currTimestamp - timestamp < day * 8) return days[date.getDay()];
+  if (currTimestamp - timestamp < day * 7) return days[date.getDay()];
   if (currDate.getFullYear() !== date.getFullYear())
     return months[date.getMonth()] + ' ' + date.getFullYear();
   return date.getDate() + ' ' + months[date.getMonth()];

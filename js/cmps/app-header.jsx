@@ -8,19 +8,19 @@ class _AppHeader extends React.Component {
     style: {
       backgroundColor: '#fff',
       borderBottom: '1px solid #ECEFF1',
-    }
+    },
   };
 
   handleScroll = (ev) => {
     const scrollTop = ev.target.documentElement.scrollTop;
-    if (scrollTop > 10) this.setColoredHeader()
-    else this.setTransparentHeader()
-  }
+    if (scrollTop > 10) this.setColoredHeader();
+    else this.setTransparentHeader();
+  };
 
   componentDidMount() {
     if (this.state.currPage === '' || this.state.currPage === 'cards') {
       window.addEventListener('scroll', this.handleScroll);
-      this.setTransparentHeader()
+      this.setTransparentHeader();
     }
   }
 
@@ -31,30 +31,34 @@ class _AppHeader extends React.Component {
     if (prevState.currPage !== this.state.currPage) {
       if (this.state.currPage === '' || this.state.currPage === 'cards') {
         window.addEventListener('scroll', this.handleScroll);
-        this.setTransparentHeader()
+        this.setTransparentHeader();
       } else {
         window.removeEventListener('scroll', this.handleScroll);
         this.setState({
           style: {
             backgroundColor: '#fff',
             borderBottom: '1px solid #ECEFF1',
-          }
-        })
+          },
+        });
       }
     }
   }
 
   setTransparentHeader = () => {
-    this.setState(
-      { style: { backgroundColor: 'transparent', borderBottom: '1px solid transparent', position: 'fixed' } }
-    )
-  }
+    this.setState({
+      style: {
+        backgroundColor: 'transparent',
+        borderBottom: '1px solid transparent',
+        position: 'fixed',
+      },
+    });
+  };
 
   setColoredHeader = () => {
-    this.setState(
-      { style: { backgroundColor: '#fff', borderBottom: '2px solid #ECEFF1', position: 'fixed' } }
-    )
-  }
+    this.setState({
+      style: { backgroundColor: '#fff', borderBottom: '2px solid #ECEFF1', position: 'fixed' },
+    });
+  };
 
   handleChange = (ev) => {
     eventBusService.emit('search', ev.target.value);
@@ -69,9 +73,11 @@ class _AppHeader extends React.Component {
     return (
       <section className="app-header flex align-center" style={style}>
         <Link to="/" className="logo">
-          <img src="assets/img/logo.png"/>
+          <img src="assets/img/logo.png" />
         </Link>
-        <div className="search flex" style={{ visibility: (!currPage || currPage === 'cards') ? 'hidden' : 'visible' }}>
+        <div
+          className="search flex"
+          style={{ visibility: !currPage || currPage === 'cards' ? 'hidden' : 'visible' }}>
           <img src="assets/svg/search.svg" />
           <input
             onChange={this.handleChange}
@@ -93,10 +99,6 @@ class _AppHeader extends React.Component {
           <NavLink to="/book">
             <img src="assets/img/books.png" />
             <span>Books</span>
-          </NavLink>
-          <NavLink to="/about">
-            <img src="assets/img/about.png" />
-            <span>About</span>
           </NavLink>
         </nav>
       </section>

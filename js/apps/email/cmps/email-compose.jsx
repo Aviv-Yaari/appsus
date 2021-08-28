@@ -1,3 +1,4 @@
+import { eventBusService } from '../../../services/event-bus.service.js';
 import { emailService } from '../services/email.service.js';
 
 export class EmailCompose extends React.Component {
@@ -8,13 +9,16 @@ export class EmailCompose extends React.Component {
       body: '',
     },
   };
+  toRef = React.createRef();
 
   componentDidMount() {
+    this.isFirstDraft = true;
     this.interval = setInterval(this.saveDraft, 5000);
     let { subject, body, to } = this.props;
     if (body && subject && to) {
       this.setState({ email: { subject, body, to } });
     }
+    this.toRef.current.focus();
   }
 
   componentWillUnmount() {
@@ -38,6 +42,10 @@ export class EmailCompose extends React.Component {
           this.setState((prevState) => ({ email: { ...prevState.email, id: email.id } }))
         );
     } else emailService.findByIdAndUpdate(id, { ...email });
+    if (this.isFirstDraft) {
+      eventBusService.emit('user-msg', 'Message saved as draft.');
+      this.isFirstDraft = false;
+    }
   };
 
   deleteDraft = () => {
@@ -54,13 +62,18 @@ export class EmailCompose extends React.Component {
       <form onSubmit={(ev) => onSend(this.state.email, ev)} className="email-compose">
         <div className="compose-title flex align-center">
           {subject || 'New Message'}
-          <button type="button" className="compose-btn-close" onClick={onClose}>
-            <img src="assets/svg/close.svg" />
-          </button>
+          <img className="btn-close" src="assets/svg/close.svg" onClick={onClose} />
         </div>
         <div className="compose-to flex align-center">
           <span>To</span>
-          <input type="email" name="to" onChange={this.handleChange} value={to} required />
+          <input
+            ref={this.toRef}
+            type="email"
+            name="to"
+            onChange={this.handleChange}
+            value={to}
+            required
+          />
         </div>
         <div className="compose-subject flex align-center">
           <span>Subject</span>
