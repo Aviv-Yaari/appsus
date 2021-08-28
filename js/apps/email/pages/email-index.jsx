@@ -10,6 +10,7 @@ import { eventBusService } from '../../../services/event-bus.service.js';
 import { EmailFilter } from '../cmps/email-filter.jsx';
 import { EmailDetails } from './email-details.jsx';
 import { BtnCompose } from '../cmps/btns/btn-compose.jsx';
+import { LabelPanel } from '../../../cmps/label-panel.jsx';
 const { Route } = ReactRouterDOM;
 
 export class EmailIndex extends React.Component {
@@ -155,6 +156,7 @@ export class EmailIndex extends React.Component {
         <aside className="left-panel">
           <BtnCompose onToggle={this.onComposeToggle} />
           <EmailFolderList />
+          <LabelPanel />
         </aside>
         {params.emailId && (
           <EmailDetails

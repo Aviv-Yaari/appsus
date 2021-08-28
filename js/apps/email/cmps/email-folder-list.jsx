@@ -4,7 +4,7 @@ const { NavLink } = ReactRouterDOM;
 
 export const EmailFolderList = () => {
   return (
-    <section className="email-folder-list flex column">
+    <section className="email-folder-list flex">
       <NavLink to={'/emails/all'}>All</NavLink>
       <NavLink to={'/emails/inbox'}>
         Inbox <span>{emailService.getNumUnread('inbox') || ''}</span>
