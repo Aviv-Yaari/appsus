@@ -32,10 +32,7 @@ class _EmailDetails extends React.Component {
 
   onValueToggle = (value) => {
     const { email } = this.state;
-    emailService
-      .findByIdAndUpdate(email.id, { [value]: !email[value] })
-      .then(this.loadEmail)
-      .then(this.props.loadEmails);
+    this.props.onValueToggle(null, email, value).then(this.loadEmail);
   };
 
   render() {

@@ -28,12 +28,23 @@ export class EmailIndex extends React.Component {
     this.loadSearchParams();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params !== this.props.match.params) {
-      this.onSetCriteria({ status: this.props.match.params.status });
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.match.params.status !== this.props.match.params.status) {
+      // when switching folders (inbox, sent, draft...)
+      console.log('changed status');
+      this.onSetCriteria({
+        status: this.props.match.params.status,
+        isRead: undefined,
+        isStarred: undefined,
+      });
     }
-    if (prevProps.location.search !== this.props.location.search) {
+    if (this.props.location.search && prevProps.location.search !== this.props.location.search) {
+      console.log('changed search');
       this.loadSearchParams();
+    }
+    if (prevState.criteria.page !== this.state.criteria.page) {
+      console.log('changed page');
+      this.onSetCriteria({ page: this.state.criteria.page });
     }
   }
 
@@ -47,8 +58,8 @@ export class EmailIndex extends React.Component {
     this.body = query.get('body');
     this.to = query.get('to');
     let page = +query.get('page') || 0;
-    if (page < 0) page = 0;
     if (this.subject && this.body && this.to) this.setState({ isComposing: true });
+    if (page < 0) page = 0;
     this.setState((prevState) => ({ criteria: { ...prevState.criteria, page } }));
   };
 
@@ -60,6 +71,7 @@ export class EmailIndex extends React.Component {
   // Criteria and sort:
 
   onSetCriteria = (newCriteria) => {
+    if (!newCriteria.page) this.onChangePage(0);
     this.setState(
       (prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria } }),
       this.loadEmails
@@ -67,6 +79,7 @@ export class EmailIndex extends React.Component {
   };
 
   onSetSort = (ev) => {
+    this.onChangePage(0);
     const { name: field } = ev.target;
     const newSort = { field, type: 1 };
     this.setState((prevState) => {
@@ -92,12 +105,14 @@ export class EmailIndex extends React.Component {
 
   onSendEmail = (email, ev) => {
     ev.preventDefault();
-    if (email.id) {
-      emailService.findByIdAndUpdate(email.id, { ...email, status: 'sent' });
-    } else {
-      emailService.addEmail({ ...email, status: 'sent' });
-    }
-    eventBusService.emit('user-msg', 'Email sent');
+    eventBusService.emit('user-msg', 'Sending...');
+    if (email.id) emailService.findByIdAndUpdate(email.id, { ...email, status: 'sent' });
+    else emailService.addEmail({ ...email, status: 'sent' });
+
+    new Promise((resolve) => setTimeout(resolve, 1000)).then(() =>
+      eventBusService.emit('user-msg', 'Message sent.')
+    );
+
     this.setState({ isComposing: false });
     this.loadEmails();
   };
@@ -111,13 +126,22 @@ export class EmailIndex extends React.Component {
   };
 
   onValueToggle = (ev, email, value) => {
-    ev.stopPropagation();
+    if (ev) ev.stopPropagation();
+    const valueMap = { isRead: 'read', isStarred: 'starred' };
     emailService.findByIdAndUpdate(email.id, { [value]: !email[value] }).then(this.loadEmails);
+    eventBusService.emit(
+      'user-msg',
+      `Conversation marked as ${email[value] === false ? '' : 'un'}${valueMap[value]}.`
+    );
+    return Promise.resolve();
   };
 
   onTrashEmail = (ev, email) => {
     ev.stopPropagation();
+    const message =
+      email.status === 'trash' ? 'Conversation removed from bin.' : 'Conversation moved to bin.';
     emailService.trashEmail(email.id).then(this.loadEmails);
+    eventBusService.emit('user-msg', message);
   };
 
   onFullScreen = (id) => {
@@ -131,9 +155,10 @@ export class EmailIndex extends React.Component {
 
   onReply = (email, ev) => {
     ev.stopPropagation();
-    this.props.history.push(
-      `?subject=RE: ${email.subject}&to=${email.from}&body=In reply to your message:\n"${email.body}"\n\n`
-    );
+    this.setState({ isComposing: true });
+    this.subject = email.subject;
+    this.to = email.to;
+    this.body = email.body;
   };
 
   // Render:
@@ -155,6 +180,7 @@ export class EmailIndex extends React.Component {
             loadEmails={this.loadEmails}
             onExportNote={this.onExportNote}
             onReply={this.onReply}
+            onValueToggle={this.onValueToggle}
           />
         )}
         {!params.emailId && (

@@ -1,3 +1,4 @@
+import { eventBusService } from '../../../services/event-bus.service.js';
 import { emailService } from '../services/email.service.js';
 
 export class EmailCompose extends React.Component {
@@ -10,6 +11,7 @@ export class EmailCompose extends React.Component {
   };
 
   componentDidMount() {
+    this.isFirstDraft = true;
     this.interval = setInterval(this.saveDraft, 5000);
     let { subject, body, to } = this.props;
     if (body && subject && to) {
@@ -38,6 +40,10 @@ export class EmailCompose extends React.Component {
           this.setState((prevState) => ({ email: { ...prevState.email, id: email.id } }))
         );
     } else emailService.findByIdAndUpdate(id, { ...email });
+    if (this.isFirstDraft) {
+      eventBusService.emit('user-msg', 'Message saved as draft.');
+      this.isFirstDraft = false;
+    }
   };
 
   deleteDraft = () => {

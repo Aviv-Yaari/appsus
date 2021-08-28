@@ -3,7 +3,7 @@ export class AppFooter extends React.Component {
   render() {
     return (
       <section className="app-footer">
-        <p>All rights reserved</p>
+        <p style={{ fontSize: '0.9rem' }}>By Ziv Shuvy and Aviv Yaari</p>
       </section>
     );
   }
