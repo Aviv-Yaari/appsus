@@ -48,7 +48,7 @@ export const AppHome = () => {
           <img src="assets/img/aviv.jpg" />
           <div className="details">
             <h3>Aviv Yaari</h3>
-            <p>25 years old from Raanana ,Israel. Loving to design,create and build web-application.
+            <p>25 years old from Raanana, Israel. Always looking for a new challenge!
               Studying web development in Coding-Academy.</p>
           </div>
           <div className="social">
