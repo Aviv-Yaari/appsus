@@ -23,6 +23,7 @@ export function App() {
             <Route path="/emails/:status/:emailId" component={EmailIndex} />
             <Route path="/emails/:status" component={EmailIndex} />
             <Route path="/emails" component={EmailIndex} />
+            <Route path="/keep/:noteId" component={NoteIndex} />
             <Route path="/keep" component={NoteIndex} />
             <Route path="/book" component={BookIndex} />
             <Route path="/about" component={AppAbout} />

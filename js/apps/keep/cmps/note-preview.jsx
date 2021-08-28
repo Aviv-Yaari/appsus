@@ -57,10 +57,10 @@ class _NotePreview extends React.Component {
   };
 
   onRemoveLabel = (label) => {
-    notesService.removeLabel(label, this.state.note.id).then(note => {
+    notesService.removeLabel(label, this.state.note.id).then((note) => {
       this.setState({ note });
-    })
-  }
+    });
+  };
 
   render() {
     const { note } = this.state;
@@ -85,7 +85,6 @@ class _NotePreview extends React.Component {
           onExportEmail={this.onExportEmail}
           onRemoveLabel={this.onRemoveLabel}
         />
-        <Route path="/keep/:noteId" component={NoteEdit} />
       </React.Fragment>
     );
   }
