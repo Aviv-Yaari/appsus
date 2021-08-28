@@ -63,7 +63,7 @@ class _EmailDetails extends React.Component {
           {(status === 'sent' || status === 'draft') && <div>To: {to}</div>}
           <div>Sent at: {utilService.formatDate(sentAt)}</div>
         </section>
-        <p>
+        <p style={{ whiteSpace: 'pre-line', maxWidth: '900px' }}>
           <LongTxt text={body} length={300} />
         </p>
       </section>

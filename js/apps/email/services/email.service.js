@@ -16,7 +16,7 @@ export const emailService = {
 let gEmails = _initEmails();
 
 const loggedinUser = {
-  email: 'user@appsus.com',
+  email: 'muki@appsus.com',
   fullname: 'Mahatma Appsus',
 };
 
