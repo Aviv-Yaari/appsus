@@ -9,6 +9,7 @@ export class EmailCompose extends React.Component {
       body: '',
     },
   };
+  toRef = React.createRef();
 
   componentDidMount() {
     this.isFirstDraft = true;
@@ -17,6 +18,7 @@ export class EmailCompose extends React.Component {
     if (body && subject && to) {
       this.setState({ email: { subject, body, to } });
     }
+    this.toRef.current.focus();
   }
 
   componentWillUnmount() {
@@ -66,7 +68,14 @@ export class EmailCompose extends React.Component {
         </div>
         <div className="compose-to flex align-center">
           <span>To</span>
-          <input type="email" name="to" onChange={this.handleChange} value={to} required />
+          <input
+            ref={this.toRef}
+            type="email"
+            name="to"
+            onChange={this.handleChange}
+            value={to}
+            required
+          />
         </div>
         <div className="compose-subject flex align-center">
           <span>Subject</span>
