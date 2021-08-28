@@ -107,6 +107,9 @@ export class EmailIndex extends React.Component {
     if (!email.isRead) {
       emailService.findByIdAndUpdate(email.id, { isRead: true }).then(this.loadEmails);
     }
+    if (window.innerWidth <= 740) {
+      this.onFullScreen(email.id);
+    }
   };
 
   onValueToggle = (ev, email, value) => {

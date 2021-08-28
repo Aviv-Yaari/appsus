@@ -1,6 +1,10 @@
 .email-filter {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     flex-wrap: wrap;
+}
+
+.email-filter>* {
+    margin-bottom: 20px;
 }
 
 .email-filter select, .email-filter button {

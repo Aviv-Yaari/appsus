@@ -5,6 +5,7 @@
     cursor: pointer;
     border-bottom: 1px solid #e2e8ea;
     max-width: 100%;
+    min-height: 80px;
 }
 
 .email-preview:hover {
@@ -59,14 +60,6 @@
     opacity: 100%;
 }
 
-.email-preview:hover .email-actions {
-    display: flex;
-}
-
-.email-preview:hover .email-date {
-    display: none;
-}
-
 .email-preview .email-actions {
     display: none;
 }
@@ -78,7 +71,16 @@
 }
 
 @media (min-width: 740px) {
+    .email-preview {
+        min-height: unset;
+    }
+    .email-preview:hover .email-date {
+        display: none;
+    }
     .email-preview-expanded {
         padding: 20px 100px;
+    }
+    .email-preview:hover .email-actions {
+        display: flex;
     }
 }
