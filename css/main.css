@@ -24,6 +24,7 @@
 @import url('apps/keep/cmps/note-toolbar.css');
 @import url('apps/keep/cmps/note-preview.css');
 @import url('apps/keep/cmps/note-list.css');
+@import url('apps/keep/cmps/label-modal.css');
 /* Book App */
 
 @import url('apps/book/pages/book-add.css');

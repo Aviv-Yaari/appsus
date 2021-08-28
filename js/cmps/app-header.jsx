@@ -29,6 +29,7 @@ class _AppHeader extends React.Component {
     })
   }
 
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.setState({ currPage: this.props.location.pathname.split('/')[1], isAppsMenu: false });

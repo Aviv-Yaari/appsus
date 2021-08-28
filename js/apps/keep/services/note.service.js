@@ -10,6 +10,7 @@ export const notesService = {
   duplicateNote,
   removeNote,
   createTodo,
+  addLabel,
   removeLabel,
 };
 
@@ -203,8 +204,23 @@ function _getNotesToShow(txt) {
     (note) =>
       (note.info.txt && note.info.txt.toLowerCase().includes(txt)) ||
       (note.info.title && note.info.title.toLowerCase().includes(txt)) ||
-      (note.info.todos && note.info.todos.length && isTodoContains(txt, note))
+      (note.info.todos && note.info.todos.length && isTodoContains(txt, note)) ||
+      (note.info.labels && note.info.labels.length && isLabelContains(txt, note))
   );
+}
+
+function isLabelContains(txt, note) {
+  return note.info.labels.some((label) => label.toLowerCase().includes(txt));
+}
+
+function addLabel(labelTxt, noteId) {
+  const noteIdx = gNotes.findIndex((note) => note.id === noteId);
+  if (!gNotes[noteIdx].info.labels) {
+    gNotes[noteIdx].info.labels = [];
+  }
+  gNotes[noteIdx].info.labels.push(labelTxt);
+  _saveNotesToStorage(gNotes);
+  return Promise.resolve(gNotes[noteIdx]);
 }
 
 function removeLabel(currLabel, noteId) {

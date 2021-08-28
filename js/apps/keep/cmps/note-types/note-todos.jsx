@@ -23,6 +23,7 @@ export class NoteTodos extends React.Component {
         onPinNote={this.props.onPinNote}
         onDuplicateNote={this.props.onDuplicateNote}
         onRemoveNote={this.props.onRemoveNote}
+        onAddLabel={this.props.onAddLabel}
         onExportEmail={this.props.onExportEmail} />
     </div>
   }

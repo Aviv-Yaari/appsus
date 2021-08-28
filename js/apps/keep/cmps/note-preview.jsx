@@ -60,6 +60,12 @@ class _NotePreview extends React.Component {
     });
   };
 
+  onAddLabel = (label) => {
+    notesService.addLabel(label, this.state.note.id).then((note) => {
+      this.setState({ note });
+    });
+  }
+
   onBlur = (newTxt, prevTxt, type, todoId) => {
     let updatedNote;
     if (newTxt === prevTxt) return;
@@ -99,6 +105,7 @@ class _NotePreview extends React.Component {
           onDuplicateNote={this.props.onDuplicateNote}
           onRemoveNote={this.props.onRemoveNote}
           onExportEmail={this.onExportEmail}
+          onAddLabel={this.onAddLabel}
           onRemoveLabel={this.onRemoveLabel}
           onBlur={this.onBlur}
         />
