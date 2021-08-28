@@ -2,8 +2,8 @@
     transition: background-color .5s, border .5s;
     width: 100%;
     z-index: 1;
+    gap: 30px;
 }
-
 
 .app-header .search {
     flex-grow: 1;
@@ -66,5 +66,24 @@
 @media (min-width: 740px) {
     .app-header .apps-menu {
         flex-direction: row;
+    }
+}
+
+@media (max-width: 700px) {
+    .app-header {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto;
+        padding: 0px 10px;
+        gap: 0px;
+    }
+    .app-header .logo {
+        grid-row: 1/2
+    }
+    .search {
+        grid-column: 1/3;
+    }
+    .app-header .btn-apps {
+        grid-row: 1/2;
     }
 }

@@ -72,7 +72,7 @@ class _NotePreview extends React.Component {
       const todoIdx = note.info.todos.findIndex(todo => todo.id === todoId);
       const newTodos = [...note.info.todos];
       newTodos[todoIdx].txt = newTxt;
-      updatedNote = {...note, info: {...note.info, todos: newTodos}};
+      updatedNote = { ...note, info: { ...note.info, todos: newTodos } };
     }
     notesService.updateNote(updatedNote);
     this.setState({ note: updatedNote });

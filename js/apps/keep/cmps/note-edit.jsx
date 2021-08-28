@@ -31,11 +31,15 @@ export class NoteEdit extends React.Component {
             newTodosValues[todoIdx] = value;
             this.setState({ todosValues: newTodosValues });
             if (field === 'title') {
-                this.setState((prevState) => ({ note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } } }));
+                this.setState((prevState) => ({
+                    note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } },
+                }));
             }
             return;
         }
-        this.setState((prevState) => ({ note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } } }));
+        this.setState((prevState) => ({
+            note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } },
+        }));
     };
 
     onUpdateType = (type) => {
@@ -96,6 +100,12 @@ export class NoteEdit extends React.Component {
     }
 
     onSaveNote = () => {
+        const { note } = this.state;
+        if (note.type === 'note-todos') {
+            note.info.todos = this.state.todosValues.map((todoValue) =>
+                notesService.createTodo(todoValue)
+            );
+        }
         notesService.updateNote(this.state.note);
         this.props.history.push('/keep');
     }

@@ -1,10 +1,7 @@
-export class AppFooter extends React.Component {
-  state = {};
-  render() {
-    return (
-      <section className="app-footer">
-        <p style={{ fontSize: '0.9rem' }}>By Ziv Shuvy and Aviv Yaari</p>
-      </section>
-    );
-  }
+export function AppFooter() {
+  return (
+    <section className="app-footer">
+      <p>Created and designed by Ziv Shuvy and Aviv Yaari © 2021</p>
+    </section>
+  );
 }

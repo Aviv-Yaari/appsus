@@ -22,6 +22,11 @@ class _AppHeader extends React.Component {
       window.addEventListener('scroll', this.handleScroll);
       this.setTransparentHeader();
     }
+    window.addEventListener('click', () => {
+      if (this.state.isAppsMenu) {
+        this.setState({isAppsMenu: false})
+      }
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -64,7 +69,8 @@ class _AppHeader extends React.Component {
     eventBusService.emit('search', ev.target.value);
   };
 
-  onToggleAppsMenu = () => {
+  onToggleAppsMenu = (ev) => {
+    ev.stopPropagation();
     this.setState((prevState) => ({ isAppsMenu: !prevState.isAppsMenu }));
   };
 
@@ -77,7 +83,7 @@ class _AppHeader extends React.Component {
         </Link>
         <div
           className="search flex"
-          style={{ visibility: !currPage || currPage === 'cards' ? 'hidden' : 'visible' }}>
+          style={{ display: !currPage || currPage === 'cards' ? 'none' : 'flex' }}>
           <img src="assets/svg/search.svg" />
           <input
             onChange={this.handleChange}
@@ -86,7 +92,7 @@ class _AppHeader extends React.Component {
             placeholder={'Search ' + currPage}
           />
         </div>
-        <img className="btn-apps" src="assets/svg/apps.svg" onClick={this.onToggleAppsMenu} />
+        <img className="btn-apps" src="assets/svg/apps.svg" onClick={ev => this.onToggleAppsMenu(ev)} />
         <nav className="apps-menu flex" style={{ visibility: isAppsMenu ? 'visible' : 'hidden' }}>
           <NavLink to="/keep">
             <img src="assets/img/keep.png" />

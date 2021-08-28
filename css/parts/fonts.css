@@ -18,3 +18,27 @@
     font-style: normal;
     font-weight: bold;
 }
+
+/* FONT AWSOME */
+@font-face {
+    font-family: Brands;
+    src: url('../../assets/fonts/fa-brands-400.ttf');
+}
+
+.fab::before {
+    font-family: Brands;
+}
+
+/* ICONS */
+
+.fab.fa-facebook-f::before {
+    content: "\f39e";
+}
+
+.fab.fa-instagram::before {
+    content: "\f16d";
+}
+
+.fab.fa-linkedin::before {
+    content: "\f0e1";
+}
