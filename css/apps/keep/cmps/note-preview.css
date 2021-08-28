@@ -36,6 +36,7 @@
     display: block;
     margin: 0 auto;
     border: none;
+    margin-top: 10px;
 }
 
 .note-preview ul {
@@ -45,7 +46,6 @@
 
 .note-preview li {
     word-wrap: break-word;
-    cursor: default;
 }
 
 .note-preview li input {
@@ -96,7 +96,7 @@
 }
 
 .label img:hover {
-    background-color: rgba(95,99,104,0.157);
+    background-color: rgba(95, 99, 104, 0.157);
 }
 
 .label:hover img {
@@ -105,4 +105,16 @@
 
 .label:hover div {
     width: calc(100% - 8px);
+}
+
+.note-preview h1:focus, .note-preview p:focus {
+    background-color: rgba(255, 255, 255, 0.342);
+    width: 180px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.note-preview span:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.342);
 }

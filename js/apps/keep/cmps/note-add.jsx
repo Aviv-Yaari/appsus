@@ -37,6 +37,8 @@ class _NoteAdd extends React.Component {
           style: { backgroundColor: '#fff' },
         },
       });
+      this.setState({ extraInputsCount: 0 })
+      this.setState({ todosValues: [''] })
     }
   };
 
@@ -82,6 +84,8 @@ class _NoteAdd extends React.Component {
         style: { backgroundColor: '#fff' },
       },
     });
+    this.setState({ extraInputsCount: 0 })
+    this.setState({ todosValues: [''] })
   };
 
   getInputValues = () => {

@@ -10,7 +10,7 @@ export class NoteTodos extends React.Component {
         {todos.map(todo => (
           <li key={todo.id}>
             <input type="checkbox" checked={todo.doneAt} onChange={() => { this.props.onCheckTodo(todo.id) }} />
-            <span className={todo.doneAt ? 'checked' : ''} onClick={() => { this.props.onCheckTodo(todo.id) }}>{todo.txt}</span></li>
+            <span className={todo.doneAt ? 'checked' : ''} onBlur={(ev) => { this.props.onBlur(ev.target.innerText, todo.txt, 'todo', todo.id) }} contentEditable suppressContentEditableWarning={true}>{todo.txt}</span></li>
         ))}
       </ul>
       <div className="labels-container">
@@ -24,6 +24,6 @@ export class NoteTodos extends React.Component {
         onDuplicateNote={this.props.onDuplicateNote}
         onRemoveNote={this.props.onRemoveNote}
         onExportEmail={this.props.onExportEmail} />
-    </div>;
+    </div>
   }
 }

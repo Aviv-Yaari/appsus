@@ -13,6 +13,7 @@ html {
     animation-name: change-bg;
     animation-iteration-count: infinite;
     animation-duration: 21s;
+    animation-timing-function: step-end;
     height: 100vh;
 }
 
@@ -31,7 +32,29 @@ html {
 .hero h1 {
     margin-bottom: 15px;
     margin-left: 15px;
-    animation: fadein 3s;
+}
+
+.hero h1::after {
+    content: 'Appsus mail is an email that\'s intuitive, efficient, and useful.';
+    animation-name: change-txt;
+    animation-iteration-count: infinite;
+    animation-timing-function: step-end;
+    animation-duration: 21s;
+}
+
+@keyframes change-txt {
+    0% {
+        content: 'Appsus mail is an email that\'s intuitive, efficient, and useful.';
+    }
+    33% {
+        content: 'Capture what\'s on your mind. Add notes, lists and photos to Appsus Keep.';
+    }
+    66% {
+        content: 'Appsus Books lets you lose yourself in the best books right on your device. ';
+    }
+    100% {
+        content: 'Appsus mail is an email that\'s intuitive, efficient, and useful.';
+    }
 }
 
 .hero a {
@@ -94,11 +117,22 @@ html {
     }
 }
 
-@keyframes fadein {
-    0% {
-        opacity: 0;
+@media (max-width: 500px) {
+    .hero {
+        background-image: unset;
+        animation: unset;
+        background-color: #ffb6b6;
     }
-    100% {
-        opacity: 1;
+    .hero a {
+        background-color: #fff;
+        color: #282828;
+        font-size: 1.25rem;
     }
+    .hero a:hover {
+        background-color: #fff
+    }
+    .hero-txt {
+        font-size: 1.5rem;
+    }
+    
 }
