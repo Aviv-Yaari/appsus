@@ -139,9 +139,9 @@ export class EmailIndex extends React.Component {
   onReply = (email, ev) => {
     ev.stopPropagation();
     this.setState({ isComposing: true });
-    this.subject = email.subject;
-    this.to = email.to;
-    this.body = email.body;
+    this.subject = 'RE: ' + email.subject;
+    this.to = email.from;
+    this.body = 'Replying to message:\n\n' + '"' + email.body + '"\n\n';
   };
 
   // Render:
