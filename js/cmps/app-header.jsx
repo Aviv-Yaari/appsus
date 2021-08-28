@@ -9,7 +9,7 @@ class _AppHeader extends React.Component {
       backgroundColor: '#fff',
       borderBottom: '1px solid #ECEFF1',
     },
-    filterTxt: ''
+    filterTxt: '',
   };
 
   handleScroll = (ev) => {
@@ -25,15 +25,18 @@ class _AppHeader extends React.Component {
     }
     window.addEventListener('click', () => {
       if (this.state.isAppsMenu) {
-        this.setState({ isAppsMenu: false })
+        this.setState({ isAppsMenu: false });
       }
-    })
+    });
   }
 
-
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.location.pathname !== this.props.location.pathname) {
-      this.setState({ currPage: this.props.location.pathname.split('/')[1], isAppsMenu: false, filterTxt: '' });
+    if (prevProps.location.pathname.split('/')[1] !== this.props.location.pathname.split('/')[1]) {
+      this.setState({
+        currPage: this.props.location.pathname.split('/')[1],
+        isAppsMenu: false,
+        filterTxt: '',
+      });
     }
     if (prevState.currPage !== this.state.currPage) {
       if (this.state.currPage === '' || this.state.currPage === 'cards') {
@@ -67,10 +70,9 @@ class _AppHeader extends React.Component {
     });
   };
 
-
   handleChange = (ev) => {
-    const value =  ev.target.value;
-    this.setState({ filterTxt: value })
+    const value = ev.target.value;
+    this.setState({ filterTxt: value });
     eventBusService.emit('search', value);
   };
 
@@ -88,7 +90,10 @@ class _AppHeader extends React.Component {
         </Link>
         <div
           className="search flex"
-          style={{ display: !currPage || currPage === 'cards' || currPage.includes('book') ? 'none' : 'flex' }}>
+          style={{
+            display:
+              !currPage || currPage === 'cards' || currPage.includes('book') ? 'none' : 'flex',
+          }}>
           <img src="assets/svg/search.svg" />
           <input
             onChange={this.handleChange}
@@ -98,7 +103,11 @@ class _AppHeader extends React.Component {
             placeholder={'Search ' + currPage}
           />
         </div>
-        <img className="btn-apps" src="assets/svg/apps.svg" onClick={ev => this.onToggleAppsMenu(ev)} />
+        <img
+          className="btn-apps"
+          src="assets/svg/apps.svg"
+          onClick={(ev) => this.onToggleAppsMenu(ev)}
+        />
         <nav className="apps-menu flex" style={{ visibility: isAppsMenu ? 'visible' : 'hidden' }}>
           <NavLink to="/keep">
             <img src="assets/img/keep.png" />
