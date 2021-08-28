@@ -31,20 +31,11 @@ export class EmailIndex extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.match.params.status !== this.props.match.params.status) {
       // when switching folders (inbox, sent, draft...)
-      console.log('changed status');
       this.onSetCriteria({
         status: this.props.match.params.status,
         isRead: undefined,
         isStarred: undefined,
       });
-    }
-    if (this.props.location.search && prevProps.location.search !== this.props.location.search) {
-      console.log('changed search');
-      this.loadSearchParams();
-    }
-    if (prevState.criteria.page !== this.state.criteria.page) {
-      console.log('changed page');
-      this.onSetCriteria({ page: this.state.criteria.page });
     }
   }
 
@@ -57,10 +48,7 @@ export class EmailIndex extends React.Component {
     this.subject = query.get('subject');
     this.body = query.get('body');
     this.to = query.get('to');
-    let page = +query.get('page') || 0;
     if (this.subject && this.body && this.to) this.setState({ isComposing: true });
-    if (page < 0) page = 0;
-    this.setState((prevState) => ({ criteria: { ...prevState.criteria, page } }));
   };
 
   loadEmails = () => {
@@ -71,15 +59,14 @@ export class EmailIndex extends React.Component {
   // Criteria and sort:
 
   onSetCriteria = (newCriteria) => {
-    if (!newCriteria.page) this.onChangePage(0);
+    let { page = 0 } = newCriteria; // if any criteria was set except for page - reset the page to 0
     this.setState(
-      (prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria } }),
+      (prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria, page } }),
       this.loadEmails
     );
   };
 
   onSetSort = (ev) => {
-    this.onChangePage(0);
     const { name: field } = ev.target;
     const newSort = { field, type: 1 };
     this.setState((prevState) => {
@@ -87,10 +74,6 @@ export class EmailIndex extends React.Component {
       if (sortType.field === field) newSort.type = sortType.type * -1;
       return { sortType: newSort };
     }, this.loadEmails);
-  };
-
-  onChangePage = (page) => {
-    this.props.history.push(this.props.match.url + '?page=' + page);
   };
 
   // Compose Actions:
@@ -164,7 +147,7 @@ export class EmailIndex extends React.Component {
   // Render:
 
   render() {
-    const { emails, criteria, isComposing, sortType, currPage } = this.state;
+    const { emails, criteria, isComposing, sortType } = this.state;
     const { params } = this.props.match;
     if (!emails) return <LoadingSpinner />;
     return (
@@ -188,7 +171,6 @@ export class EmailIndex extends React.Component {
             <EmailFilter
               onFilter={this.onSetCriteria}
               onSort={this.onSetSort}
-              onChangePage={this.onChangePage}
               sortType={sortType}
               criteria={criteria}
               emailsCount={emails.length}
