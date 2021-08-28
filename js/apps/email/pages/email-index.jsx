@@ -11,6 +11,7 @@ import { EmailFilter } from '../cmps/email-filter.jsx';
 import { EmailDetails } from './email-details.jsx';
 import { BtnCompose } from '../cmps/btns/btn-compose.jsx';
 import { LabelPanel } from '../../../cmps/label-panel.jsx';
+import { utilService } from '../../../services/util.service.js';
 const { Route } = ReactRouterDOM;
 
 export class EmailIndex extends React.Component {
@@ -25,7 +26,7 @@ export class EmailIndex extends React.Component {
 
   componentDidMount() {
     this.loadEmails();
-    this.removeEventBus = eventBusService.on('search', (data) => this.onSetCriteria({ txt: data }));
+    this.removeEventBus = eventBusService.on('search', (data) => this.debbouncedFunc({ txt: data }));
     this.loadSearchParams();
   }
 
@@ -66,6 +67,8 @@ export class EmailIndex extends React.Component {
       this.loadEmails
     );
   };
+
+  debbouncedFunc = utilService.debounce(this.onSetCriteria, 100);
 
   onSetSort = (ev) => {
     const { name: field } = ev.target;

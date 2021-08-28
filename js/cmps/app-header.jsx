@@ -9,6 +9,7 @@ class _AppHeader extends React.Component {
       backgroundColor: '#fff',
       borderBottom: '1px solid #ECEFF1',
     },
+    filterTxt: ''
   };
 
   handleScroll = (ev) => {
@@ -32,7 +33,7 @@ class _AppHeader extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
-      this.setState({ currPage: this.props.location.pathname.split('/')[1], isAppsMenu: false });
+      this.setState({ currPage: this.props.location.pathname.split('/')[1], isAppsMenu: false, filterTxt: '' });
     }
     if (prevState.currPage !== this.state.currPage) {
       if (this.state.currPage === '' || this.state.currPage === 'cards') {
@@ -66,8 +67,11 @@ class _AppHeader extends React.Component {
     });
   };
 
+
   handleChange = (ev) => {
-    eventBusService.emit('search', ev.target.value);
+    const value =  ev.target.value;
+    this.setState({ filterTxt: value })
+    eventBusService.emit('search', value);
   };
 
   onToggleAppsMenu = (ev) => {
@@ -76,7 +80,7 @@ class _AppHeader extends React.Component {
   };
 
   render() {
-    const { currPage, isAppsMenu, style } = this.state;
+    const { currPage, isAppsMenu, style, filterTxt } = this.state;
     return (
       <section className="app-header flex align-center" style={style}>
         <Link to="/" className="logo">
@@ -90,6 +94,7 @@ class _AppHeader extends React.Component {
             onChange={this.handleChange}
             type="text"
             name="search"
+            value={filterTxt}
             placeholder={'Search ' + currPage}
           />
         </div>

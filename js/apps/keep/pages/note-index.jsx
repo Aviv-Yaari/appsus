@@ -5,6 +5,7 @@ import { NoteList } from '../cmps/note-list.jsx';
 import { NoteAdd } from '../cmps/note-add.jsx';
 import { eventBusService } from '../../../services/event-bus.service.js';
 import { NoteEdit } from '../cmps/note-edit.jsx';
+import { utilService } from '../../../services/util.service.js';
 
 export class NoteIndex extends React.Component {
   state = {
@@ -14,13 +15,7 @@ export class NoteIndex extends React.Component {
 
   componentDidMount() {
     this.loadNotes();
-    this.removeEventBus = eventBusService.on('search', (data) => this.onSetCriteria({ txt: data }));
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.criteria.txt !== this.state.criteria.txt) {
-      this.onSetCriteria({ txt: this.state.criteria.txt });
-    }
+    this.removeEventBus = eventBusService.on('search', (data) => this.debbouncedFunc({ txt: data }));
   }
 
   componentWillUnmount() {
@@ -38,6 +33,7 @@ export class NoteIndex extends React.Component {
     );
   };
 
+  debbouncedFunc = utilService.debounce(this.onSetCriteria, 100);
   onAdd = (note) => {
     notesService.addNote(note).then(() => {
       this.loadNotes();
