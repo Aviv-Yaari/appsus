@@ -28,9 +28,9 @@ export class EmailPreview extends React.Component {
         <section className="email-mini flex align-center">
           <div className="email-star-subject flex align-center">
             <BtnStar onToggle={(ev) => onValueToggle(ev, email, 'isStarred')} email={email} />
-            {currStatus === 'all' && <span className="email-status">{email.status}</span>}
             <span className="email-subject">
-              {utilService.trimText(email.subject, 100) || 'no subject'}
+              {(currStatus === 'all' && `[${email.status}] `) +
+                utilService.trimText(email.subject, 100) || 'no subject'}
             </span>
           </div>
           <div className="email-date">{utilService.formatDate(email.sentAt)}</div>
