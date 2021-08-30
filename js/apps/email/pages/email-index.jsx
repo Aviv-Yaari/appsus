@@ -26,7 +26,9 @@ export class EmailIndex extends React.Component {
 
   componentDidMount() {
     this.loadEmails();
-    this.removeEventBus = eventBusService.on('search', (data) => this.debbouncedFunc({ txt: data }));
+    this.removeEventBus = eventBusService.on('search', (data) =>
+      this.debbouncedFunc({ txt: data })
+    );
     this.loadSearchParams();
   }
 
@@ -185,6 +187,7 @@ export class EmailIndex extends React.Component {
             />
             <EmailList
               emails={emails}
+              currStatus={criteria.status || 'all'}
               onPreviewClick={this.onPreviewClick}
               onValueToggle={this.onValueToggle}
               onTrash={this.onTrashEmail}

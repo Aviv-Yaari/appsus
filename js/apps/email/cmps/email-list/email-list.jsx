@@ -8,6 +8,7 @@ export const EmailList = ({
   onFullScreen,
   onExportNote,
   onReply,
+  currStatus,
 }) => {
   return (
     <section className="email-list">
@@ -21,6 +22,7 @@ export const EmailList = ({
           onFullScreen={onFullScreen}
           onExportNote={onExportNote}
           onReply={onReply}
+          currStatus={currStatus}
         />
       ))}
     </section>
