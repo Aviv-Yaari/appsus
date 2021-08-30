@@ -5,7 +5,7 @@ export const utilService = {
   trimText,
   getSign,
   debounce,
-  getRandCurrencyCode
+  getRandCurrencyCode,
 };
 
 function makeId(length = 6) {
@@ -38,8 +38,8 @@ function formatDate(timestamp) {
   if (currTimestamp - timestamp < day * 2) return 'Yesterday ' + time;
   if (currTimestamp - timestamp < day * 7) return days[date.getDay()];
   if (currDate.getFullYear() !== date.getFullYear())
-    return months[date.getMonth()] + ' ' + date.getFullYear();
-  return date.getDate() + ' ' + months[date.getMonth()];
+    return months[date.getMonth()].slice(0, 3) + ' ' + date.getFullYear();
+  return date.getDate() + ' ' + months[date.getMonth()].slice(0, 3);
 }
 
 function trimText(text, length) {
@@ -51,36 +51,36 @@ function _formatTime(time) {
 }
 
 function getSign(currencyCode) {
-  let sign = ''
+  let sign = '';
   switch (currencyCode) {
-      case 'EUR':
-          sign = '€'
-          break;
-      case 'USD':
-          sign = '$'
-          break;
-      case 'ILS':
-          sign = '₪';
-          break;
+    case 'EUR':
+      sign = '€';
+      break;
+    case 'USD':
+      sign = '$';
+      break;
+    case 'ILS':
+      sign = '₪';
+      break;
   }
-  return sign
+  return sign;
 }
 
 function getRandCurrencyCode() {
   const randNum = Math.random();
-  if(randNum <= 0.33) return 'EUR'
-  else if(randNum <=0.66) return 'USD'
+  if (randNum <= 0.33) return 'EUR';
+  else if (randNum <= 0.66) return 'USD';
   else return 'ILS';
 }
 
 function debounce(func, wait) {
   let timeout;
   return function (...args) {
-      const later = () => {
-          clearTimeout(timeout);
-          func(...args);
-      };
+    const later = () => {
       clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
   };
-};
+}
