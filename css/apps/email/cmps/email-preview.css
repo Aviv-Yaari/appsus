@@ -47,6 +47,7 @@
 .email-mini {
     justify-content: space-between;
     padding-right: 10px;
+    min-height: 50px;
 }
 
 .email-mini .email-actions img {
